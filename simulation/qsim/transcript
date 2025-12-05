@@ -1,0 +1,65 @@
+# do Interface_ver01_with_extboard.do
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 09:20:21 on Oct 16,2020
+# vcom -work work Interface_ver01_with_extboard.vho 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package VITAL_Timing
+# -- Loading package VITAL_Primitives
+# -- Loading package dffeas_pack
+# -- Loading package altera_primitives_components
+# -- Loading package cycloneive_atom_pack
+# -- Loading package cycloneive_components
+# -- Compiling entity reg16_pc_interface
+# -- Compiling architecture structure of reg16_pc_interface
+# End time: 09:20:21 on Oct 16,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 09:20:21 on Oct 16,2020
+# vcom -work work Waveform.vwf.vht 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity reg16_pc_interface_vhd_vec_tst
+# -- Compiling architecture reg16_pc_interface_arch of reg16_pc_interface_vhd_vec_tst
+# End time: 09:20:22 on Oct 16,2020, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vsim -novopt -c -t 1ps -L cycloneive -L altera -L altera_mf -L 220model -L sgate -L altera_lnsim work.reg16_pc_interface_vhd_vec_tst 
+# Start time: 09:20:23 on Oct 16,2020
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading work.reg16_pc_interface_vhd_vec_tst(reg16_pc_interface_arch)
+# Loading ieee.vital_timing(body)
+# Loading ieee.vital_primitives(body)
+# Loading altera.dffeas_pack
+# Loading altera.altera_primitives_components
+# Loading cycloneive.cycloneive_atom_pack(body)
+# Loading cycloneive.cycloneive_components
+# Loading work.reg16_pc_interface(structure)
+# Loading altera.dffeas(vital_dffeas)
+# Loading cycloneive.cycloneive_lcell_comb(vital_lcell_comb)
+# Loading ieee.std_logic_arith(body)
+# Loading cycloneive.cycloneive_io_obuf(arch)
+# Loading cycloneive.cycloneive_io_ibuf(arch)
+# Loading cycloneive.cycloneive_clkctrl(vital_clkctrl)
+# Loading cycloneive.cycloneive_ena_reg(behave)
+# Loading cycloneive.cycloneive_jtag(architecture_jtag)
+# Loading cycloneive.cycloneive_ram_block(block_arch)
+# Loading cycloneive.cycloneive_ram_register(reg_arch)
+# Loading cycloneive.cycloneive_ram_pulse_generator(pgen_arch)
+# ** Warning: Design size of 180659 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Expect performance to be adversely affected.
+# ** Warning: (vsim-8683) Uninitialized out port /reg16_pc_interface_vhd_vec_tst/i1/altera_internal_jtag/tdo has no driver.
+# This port will contribute value (U) to the signal network.
+# ** Warning: (vsim-8683) Uninitialized out port /reg16_pc_interface_vhd_vec_tst/i1/altera_internal_jtag/tmsutap has no driver.
+# This port will contribute value (U) to the signal network.
+# ** Warning: (vsim-8683) Uninitialized out port /reg16_pc_interface_vhd_vec_tst/i1/altera_internal_jtag/tckutap has no driver.
+# This port will contribute value (U) to the signal network.
+# ** Warning: (vsim-8683) Uninitialized out port /reg16_pc_interface_vhd_vec_tst/i1/altera_internal_jtag/tdiutap has no driver.
+# This port will contribute value (U) to the signal network.
+# after#31
+# Simulation time: 0 ps
+# End time: 09:20:28 on Oct 16,2020, Elapsed time: 0:00:05
+# Errors: 0, Warnings: 5
