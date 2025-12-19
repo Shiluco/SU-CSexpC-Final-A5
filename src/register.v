@@ -1,0 +1,59 @@
+module register(
+    // Control signals
+    input  wire        CLK,      // Clock
+    input  wire        CLR,      // Clear (active low)
+    input  wire [7:0]  SR,       // Store Register enable (SR0-SR7)
+    input  wire        SB0,      // Store B0 enable
+
+    // Data inputs (16-bit)
+    input  wire [15:0] s_bus,
+
+    // Data outputs (16-bit)
+    output wire [15:0] r_q [0:7],
+    output wire [15:0] b0_q
+);
+
+    // Internal registers (array for R0-R7)
+    reg [15:0] output_r [0:7];
+    reg [15:0] output_b0;
+
+    // Input multiplexers (array)
+    wire [15:0] r_d [0:7];
+    wire [15:0] b0_d;
+
+    // 繰り返しによってdの入力を指定
+    genvar j;
+    generate
+        for (j = 0; j < 8; j = j + 1) begin : mux_gen
+            assign r_d[j] = SR[j] ? s_bus : output_r[j];
+        end
+    endgenerate
+    assign b0_d   = SB0   ? s_bus : output_b0;
+
+    // レジスタの中身を更新
+    integer i;
+    always @(posedge CLK or negedge CLR) begin
+        if (!CLR) begin
+            for (i = 0; i < 8; i = i + 1) begin
+                output_r[i] <= 16'b0;
+            end
+            output_b0 <= 16'b0;
+        end else begin
+            for (i = 0; i < 8; i = i + 1) begin
+                output_r[i] <= r_d[i];
+            end
+            output_b0 <= b0_d;
+        end
+    end
+
+    // 出力を指定
+    generate
+        for (j = 0; j < 8; j = j + 1) begin : output_gen
+            assign r_q[j] = output_r[j];
+        end
+    endgenerate
+    assign b0_q = output_b0;
+
+endmodule
+
+
