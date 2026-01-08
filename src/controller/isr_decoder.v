@@ -71,7 +71,10 @@ module isr_decoder (
     output wire MIS,
 
     output wire MMD,
-    output wire MDM
+    output wire MDM,
+
+    output wire f_is_D,
+    output wire t_is_D
 );
     // 全体的にbdfに準拠するためにまとめていない。
 
@@ -99,15 +102,15 @@ module isr_decoder (
     wire is_T_six   = (t_value == 3'b110);
     wire is_T_seven = (t_value == 3'b111);
 
-    wire f_is_D  = (f_mode == 2'b00);
-    wire f_is_I  = (f_mode == 2'b01);
-    wire f_is_MI = (f_mode == 2'b10);
-    wire f_is_IP = (f_mode == 2'b11);
+    assign f_is_D  = (f_mode == 2'b00);
+    wire   f_is_I  = (f_mode == 2'b01);
+    wire   f_is_MI = (f_mode == 2'b10);
+    wire   f_is_IP = (f_mode == 2'b11);
 
-    wire t_is_D  = (t_mode == 2'b00);
-    wire t_is_I  = (t_mode == 2'b01);
-    wire t_is_MI = (t_mode == 2'b10);
-    wire t_is_IP = (t_mode == 2'b11);
+    assign t_is_D  = (t_mode == 2'b00);
+    wire   t_is_I  = (t_mode == 2'b01);
+    wire   t_is_MI = (t_mode == 2'b10);
+    wire   t_is_IP = (t_mode == 2'b11);
 
     wire op_HLT = (ex_state == 6'b000000);
     wire op_CLR = (ex_state == 6'b000100);

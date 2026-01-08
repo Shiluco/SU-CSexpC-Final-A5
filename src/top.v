@@ -64,8 +64,6 @@ module top (
     // status_counterへの制御入力を固定値に設定
     wire ITA    = 1'b0;  // 命令終了確認なし
     wire ACK    = 1'b0;  // 確認なし
-    wire FROM_D = 1'b0;  // FROM_Dなし
-    wire TO_D   = 1'b0;  // TO_Dなし
 
     // ISRとPSWを固定値に設定（未実装のため）
     wire [15:0] ISR = 16'h0000;  // NOP命令相当
@@ -77,6 +75,10 @@ module top (
     // =========================
     // 内部配線信号
     // =========================
+    // isr_decoderの出力（status_counterへの入力）
+    wire FROM_D;  // isr_decoderのf_is_D出力
+    wire TO_D;    // isr_decoderのt_is_D出力
+
     // status_counterの出力（isr_decoderへの入力）
     wire IF0, IF1;           // Instruction Fetch状態
     wire FF0, FF1, FF2;      // First Flag状態
@@ -175,7 +177,9 @@ module top (
         .MIRQ_N  (MIRQ_N),
         .MIS     (MIS),
         .MMD     (MMD),
-        .MDM     (MDM)
+        .MDM     (MDM),
+        .f_is_D  (FROM_D),
+        .t_is_D  (TO_D)
     );
 
 endmodule
