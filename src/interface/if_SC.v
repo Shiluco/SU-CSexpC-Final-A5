@@ -3,19 +3,19 @@
 // DE2-115ボード用
 // ============================================================
 
-module tb_SC (
+module if_SC (
     // プッシュボタン (KEY)
-    input  wire [0:0] KEY,          // KEY[0]: クロック入力 (押下=0, 離す=1)
+    input  wire [4:0] KEY,          // KEY[0]: クロック入力 (押下=0, 離す=1)
 
     // スライドスイッチ (SW)
-    input  wire [4:0] SW,           // SW[0]: reset
-                                     // SW[1]: ITA
-                                     // SW[2]: ACK
-                                     // SW[3]: FROM_D
-                                     // SW[4]: TO_D
+    input  wire [4:0] SW,           // SW[0]: reset (0=リセット中, 1=動作)
+                                     // SW[1]: ~ITA (0=割込み要求なし, 1=割込み要求)
+                                     // SW[2]: ~ACK (0=応答なし, 1=応答)
+                                     // SW[3]: ~FROM_D (0=データなし, 1=データ受信)
+                                     // SW[4]: ~TO_D (0=データなし, 1=データ送信)
 
     // LED出力
-    output wire [11:0] LEDR         // LEDR[0]: IF0
+    output wire [11:0] LEDR,        // LEDR[0]: IF0
                                      // LEDR[1]: IF1
                                      // LEDR[2]: FF0
                                      // LEDR[3]: FF1
@@ -27,13 +27,20 @@ module tb_SC (
                                      // LEDR[9]: IT0
                                      // LEDR[10]: IT1
                                      // LEDR[11]: IT2
+    output wire [8:0] LEDG          // LEDG[0]: KEY[0]押下時に点灯
+                                     // LEDG[1]: clk信号の状態
+                                     // LEDG[2]: reset信号
+                                     // LEDG[3]: ITA
+                                     // LEDG[4]: ACK
+                                     // LEDG[5]: FROM_D
+                                     // LEDG[6]: TO_D
 );
 
     // =========================
     // 内部信号
     // =========================
 
-    // クロック信号 (KEY[0]を反転して使用)
+    // クロック信号
     wire clk;
 
     // リセット信号
@@ -55,6 +62,7 @@ module tb_SC (
     // =========================
     // リセット信号
     // =========================
+    // SW[0]=1でリセット、SW[0]=0で動作
     assign reset = SW[0];
 
     // =========================
@@ -63,10 +71,10 @@ module tb_SC (
     status_counter u_sc (
         .clk(clk),
         .reset(reset),
-        .ITA(SW[1]),
-        .ACK(SW[2]),
-        .FROM_D(SW[3]),
-        .TO_D(SW[4]),
+        .ITA(~SW[1]),
+        .ACK(~SW[2]),
+        .FROM_D(~SW[3]),
+        .TO_D(~SW[4]),
         .IF0(IF0),
         .IF1(IF1),
         .FF0(FF0),
@@ -96,5 +104,16 @@ module tb_SC (
     assign LEDR[9]  = IT0;
     assign LEDR[10] = IT1;
     assign LEDR[11] = IT2;
+
+    // KEY[0]が押されたら(0になったら)LEDG[0]が点灯
+    assign LEDG[0] = ~KEY[0];
+    // clk信号の状態をLEDG[1]に表示
+    assign LEDG[1] = clk;
+    // デバッグ用：入力信号をLEDGに表示
+    assign LEDG[2] = reset;
+    assign LEDG[3] = ~SW[1];  // ITA
+    assign LEDG[4] = ~SW[2];  // ACK
+    assign LEDG[5] = ~SW[3];  // FROM_D
+    assign LEDG[6] = ~SW[4];  // TO_D
 
 endmodule

@@ -6,7 +6,7 @@
 // - VHDL integer range 0..49999 is modeled as a 16-bit reg here.
 // - CHATT has no reset in the original, so it powers up as X/unknown in simulation.
 
-module CHATTER (
+module v_chatter (
     input  wire clock,
     input  wire SW,
     output wire SSW
