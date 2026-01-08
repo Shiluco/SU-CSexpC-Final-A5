@@ -1,5 +1,5 @@
 # Auto-generated. Do not edit.
-# Generated at: 2026-01-08 16:19:02
+# Generated at: 2026-01-08 17:06:17
 
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/TOP.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/SC.v"
