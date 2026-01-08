@@ -48,18 +48,18 @@ module status_counter (
     // =========================
 
     // IF0だけ非同期 PRE（初期値1）
-    dff u_if0 (.clk(clk), .pre(reset), .clr(1'b0), .d(dIF0), .q(IF0));
+    v_dff_async u_if0 (.clk(clk), .pre(reset), .clr(1'b0), .d(dIF0), .q(IF0));
     // それ以外は非同期 CLR（初期値0）
-    dff u_if1 (.clk(clk), .pre(1'b0), .clr(reset), .d(dIF1), .q(IF1));
-    dff u_ff0 (.clk(clk), .pre(1'b0), .clr(reset), .d(dFF0), .q(FF0));
-    dff u_ff1 (.clk(clk), .pre(1'b0), .clr(reset), .d(dFF1), .q(FF1));
-    dff u_ff2 (.clk(clk), .pre(1'b0), .clr(reset), .d(dFF2), .q(FF2));
-    dff u_tf0 (.clk(clk), .pre(1'b0), .clr(reset), .d(dTF0), .q(TF0));
-    dff u_tf1 (.clk(clk), .pre(1'b0), .clr(reset), .d(dTF1), .q(TF1));
-    dff u_ex0 (.clk(clk), .pre(1'b0), .clr(reset), .d(dEX0), .q(EX0));
-    dff u_ex1 (.clk(clk), .pre(1'b0), .clr(reset), .d(dEX1), .q(EX1));
-    dff u_it0 (.clk(clk), .pre(1'b0), .clr(reset), .d(dIT0), .q(IT0));
-    dff u_it1 (.clk(clk), .pre(1'b0), .clr(reset), .d(dIT1), .q(IT1));
-    dff u_it2 (.clk(clk), .pre(1'b0), .clr(reset), .d(dIT2), .q(IT2));
+    v_dff_async u_if1 (.clk(clk), .pre(1'b0), .clr(reset), .d(dIF1), .q(IF1));
+    v_dff_async u_ff0 (.clk(clk), .pre(1'b0), .clr(reset), .d(dFF0), .q(FF0));
+    v_dff_async u_ff1 (.clk(clk), .pre(1'b0), .clr(reset), .d(dFF1), .q(FF1));
+    v_dff_async u_ff2 (.clk(clk), .pre(1'b0), .clr(reset), .d(dFF2), .q(FF2));
+    v_dff_async u_tf0 (.clk(clk), .pre(1'b0), .clr(reset), .d(dTF0), .q(TF0));
+    v_dff_async u_tf1 (.clk(clk), .pre(1'b0), .clr(reset), .d(dTF1), .q(TF1));
+    v_dff_async u_ex0 (.clk(clk), .pre(1'b0), .clr(reset), .d(dEX0), .q(EX0));
+    v_dff_async u_ex1 (.clk(clk), .pre(1'b0), .clr(reset), .d(dEX1), .q(EX1));
+    v_dff_async u_it0 (.clk(clk), .pre(1'b0), .clr(reset), .d(dIT0), .q(IT0));
+    v_dff_async u_it1 (.clk(clk), .pre(1'b0), .clr(reset), .d(dIT1), .q(IT1));
+    v_dff_async u_it2 (.clk(clk), .pre(1'b0), .clr(reset), .d(dIT2), .q(IT2));
 
 endmodule
