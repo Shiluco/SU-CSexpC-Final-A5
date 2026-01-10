@@ -1,5 +1,5 @@
 // JK Flip-Flop with asynchronous clear and preset
-module jkff(
+module v_jkff_async(
     input  wire clk,    // Clock
     input  wire clr,    // Clear (active high)
     input  wire pre,    // Preset (active high)
