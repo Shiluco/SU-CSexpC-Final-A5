@@ -1,4 +1,6 @@
 module isr_decoder (
+    //ISRデコーダーは単体テストを行っていない
+    //表に対応しているところまでは確認してあるが、実際に動作するかは不明
     input  wire [15:0] ISR,
 
     input  wire IF0,
@@ -13,6 +15,11 @@ module isr_decoder (
     input  wire IT0,
     input  wire IT1,
     input  wire IT2,
+    input  wire MUL1,
+    input  wire MUL2_1,
+    input  wire MUL2_2,
+    input  wire MUL3,
+    input  wire MUL4,
 
     input  wire PSW_N,
     input  wire PSW_Z,
@@ -80,7 +87,14 @@ module isr_decoder (
     output wire t_is_D,
 
     output wire EIT_gate,
-    output wire OIT_gate
+    output wire OIT_gate,
+    output wire op_MUL,
+
+    output wire BUS_A_to_AND_one,
+    output wire BUS_B_to_AND_one,
+    output wire REG_A_to_BUS_S,
+    output wire REG_B_to_BUS_S,
+    output wire [2:0] MUL_ctrl
 );
     // 全体的にbdfに準拠するためにまとめていない。
 
@@ -151,7 +165,7 @@ module isr_decoder (
     wire op_AND = (ex_state == 6'b100010);
     wire op_BIT = (ex_state == 6'b100011);
 
-    wire op_MUL = (ex_state == 6'b100100);
+    assign op_MUL = (ex_state == 6'b100100);
 
     wire op_JSR = (ex_state == 6'b101100);
     wire op_RJS = (ex_state == 6'b101101);
@@ -180,37 +194,43 @@ module isr_decoder (
         (FF0 & is_F_zero) |
         (FF1 & f_is_IP & is_F_zero) |
         (TF0 & is_T_zero) |
-        (TF1 & t_is_IP & is_T_zero);
+        (TF1 & t_is_IP & is_T_zero) |
+        (MUL1 & is_T_zero);
 
     assign R1A =
         (FF0 & is_F_one) |
         (FF1 & f_is_IP & is_F_one) |
         (TF0 & is_T_one) |
-        (TF1 & t_is_IP & is_T_one);
+        (TF1 & t_is_IP & is_T_one) |
+        (MUL1 & is_T_one);
 
     assign R2A =
         (FF0 & is_F_two) |
         (FF1 & f_is_IP & is_F_two) |
         (TF0 & is_T_two) |
-        (TF1 & t_is_IP & is_T_two);
+        (TF1 & t_is_IP & is_T_two) |
+        (MUL1 & is_T_two);
 
     assign R3A =
         (FF0 & is_F_three) |
         (FF1 & f_is_IP & is_F_three) |
         (TF0 & is_T_three) |
-        (TF1 & t_is_IP & is_T_three);
+        (TF1 & t_is_IP & is_T_three) |
+        (MUL1 & is_T_three);
 
     assign R4A =
         (FF0 & is_F_four) |
         (FF1 & f_is_IP & is_F_four) |
         (TF0 & is_T_four) |
-        (TF1 & t_is_IP & is_T_four);
+        (TF1 & t_is_IP & is_T_four) |
+        (MUL1 & is_T_four);
 
     assign R5A =
         (FF0 & is_F_five) |
         (FF1 & f_is_IP & is_F_five) |
         (TF0 & is_T_five) |
-        (TF1 & t_is_IP & is_T_five);
+        (TF1 & t_is_IP & is_T_five) |
+        (MUL1 & is_T_five);
 
     assign R6A =
         (FF0 & is_F_six) |
@@ -218,7 +238,8 @@ module isr_decoder (
         (TF0 & is_T_six) |
         (TF1 & t_is_IP & is_T_six) |
         op_RET | op_RIT |
-        IT0 | IT1;
+        IT0 | IT1 |
+        (MUL1 & is_T_six);
 
     assign R7A =
         IF0 | IF1 |
@@ -226,7 +247,8 @@ module isr_decoder (
         (FF1 & f_is_IP & is_F_seven) |
         (TF0 & is_T_seven) |
         (TF1 & t_is_IP & is_T_seven) |
-        (op_RJS & EX1);
+        (op_RJS & EX1) |
+        (MUL1 & is_T_seven);
 
     assign B0B =
         op_MOV | op_JMP | op_ADD | op_ADC | op_RJP | op_SUB | op_SBC | op_CMP |
@@ -267,7 +289,8 @@ module isr_decoder (
         (op_RJP & t_is_D & is_T_zero) |
         (op_OR  & t_is_D & is_T_zero) |
         (op_XOR & t_is_D & is_T_zero) |
-        (op_AND & t_is_D & is_T_zero);
+        (op_AND & t_is_D & is_T_zero) |
+        (MUL3 & is_T_zero);
 
     assign SR1 =
         (FF0 & is_F_one) |
@@ -288,7 +311,9 @@ module isr_decoder (
         (op_RJP & t_is_D & is_T_one) |
         (op_OR  & t_is_D & is_T_one) |
         (op_XOR & t_is_D & is_T_one) |
-        (op_AND & t_is_D & is_T_one);
+        (op_AND & t_is_D & is_T_one) |
+        (MUL3 & is_T_one) |
+        (MUL4 & is_T_zero);
 
     assign SR2 =
         (FF0 & is_F_two) |
@@ -309,7 +334,9 @@ module isr_decoder (
         (op_RJP & t_is_D & is_T_two) |
         (op_OR  & t_is_D & is_T_two) |
         (op_XOR & t_is_D & is_T_two) |
-        (op_AND & t_is_D & is_T_two);
+        (op_AND & t_is_D & is_T_two) |
+        (MUL3 & is_T_two) |
+        (MUL4 & is_T_one);
 
     assign SR3 =
         (FF0 & is_F_three) |
@@ -330,7 +357,9 @@ module isr_decoder (
         (op_RJP & t_is_D & is_T_three) |
         (op_OR  & t_is_D & is_T_three) |
         (op_XOR & t_is_D & is_T_three) |
-        (op_AND & t_is_D & is_T_three);
+        (op_AND & t_is_D & is_T_three) |
+        (MUL3 & is_T_three) |
+        (MUL4 & is_T_two);
 
     assign SR4 =
         (FF0 & is_F_four) |
@@ -351,7 +380,9 @@ module isr_decoder (
         (op_RJP & t_is_D & is_T_four) |
         (op_OR  & t_is_D & is_T_four) |
         (op_XOR & t_is_D & is_T_four) |
-        (op_AND & t_is_D & is_T_four);
+        (op_AND & t_is_D & is_T_four) |
+        (MUL3 & is_T_four) |
+        (MUL4 & is_T_three);
 
     assign SR5 =
         (FF0 & is_F_five) |
@@ -372,7 +403,9 @@ module isr_decoder (
         (op_RJP & t_is_D & is_T_five) |
         (op_OR  & t_is_D & is_T_five) |
         (op_XOR & t_is_D & is_T_five) |
-        (op_AND & t_is_D & is_T_five);
+        (op_AND & t_is_D & is_T_five) |
+        (MUL3 & is_T_five) |
+        (MUL4 & is_T_four);
 
     assign SR6 =
         (FF0 & is_F_six) |
@@ -394,7 +427,9 @@ module isr_decoder (
         (op_OR  & t_is_D & is_T_six) |
         (op_XOR & t_is_D & is_T_six) |
         (op_AND & t_is_D & is_T_six) |
-        IT1;
+        IT1 |
+        (MUL3 & is_T_six) |
+        (MUL4 & is_T_five);
 
     assign SR7 =
         IF1 |
@@ -421,9 +456,10 @@ module isr_decoder (
         (PSW_N & op_BRN) | (PSW_Z & op_BRZ) | (PSW_V & op_BRV) | (PSW_C & op_BRC) |
         (PSW_N & op_RBN) | (PSW_Z & op_RBZ) | (PSW_V & op_RBV) | (PSW_C & op_RBC) |
         ((op_RJS | op_JSR | op_SVC) & EX1) |
-        IT2;
+        IT2 |
+        (MUL4 & is_T_six);
 
-    assign SB0 = FF2;
+    assign SB0 = FF2 | MUL2_1 | MUL2_2;
 
     assign ALS =
         IF0 | IF1 | FF0 | FF1 | FF2 | TF0 | TF1 |
@@ -500,7 +536,8 @@ module isr_decoder (
         op_BRN | op_BRZ | op_BRV | op_BRC |
         op_RBN | op_RBZ | op_RBV | op_RBC |
         op_MUL |
-        IT0 | IT2;
+        IT0 | IT2 |
+        MUL1 | MUL2_1 | MUL2_2 | MUL3 | MUL4;
 
     assign MREQ_N =
         IF0 | FF0 | IF1 | FF2 | TF0 |
@@ -514,7 +551,8 @@ module isr_decoder (
         op_BRN | op_BRZ | op_BRV | op_BRC |
         op_RBN | op_RBZ | op_RBV | op_RBC |
         op_MUL |
-        EX1 | IT0 | IT2;
+        EX1 | IT0 | IT2 |
+        MUL1 | MUL2_1 | MUL2_2 | MUL3 | MUL4;
 
     assign MIRQ_N =
         IF0 | IF1 | FF0 | FF2 | TF0 | TF1 |
@@ -528,7 +566,8 @@ module isr_decoder (
         op_BRN | op_BRZ | op_BRV | op_BRC |
         op_RBN | op_RBZ | op_RBV | op_RBC |
         op_MUL |
-        IT0 | IT2;
+        IT0 | IT2 |
+        MUL1 | MUL2_1 | MUL2_2 | MUL3 | MUL4;
 
     assign MIS = IF1;
 
@@ -539,5 +578,16 @@ module isr_decoder (
     assign EIT_gate = IT2 & EIT;
 
     assign OIT_gate = IT2 & ~EIT & OIT;
+
+    // MUL関連の制御信号
+    assign BUS_A_to_AND_one = MUL1;
+    assign BUS_B_to_AND_one = MUL2_1 | MUL2_2;
+    assign REG_A_to_BUS_S = MUL4;
+    assign REG_B_to_BUS_S = MUL3;
+
+    // MUL_ctrl[2:0]
+    assign MUL_ctrl[0] = MUL2_1 | MUL2_2 | MUL3 | MUL4;
+    assign MUL_ctrl[1] = op_MUL | MUL2_1 | MUL2_2 | MUL3 | MUL4;
+    assign MUL_ctrl[2] = MUL1 | MUL3 | MUL4;
 
 endmodule
