@@ -19,6 +19,9 @@ module isr_decoder (
     input  wire PSW_V,
     input  wire PSW_C,
 
+    input  wire EIT,
+    input  wire OIT,
+
     output wire MDA,
 
     output wire R0A,
@@ -74,7 +77,10 @@ module isr_decoder (
     output wire MDM,
 
     output wire f_is_D,
-    output wire t_is_D
+    output wire t_is_D,
+
+    output wire EIT_gate,
+    output wire OIT_gate
 );
     // 全体的にbdfに準拠するためにまとめていない。
 
