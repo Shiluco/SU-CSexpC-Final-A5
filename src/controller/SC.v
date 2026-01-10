@@ -1,13 +1,13 @@
 module status_counter (
     input  wire clk,
     input  wire reset,     // async, active-high
-    input  wire is_all_zero,
 
     input  wire ITA,
     input  wire ACK,
     input  wire FROM_D,
     input  wire TO_D,
     input  wire op_MUL,
+    input  wire is_all_zero,
 
     output wire IF0,
     output wire IF1,
@@ -38,7 +38,7 @@ module status_counter (
     wire dIT0, dIT1, dIT2;
     wire dMUL1, dMUL2_1, dMUL2_2, dMUL3, dMUL4;
 
-    assign dIF0 = IT2 |  EX1 | (EX0 &  TO_D);
+    assign dIF0 = IT2 |  EX1 | (EX0 &  TO_D & ~op_MUL) | MUL4;
     assign dIF1 = IF0 & ~ITA;
     assign dFF0 = IF1;
     assign dFF1 = (FF0 & ~FROM_D) |  (FF1 & ~ACK);
@@ -46,15 +46,15 @@ module status_counter (
     assign dTF0 = FF2;
     assign dTF1 = TF0 & ~TO_D;
     assign dEX0 = (TF0 &  TO_D) |  TF1;
-    assign dEX1 = EX0 & ~TO_D;
+    assign dEX1 = EX0 & ~TO_D & ~op_MUL;
 
     assign dIT0 = IF0 &  ITA;
     assign dIT1 = IT0;
     assign dIT2 = IT1;
 
-    assign dMUL1 = op_MUL;
+    assign dMUL1 = op_MUL & EX0;
     assign dMUL2_1 = MUL1;
-    assign dMUL2_2 = MUL2_1;
+    assign dMUL2_2 = MUL2_1  |  (MUL2_2 & ~is_all_zero);
     assign dMUL3 = MUL2_2 & is_all_zero; // カウント値が0のときMUL3を0にする
     assign dMUL4 = MUL3;
 
