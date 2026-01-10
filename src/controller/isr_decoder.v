@@ -80,7 +80,8 @@ module isr_decoder (
     output wire t_is_D,
 
     output wire EIT_gate,
-    output wire OIT_gate
+    output wire OIT_gate,
+    output wire op_MUL
 );
     // 全体的にbdfに準拠するためにまとめていない。
 
@@ -151,7 +152,7 @@ module isr_decoder (
     wire op_AND = (ex_state == 6'b100010);
     wire op_BIT = (ex_state == 6'b100011);
 
-    wire op_MUL = (ex_state == 6'b100100);
+    assign op_MUL = (ex_state == 6'b100100);
 
     wire op_JSR = (ex_state == 6'b101100);
     wire op_RJS = (ex_state == 6'b101101);

@@ -1,12 +1,15 @@
 module counter_4bit_sync (
     input  wire       clk,
     input  wire       clr,      // 非同期クリア（アクティブHigh）
-    output wire [3:0] q         // カウント出力
+    output wire [3:0] q,         // カウント出力
+    output wire is_all_zero         // 全て0かどうかのフラグ
 );
 
     // 内部信号
     wire [3:0] q_n;             // Q の反転
     wire [3:0] d;               // 各DFFのD入力
+
+    assign is_all_zero = (q == 4'b0000);
 
     // Q の反転を生成
     assign q_n[0] = ~q[0];

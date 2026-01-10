@@ -15,7 +15,7 @@ module if_counter_4bit (
     output wire [3:0] LEDG          // LEDG[0]: KEY[0]押下時に点灯
                                     // LEDG[1]: clk信号の状態
                                     // LEDG[2]: clear信号
-                                    // LEDG[3]: 未使用
+                                    // LEDG[3]: is_all_zero（カウント値が0のとき点灯）
 );
 
     // =========================
@@ -30,6 +30,9 @@ module if_counter_4bit (
 
     // カウンタ出力
     wire [3:0] q;
+
+    // 全て0かどうかのフラグ
+    wire is_all_zero;
 
     // =========================
     // クロック信号生成
@@ -49,7 +52,8 @@ module if_counter_4bit (
     counter_4bit_sync u_counter (
         .clk(clk),
         .clr(clr),
-        .q(q)
+        .q(q),
+        .is_all_zero(is_all_zero)
     );
 
     // =========================
@@ -62,10 +66,10 @@ module if_counter_4bit (
     assign LEDR[3] = q[3];  // MSB
 
     // デバッグ用：入力信号をLEDGに表示
-    assign LEDG[0] = ~KEY[0];   // KEY[0]が押されたら点灯
-    assign LEDG[1] = clk;       // clk信号の状態
-    assign LEDG[2] = clr;       // clear信号
-    assign LEDG[3] = 1'b0;      // 未使用
+    assign LEDG[0] = ~KEY[0];       // KEY[0]が押されたら点灯
+    assign LEDG[1] = clk;           // clk信号の状態
+    assign LEDG[2] = clr;           // clear信号
+    assign LEDG[3] = is_all_zero;   // カウント値が0のとき点灯
 
 endmodule
 
