@@ -530,4 +530,8 @@ module isr_decoder (
 
     assign MDM = EX1 | IT0;
 
+    assign EIT_gate = IT2 & EIT;
+
+    assign OIT_gate = IT2 & ~EIT & OIT;
+
 endmodule

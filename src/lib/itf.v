@@ -15,10 +15,9 @@
 
 // PROGRAM		"Quartus Prime"
 // VERSION		"Version 20.1.1 Build 720 11/11/2020 Patches 1.02i SJ Lite Edition"
-// CREATED		"Thu Jan 08 15:35:21 2026"
+// CREATED		"Sat Jan 10 10:57:51 2026"
 
 module itf(
-	EIT,
 	KIT,
 	SVC,
 	RIT,
@@ -28,13 +27,14 @@ module itf(
 	KITECK,
 	EX0,
 	EX1,
+	EIT_input,
 	ITA,
 	ITF,
-	C0
+	OIT,
+	EIT
 );
 
 
-input wire	EIT;
 input wire	KIT;
 input wire	SVC;
 input wire	RIT;
@@ -44,9 +44,11 @@ input wire	IT2;
 input wire	KITECK;
 input wire	EX0;
 input wire	EX1;
+input wire	EIT_input;
 output wire	ITA;
 output wire	ITF;
-output wire	C0;
+output wire	OIT;
+output wire	EIT;
 
 reg	SYNTHESIZED_WIRE_20;
 reg	SYNTHESIZED_WIRE_21;
@@ -71,7 +73,8 @@ wire	SYNTHESIZED_WIRE_17;
 wire	SYNTHESIZED_WIRE_19;
 
 assign	ITF = JKFF_6;
-assign	C0 = SYNTHESIZED_WIRE_21;
+assign	OIT = SYNTHESIZED_WIRE_20;
+assign	EIT = SYNTHESIZED_WIRE_21;
 assign	SYNTHESIZED_WIRE_4 = 1;
 assign	SYNTHESIZED_WIRE_5 = 1;
 assign	SYNTHESIZED_WIRE_10 = 1;
@@ -109,7 +112,7 @@ if (!SYNTHESIZED_WIRE_4)
 	end
 else
 	begin
-	SYNTHESIZED_WIRE_21 <= ~SYNTHESIZED_WIRE_21 & EIT | SYNTHESIZED_WIRE_21 & ~SYNTHESIZED_WIRE_6;
+	SYNTHESIZED_WIRE_21 <= ~SYNTHESIZED_WIRE_21 & EIT_input | SYNTHESIZED_WIRE_21 & ~SYNTHESIZED_WIRE_6;
 	end
 	end
 end
