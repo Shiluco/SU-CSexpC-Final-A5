@@ -1,0 +1,1866 @@
+Analysis & Synthesis report for register_test
+Fri Dec 19 17:25:56 2025
+Quartus Prime Version 20.1.1 Build 720 11/11/2020 Patches 1.02i SJ Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Summary
+  3. Analysis & Synthesis Settings
+  4. Parallel Compilation
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. General Register Statistics
+  9. Port Connectivity Checks: "dff_reg:b0_gen[15].dff_b0_inst"
+ 10. Port Connectivity Checks: "dff_reg:b0_gen[14].dff_b0_inst"
+ 11. Port Connectivity Checks: "dff_reg:b0_gen[13].dff_b0_inst"
+ 12. Port Connectivity Checks: "dff_reg:b0_gen[12].dff_b0_inst"
+ 13. Port Connectivity Checks: "dff_reg:b0_gen[11].dff_b0_inst"
+ 14. Port Connectivity Checks: "dff_reg:b0_gen[10].dff_b0_inst"
+ 15. Port Connectivity Checks: "dff_reg:b0_gen[9].dff_b0_inst"
+ 16. Port Connectivity Checks: "dff_reg:b0_gen[8].dff_b0_inst"
+ 17. Port Connectivity Checks: "dff_reg:b0_gen[7].dff_b0_inst"
+ 18. Port Connectivity Checks: "dff_reg:b0_gen[6].dff_b0_inst"
+ 19. Port Connectivity Checks: "dff_reg:b0_gen[5].dff_b0_inst"
+ 20. Port Connectivity Checks: "dff_reg:b0_gen[4].dff_b0_inst"
+ 21. Port Connectivity Checks: "dff_reg:b0_gen[3].dff_b0_inst"
+ 22. Port Connectivity Checks: "dff_reg:b0_gen[2].dff_b0_inst"
+ 23. Port Connectivity Checks: "dff_reg:b0_gen[1].dff_b0_inst"
+ 24. Port Connectivity Checks: "dff_reg:b0_gen[0].dff_b0_inst"
+ 25. Port Connectivity Checks: "dff_reg:reg_gen[7].bit_gen[15].dff_inst"
+ 26. Port Connectivity Checks: "dff_reg:reg_gen[7].bit_gen[14].dff_inst"
+ 27. Port Connectivity Checks: "dff_reg:reg_gen[7].bit_gen[13].dff_inst"
+ 28. Port Connectivity Checks: "dff_reg:reg_gen[7].bit_gen[12].dff_inst"
+ 29. Port Connectivity Checks: "dff_reg:reg_gen[7].bit_gen[11].dff_inst"
+ 30. Port Connectivity Checks: "dff_reg:reg_gen[7].bit_gen[10].dff_inst"
+ 31. Port Connectivity Checks: "dff_reg:reg_gen[7].bit_gen[9].dff_inst"
+ 32. Port Connectivity Checks: "dff_reg:reg_gen[7].bit_gen[8].dff_inst"
+ 33. Port Connectivity Checks: "dff_reg:reg_gen[7].bit_gen[7].dff_inst"
+ 34. Port Connectivity Checks: "dff_reg:reg_gen[7].bit_gen[6].dff_inst"
+ 35. Port Connectivity Checks: "dff_reg:reg_gen[7].bit_gen[5].dff_inst"
+ 36. Port Connectivity Checks: "dff_reg:reg_gen[7].bit_gen[4].dff_inst"
+ 37. Port Connectivity Checks: "dff_reg:reg_gen[7].bit_gen[3].dff_inst"
+ 38. Port Connectivity Checks: "dff_reg:reg_gen[7].bit_gen[2].dff_inst"
+ 39. Port Connectivity Checks: "dff_reg:reg_gen[7].bit_gen[1].dff_inst"
+ 40. Port Connectivity Checks: "dff_reg:reg_gen[7].bit_gen[0].dff_inst"
+ 41. Port Connectivity Checks: "dff_reg:reg_gen[6].bit_gen[15].dff_inst"
+ 42. Port Connectivity Checks: "dff_reg:reg_gen[6].bit_gen[14].dff_inst"
+ 43. Port Connectivity Checks: "dff_reg:reg_gen[6].bit_gen[13].dff_inst"
+ 44. Port Connectivity Checks: "dff_reg:reg_gen[6].bit_gen[12].dff_inst"
+ 45. Port Connectivity Checks: "dff_reg:reg_gen[6].bit_gen[11].dff_inst"
+ 46. Port Connectivity Checks: "dff_reg:reg_gen[6].bit_gen[10].dff_inst"
+ 47. Port Connectivity Checks: "dff_reg:reg_gen[6].bit_gen[9].dff_inst"
+ 48. Port Connectivity Checks: "dff_reg:reg_gen[6].bit_gen[8].dff_inst"
+ 49. Port Connectivity Checks: "dff_reg:reg_gen[6].bit_gen[7].dff_inst"
+ 50. Port Connectivity Checks: "dff_reg:reg_gen[6].bit_gen[6].dff_inst"
+ 51. Port Connectivity Checks: "dff_reg:reg_gen[6].bit_gen[5].dff_inst"
+ 52. Port Connectivity Checks: "dff_reg:reg_gen[6].bit_gen[4].dff_inst"
+ 53. Port Connectivity Checks: "dff_reg:reg_gen[6].bit_gen[3].dff_inst"
+ 54. Port Connectivity Checks: "dff_reg:reg_gen[6].bit_gen[2].dff_inst"
+ 55. Port Connectivity Checks: "dff_reg:reg_gen[6].bit_gen[1].dff_inst"
+ 56. Port Connectivity Checks: "dff_reg:reg_gen[6].bit_gen[0].dff_inst"
+ 57. Port Connectivity Checks: "dff_reg:reg_gen[5].bit_gen[15].dff_inst"
+ 58. Port Connectivity Checks: "dff_reg:reg_gen[5].bit_gen[14].dff_inst"
+ 59. Port Connectivity Checks: "dff_reg:reg_gen[5].bit_gen[13].dff_inst"
+ 60. Port Connectivity Checks: "dff_reg:reg_gen[5].bit_gen[12].dff_inst"
+ 61. Port Connectivity Checks: "dff_reg:reg_gen[5].bit_gen[11].dff_inst"
+ 62. Port Connectivity Checks: "dff_reg:reg_gen[5].bit_gen[10].dff_inst"
+ 63. Port Connectivity Checks: "dff_reg:reg_gen[5].bit_gen[9].dff_inst"
+ 64. Port Connectivity Checks: "dff_reg:reg_gen[5].bit_gen[8].dff_inst"
+ 65. Port Connectivity Checks: "dff_reg:reg_gen[5].bit_gen[7].dff_inst"
+ 66. Port Connectivity Checks: "dff_reg:reg_gen[5].bit_gen[6].dff_inst"
+ 67. Port Connectivity Checks: "dff_reg:reg_gen[5].bit_gen[5].dff_inst"
+ 68. Port Connectivity Checks: "dff_reg:reg_gen[5].bit_gen[4].dff_inst"
+ 69. Port Connectivity Checks: "dff_reg:reg_gen[5].bit_gen[3].dff_inst"
+ 70. Port Connectivity Checks: "dff_reg:reg_gen[5].bit_gen[2].dff_inst"
+ 71. Port Connectivity Checks: "dff_reg:reg_gen[5].bit_gen[1].dff_inst"
+ 72. Port Connectivity Checks: "dff_reg:reg_gen[5].bit_gen[0].dff_inst"
+ 73. Port Connectivity Checks: "dff_reg:reg_gen[4].bit_gen[15].dff_inst"
+ 74. Port Connectivity Checks: "dff_reg:reg_gen[4].bit_gen[14].dff_inst"
+ 75. Port Connectivity Checks: "dff_reg:reg_gen[4].bit_gen[13].dff_inst"
+ 76. Port Connectivity Checks: "dff_reg:reg_gen[4].bit_gen[12].dff_inst"
+ 77. Port Connectivity Checks: "dff_reg:reg_gen[4].bit_gen[11].dff_inst"
+ 78. Port Connectivity Checks: "dff_reg:reg_gen[4].bit_gen[10].dff_inst"
+ 79. Port Connectivity Checks: "dff_reg:reg_gen[4].bit_gen[9].dff_inst"
+ 80. Port Connectivity Checks: "dff_reg:reg_gen[4].bit_gen[8].dff_inst"
+ 81. Port Connectivity Checks: "dff_reg:reg_gen[4].bit_gen[7].dff_inst"
+ 82. Port Connectivity Checks: "dff_reg:reg_gen[4].bit_gen[6].dff_inst"
+ 83. Port Connectivity Checks: "dff_reg:reg_gen[4].bit_gen[5].dff_inst"
+ 84. Port Connectivity Checks: "dff_reg:reg_gen[4].bit_gen[4].dff_inst"
+ 85. Port Connectivity Checks: "dff_reg:reg_gen[4].bit_gen[3].dff_inst"
+ 86. Port Connectivity Checks: "dff_reg:reg_gen[4].bit_gen[2].dff_inst"
+ 87. Port Connectivity Checks: "dff_reg:reg_gen[4].bit_gen[1].dff_inst"
+ 88. Port Connectivity Checks: "dff_reg:reg_gen[4].bit_gen[0].dff_inst"
+ 89. Port Connectivity Checks: "dff_reg:reg_gen[3].bit_gen[15].dff_inst"
+ 90. Port Connectivity Checks: "dff_reg:reg_gen[3].bit_gen[14].dff_inst"
+ 91. Port Connectivity Checks: "dff_reg:reg_gen[3].bit_gen[13].dff_inst"
+ 92. Port Connectivity Checks: "dff_reg:reg_gen[3].bit_gen[12].dff_inst"
+ 93. Port Connectivity Checks: "dff_reg:reg_gen[3].bit_gen[11].dff_inst"
+ 94. Port Connectivity Checks: "dff_reg:reg_gen[3].bit_gen[10].dff_inst"
+ 95. Port Connectivity Checks: "dff_reg:reg_gen[3].bit_gen[9].dff_inst"
+ 96. Port Connectivity Checks: "dff_reg:reg_gen[3].bit_gen[8].dff_inst"
+ 97. Port Connectivity Checks: "dff_reg:reg_gen[3].bit_gen[7].dff_inst"
+ 98. Port Connectivity Checks: "dff_reg:reg_gen[3].bit_gen[6].dff_inst"
+ 99. Port Connectivity Checks: "dff_reg:reg_gen[3].bit_gen[5].dff_inst"
+100. Port Connectivity Checks: "dff_reg:reg_gen[3].bit_gen[4].dff_inst"
+101. Port Connectivity Checks: "dff_reg:reg_gen[3].bit_gen[3].dff_inst"
+102. Port Connectivity Checks: "dff_reg:reg_gen[3].bit_gen[2].dff_inst"
+103. Port Connectivity Checks: "dff_reg:reg_gen[3].bit_gen[1].dff_inst"
+104. Port Connectivity Checks: "dff_reg:reg_gen[3].bit_gen[0].dff_inst"
+105. Port Connectivity Checks: "dff_reg:reg_gen[2].bit_gen[15].dff_inst"
+106. Port Connectivity Checks: "dff_reg:reg_gen[2].bit_gen[14].dff_inst"
+107. Port Connectivity Checks: "dff_reg:reg_gen[2].bit_gen[13].dff_inst"
+108. Port Connectivity Checks: "dff_reg:reg_gen[2].bit_gen[12].dff_inst"
+109. Port Connectivity Checks: "dff_reg:reg_gen[2].bit_gen[11].dff_inst"
+110. Port Connectivity Checks: "dff_reg:reg_gen[2].bit_gen[10].dff_inst"
+111. Port Connectivity Checks: "dff_reg:reg_gen[2].bit_gen[9].dff_inst"
+112. Port Connectivity Checks: "dff_reg:reg_gen[2].bit_gen[8].dff_inst"
+113. Port Connectivity Checks: "dff_reg:reg_gen[2].bit_gen[7].dff_inst"
+114. Port Connectivity Checks: "dff_reg:reg_gen[2].bit_gen[6].dff_inst"
+115. Port Connectivity Checks: "dff_reg:reg_gen[2].bit_gen[5].dff_inst"
+116. Port Connectivity Checks: "dff_reg:reg_gen[2].bit_gen[4].dff_inst"
+117. Port Connectivity Checks: "dff_reg:reg_gen[2].bit_gen[3].dff_inst"
+118. Port Connectivity Checks: "dff_reg:reg_gen[2].bit_gen[2].dff_inst"
+119. Port Connectivity Checks: "dff_reg:reg_gen[2].bit_gen[1].dff_inst"
+120. Port Connectivity Checks: "dff_reg:reg_gen[2].bit_gen[0].dff_inst"
+121. Port Connectivity Checks: "dff_reg:reg_gen[1].bit_gen[15].dff_inst"
+122. Port Connectivity Checks: "dff_reg:reg_gen[1].bit_gen[14].dff_inst"
+123. Port Connectivity Checks: "dff_reg:reg_gen[1].bit_gen[13].dff_inst"
+124. Port Connectivity Checks: "dff_reg:reg_gen[1].bit_gen[12].dff_inst"
+125. Port Connectivity Checks: "dff_reg:reg_gen[1].bit_gen[11].dff_inst"
+126. Port Connectivity Checks: "dff_reg:reg_gen[1].bit_gen[10].dff_inst"
+127. Port Connectivity Checks: "dff_reg:reg_gen[1].bit_gen[9].dff_inst"
+128. Port Connectivity Checks: "dff_reg:reg_gen[1].bit_gen[8].dff_inst"
+129. Port Connectivity Checks: "dff_reg:reg_gen[1].bit_gen[7].dff_inst"
+130. Port Connectivity Checks: "dff_reg:reg_gen[1].bit_gen[6].dff_inst"
+131. Port Connectivity Checks: "dff_reg:reg_gen[1].bit_gen[5].dff_inst"
+132. Port Connectivity Checks: "dff_reg:reg_gen[1].bit_gen[4].dff_inst"
+133. Port Connectivity Checks: "dff_reg:reg_gen[1].bit_gen[3].dff_inst"
+134. Port Connectivity Checks: "dff_reg:reg_gen[1].bit_gen[2].dff_inst"
+135. Port Connectivity Checks: "dff_reg:reg_gen[1].bit_gen[1].dff_inst"
+136. Port Connectivity Checks: "dff_reg:reg_gen[1].bit_gen[0].dff_inst"
+137. Port Connectivity Checks: "dff_reg:reg_gen[0].bit_gen[15].dff_inst"
+138. Port Connectivity Checks: "dff_reg:reg_gen[0].bit_gen[14].dff_inst"
+139. Port Connectivity Checks: "dff_reg:reg_gen[0].bit_gen[13].dff_inst"
+140. Port Connectivity Checks: "dff_reg:reg_gen[0].bit_gen[12].dff_inst"
+141. Port Connectivity Checks: "dff_reg:reg_gen[0].bit_gen[11].dff_inst"
+142. Port Connectivity Checks: "dff_reg:reg_gen[0].bit_gen[10].dff_inst"
+143. Port Connectivity Checks: "dff_reg:reg_gen[0].bit_gen[9].dff_inst"
+144. Port Connectivity Checks: "dff_reg:reg_gen[0].bit_gen[8].dff_inst"
+145. Port Connectivity Checks: "dff_reg:reg_gen[0].bit_gen[7].dff_inst"
+146. Port Connectivity Checks: "dff_reg:reg_gen[0].bit_gen[6].dff_inst"
+147. Port Connectivity Checks: "dff_reg:reg_gen[0].bit_gen[5].dff_inst"
+148. Port Connectivity Checks: "dff_reg:reg_gen[0].bit_gen[4].dff_inst"
+149. Port Connectivity Checks: "dff_reg:reg_gen[0].bit_gen[3].dff_inst"
+150. Port Connectivity Checks: "dff_reg:reg_gen[0].bit_gen[2].dff_inst"
+151. Port Connectivity Checks: "dff_reg:reg_gen[0].bit_gen[1].dff_inst"
+152. Port Connectivity Checks: "dff_reg:reg_gen[0].bit_gen[0].dff_inst"
+153. Post-Synthesis Netlist Statistics for Top Partition
+154. Elapsed Time Per Partition
+155. Analysis & Synthesis Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2020  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and any partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details, at
+https://fpgasoftware.intel.com/eula.
+
+
+
++------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                                   ;
++------------------------------------+-----------------------------------------------------------+
+; Analysis & Synthesis Status        ; Successful - Fri Dec 19 17:25:56 2025                     ;
+; Quartus Prime Version              ; 20.1.1 Build 720 11/11/2020 Patches 1.02i SJ Lite Edition ;
+; Revision Name                      ; register_test                                             ;
+; Top-level Entity Name              ; register                                                  ;
+; Family                             ; Cyclone IV E                                              ;
+; Total logic elements               ; 144                                                       ;
+;     Total combinational functions  ; 0                                                         ;
+;     Dedicated logic registers      ; 144                                                       ;
+; Total registers                    ; 144                                                       ;
+; Total pins                         ; 171                                                       ;
+; Total virtual pins                 ; 0                                                         ;
+; Total memory bits                  ; 0                                                         ;
+; Embedded Multiplier 9-bit elements ; 0                                                         ;
+; Total PLLs                         ; 0                                                         ;
++------------------------------------+-----------------------------------------------------------+
+
+
++------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Settings                                                                              ;
++------------------------------------------------------------------+--------------------+--------------------+
+; Option                                                           ; Setting            ; Default Value      ;
++------------------------------------------------------------------+--------------------+--------------------+
+; Device                                                           ; EP4CE115F29C7      ;                    ;
+; Top-level entity name                                            ; register           ; register_test      ;
+; Family name                                                      ; Cyclone IV E       ; Cyclone V          ;
+; Use smart compilation                                            ; Off                ; Off                ;
+; Enable parallel Assembler and Timing Analyzer during compilation ; On                 ; On                 ;
+; Enable compact report table                                      ; Off                ; Off                ;
+; Restructure Multiplexers                                         ; Auto               ; Auto               ;
+; Create Debugging Nodes for IP Cores                              ; Off                ; Off                ;
+; Preserve fewer node names                                        ; On                 ; On                 ;
+; Intel FPGA IP Evaluation Mode                                    ; Enable             ; Enable             ;
+; Verilog Version                                                  ; Verilog_2001       ; Verilog_2001       ;
+; VHDL Version                                                     ; VHDL_1993          ; VHDL_1993          ;
+; State Machine Processing                                         ; Auto               ; Auto               ;
+; Safe State Machine                                               ; Off                ; Off                ;
+; Extract Verilog State Machines                                   ; On                 ; On                 ;
+; Extract VHDL State Machines                                      ; On                 ; On                 ;
+; Ignore Verilog initial constructs                                ; Off                ; Off                ;
+; Iteration limit for constant Verilog loops                       ; 5000               ; 5000               ;
+; Iteration limit for non-constant Verilog loops                   ; 250                ; 250                ;
+; Add Pass-Through Logic to Inferred RAMs                          ; On                 ; On                 ;
+; Infer RAMs from Raw Logic                                        ; On                 ; On                 ;
+; Parallel Synthesis                                               ; On                 ; On                 ;
+; DSP Block Balancing                                              ; Auto               ; Auto               ;
+; NOT Gate Push-Back                                               ; On                 ; On                 ;
+; Power-Up Don't Care                                              ; On                 ; On                 ;
+; Remove Redundant Logic Cells                                     ; Off                ; Off                ;
+; Remove Duplicate Registers                                       ; On                 ; On                 ;
+; Ignore CARRY Buffers                                             ; Off                ; Off                ;
+; Ignore CASCADE Buffers                                           ; Off                ; Off                ;
+; Ignore GLOBAL Buffers                                            ; Off                ; Off                ;
+; Ignore ROW GLOBAL Buffers                                        ; Off                ; Off                ;
+; Ignore LCELL Buffers                                             ; Off                ; Off                ;
+; Ignore SOFT Buffers                                              ; On                 ; On                 ;
+; Limit AHDL Integers to 32 Bits                                   ; Off                ; Off                ;
+; Optimization Technique                                           ; Balanced           ; Balanced           ;
+; Carry Chain Length                                               ; 70                 ; 70                 ;
+; Auto Carry Chains                                                ; On                 ; On                 ;
+; Auto Open-Drain Pins                                             ; On                 ; On                 ;
+; Perform WYSIWYG Primitive Resynthesis                            ; Off                ; Off                ;
+; Auto ROM Replacement                                             ; On                 ; On                 ;
+; Auto RAM Replacement                                             ; On                 ; On                 ;
+; Auto DSP Block Replacement                                       ; On                 ; On                 ;
+; Auto Shift Register Replacement                                  ; Auto               ; Auto               ;
+; Allow Shift Register Merging across Hierarchies                  ; Auto               ; Auto               ;
+; Auto Clock Enable Replacement                                    ; On                 ; On                 ;
+; Strict RAM Replacement                                           ; Off                ; Off                ;
+; Allow Synchronous Control Signals                                ; On                 ; On                 ;
+; Force Use of Synchronous Clear Signals                           ; Off                ; Off                ;
+; Auto RAM Block Balancing                                         ; On                 ; On                 ;
+; Auto RAM to Logic Cell Conversion                                ; Off                ; Off                ;
+; Auto Resource Sharing                                            ; Off                ; Off                ;
+; Allow Any RAM Size For Recognition                               ; Off                ; Off                ;
+; Allow Any ROM Size For Recognition                               ; Off                ; Off                ;
+; Allow Any Shift Register Size For Recognition                    ; Off                ; Off                ;
+; Use LogicLock Constraints during Resource Balancing              ; On                 ; On                 ;
+; Ignore translate_off and synthesis_off directives                ; Off                ; Off                ;
+; Timing-Driven Synthesis                                          ; On                 ; On                 ;
+; Report Parameter Settings                                        ; On                 ; On                 ;
+; Report Source Assignments                                        ; On                 ; On                 ;
+; Report Connectivity Checks                                       ; On                 ; On                 ;
+; Ignore Maximum Fan-Out Assignments                               ; Off                ; Off                ;
+; Synchronization Register Chain Length                            ; 2                  ; 2                  ;
+; Power Optimization During Synthesis                              ; Normal compilation ; Normal compilation ;
+; HDL message level                                                ; Level2             ; Level2             ;
+; Suppress Register Optimization Related Messages                  ; Off                ; Off                ;
+; Number of Removed Registers Reported in Synthesis Report         ; 5000               ; 5000               ;
+; Number of Swept Nodes Reported in Synthesis Report               ; 5000               ; 5000               ;
+; Number of Inverted Registers Reported in Synthesis Report        ; 100                ; 100                ;
+; Clock MUX Protection                                             ; On                 ; On                 ;
+; Auto Gated Clock Conversion                                      ; Off                ; Off                ;
+; Block Design Naming                                              ; Auto               ; Auto               ;
+; SDC constraint protection                                        ; Off                ; Off                ;
+; Synthesis Effort                                                 ; Auto               ; Auto               ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal     ; On                 ; On                 ;
+; Pre-Mapping Resynthesis Optimization                             ; Off                ; Off                ;
+; Analysis & Synthesis Message Level                               ; Medium             ; Medium             ;
+; Disable Register Merging Across Hierarchies                      ; Auto               ; Auto               ;
+; Resource Aware Inference For Block RAM                           ; On                 ; On                 ;
++------------------------------------------------------------------+--------------------+--------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 16          ;
+; Maximum allowed            ; 12          ;
+;                            ;             ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 1           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     Processor 1            ; 100.0%      ;
++----------------------------+-------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                            ;
++----------------------------------+-----------------+------------------------+-------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type              ; File Name with Absolute Path              ; Library ;
++----------------------------------+-----------------+------------------------+-------------------------------------------+---------+
+; ../src/register.v                ; yes             ; User Verilog HDL File  ; C:/Work/SU-CSexpC-Final-A5/src/register.v ;         ;
++----------------------------------+-----------------+------------------------+-------------------------------------------+---------+
+
+
++---------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary             ;
++---------------------------------------------+-----------+
+; Resource                                    ; Usage     ;
++---------------------------------------------+-----------+
+; Estimated Total logic elements              ; 144       ;
+;                                             ;           ;
+; Total combinational functions               ; 0         ;
+; Logic element usage by number of LUT inputs ;           ;
+;     -- 4 input functions                    ; 0         ;
+;     -- 3 input functions                    ; 0         ;
+;     -- <=2 input functions                  ; 0         ;
+;                                             ;           ;
+; Logic elements by mode                      ;           ;
+;     -- normal mode                          ; 0         ;
+;     -- arithmetic mode                      ; 0         ;
+;                                             ;           ;
+; Total registers                             ; 144       ;
+;     -- Dedicated logic registers            ; 144       ;
+;     -- I/O registers                        ; 0         ;
+;                                             ;           ;
+; I/O pins                                    ; 171       ;
+;                                             ;           ;
+; Embedded Multiplier 9-bit elements          ; 0         ;
+;                                             ;           ;
+; Maximum fan-out node                        ; CLK~input ;
+; Maximum fan-out                             ; 144       ;
+; Total fan-out                               ; 891       ;
+; Average fan-out                             ; 1.83      ;
++---------------------------------------------+-----------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                      ;
++----------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+---------------------------------------------------+-------------+--------------+
+; Compilation Hierarchy Node                   ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                               ; Entity Name ; Library Name ;
++----------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+---------------------------------------------------+-------------+--------------+
+; |register                                    ; 0 (0)               ; 144 (0)                   ; 0           ; 0            ; 0       ; 0         ; 171  ; 0            ; |register                                         ; register    ; work         ;
+;    |dff_reg:b0_gen[0].dff_b0_inst|           ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:b0_gen[0].dff_b0_inst           ; dff_reg     ; work         ;
+;    |dff_reg:b0_gen[10].dff_b0_inst|          ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:b0_gen[10].dff_b0_inst          ; dff_reg     ; work         ;
+;    |dff_reg:b0_gen[11].dff_b0_inst|          ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:b0_gen[11].dff_b0_inst          ; dff_reg     ; work         ;
+;    |dff_reg:b0_gen[12].dff_b0_inst|          ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:b0_gen[12].dff_b0_inst          ; dff_reg     ; work         ;
+;    |dff_reg:b0_gen[13].dff_b0_inst|          ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:b0_gen[13].dff_b0_inst          ; dff_reg     ; work         ;
+;    |dff_reg:b0_gen[14].dff_b0_inst|          ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:b0_gen[14].dff_b0_inst          ; dff_reg     ; work         ;
+;    |dff_reg:b0_gen[15].dff_b0_inst|          ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:b0_gen[15].dff_b0_inst          ; dff_reg     ; work         ;
+;    |dff_reg:b0_gen[1].dff_b0_inst|           ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:b0_gen[1].dff_b0_inst           ; dff_reg     ; work         ;
+;    |dff_reg:b0_gen[2].dff_b0_inst|           ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:b0_gen[2].dff_b0_inst           ; dff_reg     ; work         ;
+;    |dff_reg:b0_gen[3].dff_b0_inst|           ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:b0_gen[3].dff_b0_inst           ; dff_reg     ; work         ;
+;    |dff_reg:b0_gen[4].dff_b0_inst|           ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:b0_gen[4].dff_b0_inst           ; dff_reg     ; work         ;
+;    |dff_reg:b0_gen[5].dff_b0_inst|           ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:b0_gen[5].dff_b0_inst           ; dff_reg     ; work         ;
+;    |dff_reg:b0_gen[6].dff_b0_inst|           ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:b0_gen[6].dff_b0_inst           ; dff_reg     ; work         ;
+;    |dff_reg:b0_gen[7].dff_b0_inst|           ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:b0_gen[7].dff_b0_inst           ; dff_reg     ; work         ;
+;    |dff_reg:b0_gen[8].dff_b0_inst|           ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:b0_gen[8].dff_b0_inst           ; dff_reg     ; work         ;
+;    |dff_reg:b0_gen[9].dff_b0_inst|           ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:b0_gen[9].dff_b0_inst           ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[0].bit_gen[0].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[0].bit_gen[0].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[0].bit_gen[10].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[0].bit_gen[10].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[0].bit_gen[11].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[0].bit_gen[11].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[0].bit_gen[12].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[0].bit_gen[12].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[0].bit_gen[13].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[0].bit_gen[13].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[0].bit_gen[14].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[0].bit_gen[14].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[0].bit_gen[15].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[0].bit_gen[15].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[0].bit_gen[1].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[0].bit_gen[1].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[0].bit_gen[2].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[0].bit_gen[2].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[0].bit_gen[3].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[0].bit_gen[3].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[0].bit_gen[4].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[0].bit_gen[4].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[0].bit_gen[5].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[0].bit_gen[5].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[0].bit_gen[6].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[0].bit_gen[6].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[0].bit_gen[7].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[0].bit_gen[7].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[0].bit_gen[8].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[0].bit_gen[8].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[0].bit_gen[9].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[0].bit_gen[9].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[1].bit_gen[0].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[1].bit_gen[0].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[1].bit_gen[10].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[1].bit_gen[10].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[1].bit_gen[11].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[1].bit_gen[11].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[1].bit_gen[12].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[1].bit_gen[12].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[1].bit_gen[13].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[1].bit_gen[13].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[1].bit_gen[14].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[1].bit_gen[14].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[1].bit_gen[15].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[1].bit_gen[15].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[1].bit_gen[1].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[1].bit_gen[1].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[1].bit_gen[2].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[1].bit_gen[2].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[1].bit_gen[3].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[1].bit_gen[3].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[1].bit_gen[4].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[1].bit_gen[4].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[1].bit_gen[5].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[1].bit_gen[5].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[1].bit_gen[6].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[1].bit_gen[6].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[1].bit_gen[7].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[1].bit_gen[7].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[1].bit_gen[8].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[1].bit_gen[8].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[1].bit_gen[9].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[1].bit_gen[9].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[2].bit_gen[0].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[2].bit_gen[0].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[2].bit_gen[10].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[2].bit_gen[10].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[2].bit_gen[11].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[2].bit_gen[11].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[2].bit_gen[12].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[2].bit_gen[12].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[2].bit_gen[13].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[2].bit_gen[13].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[2].bit_gen[14].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[2].bit_gen[14].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[2].bit_gen[15].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[2].bit_gen[15].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[2].bit_gen[1].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[2].bit_gen[1].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[2].bit_gen[2].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[2].bit_gen[2].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[2].bit_gen[3].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[2].bit_gen[3].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[2].bit_gen[4].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[2].bit_gen[4].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[2].bit_gen[5].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[2].bit_gen[5].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[2].bit_gen[6].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[2].bit_gen[6].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[2].bit_gen[7].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[2].bit_gen[7].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[2].bit_gen[8].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[2].bit_gen[8].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[2].bit_gen[9].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[2].bit_gen[9].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[3].bit_gen[0].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[3].bit_gen[0].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[3].bit_gen[10].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[3].bit_gen[10].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[3].bit_gen[11].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[3].bit_gen[11].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[3].bit_gen[12].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[3].bit_gen[12].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[3].bit_gen[13].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[3].bit_gen[13].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[3].bit_gen[14].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[3].bit_gen[14].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[3].bit_gen[15].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[3].bit_gen[15].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[3].bit_gen[1].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[3].bit_gen[1].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[3].bit_gen[2].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[3].bit_gen[2].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[3].bit_gen[3].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[3].bit_gen[3].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[3].bit_gen[4].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[3].bit_gen[4].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[3].bit_gen[5].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[3].bit_gen[5].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[3].bit_gen[6].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[3].bit_gen[6].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[3].bit_gen[7].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[3].bit_gen[7].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[3].bit_gen[8].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[3].bit_gen[8].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[3].bit_gen[9].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[3].bit_gen[9].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[4].bit_gen[0].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[4].bit_gen[0].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[4].bit_gen[10].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[4].bit_gen[10].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[4].bit_gen[11].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[4].bit_gen[11].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[4].bit_gen[12].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[4].bit_gen[12].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[4].bit_gen[13].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[4].bit_gen[13].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[4].bit_gen[14].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[4].bit_gen[14].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[4].bit_gen[15].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[4].bit_gen[15].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[4].bit_gen[1].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[4].bit_gen[1].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[4].bit_gen[2].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[4].bit_gen[2].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[4].bit_gen[3].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[4].bit_gen[3].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[4].bit_gen[4].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[4].bit_gen[4].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[4].bit_gen[5].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[4].bit_gen[5].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[4].bit_gen[6].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[4].bit_gen[6].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[4].bit_gen[7].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[4].bit_gen[7].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[4].bit_gen[8].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[4].bit_gen[8].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[4].bit_gen[9].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[4].bit_gen[9].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[5].bit_gen[0].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[5].bit_gen[0].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[5].bit_gen[10].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[5].bit_gen[10].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[5].bit_gen[11].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[5].bit_gen[11].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[5].bit_gen[12].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[5].bit_gen[12].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[5].bit_gen[13].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[5].bit_gen[13].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[5].bit_gen[14].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[5].bit_gen[14].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[5].bit_gen[15].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[5].bit_gen[15].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[5].bit_gen[1].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[5].bit_gen[1].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[5].bit_gen[2].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[5].bit_gen[2].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[5].bit_gen[3].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[5].bit_gen[3].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[5].bit_gen[4].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[5].bit_gen[4].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[5].bit_gen[5].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[5].bit_gen[5].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[5].bit_gen[6].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[5].bit_gen[6].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[5].bit_gen[7].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[5].bit_gen[7].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[5].bit_gen[8].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[5].bit_gen[8].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[5].bit_gen[9].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[5].bit_gen[9].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[6].bit_gen[0].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[6].bit_gen[0].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[6].bit_gen[10].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[6].bit_gen[10].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[6].bit_gen[11].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[6].bit_gen[11].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[6].bit_gen[12].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[6].bit_gen[12].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[6].bit_gen[13].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[6].bit_gen[13].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[6].bit_gen[14].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[6].bit_gen[14].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[6].bit_gen[15].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[6].bit_gen[15].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[6].bit_gen[1].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[6].bit_gen[1].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[6].bit_gen[2].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[6].bit_gen[2].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[6].bit_gen[3].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[6].bit_gen[3].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[6].bit_gen[4].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[6].bit_gen[4].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[6].bit_gen[5].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[6].bit_gen[5].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[6].bit_gen[6].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[6].bit_gen[6].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[6].bit_gen[7].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[6].bit_gen[7].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[6].bit_gen[8].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[6].bit_gen[8].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[6].bit_gen[9].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[6].bit_gen[9].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[7].bit_gen[0].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[7].bit_gen[0].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[7].bit_gen[10].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[7].bit_gen[10].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[7].bit_gen[11].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[7].bit_gen[11].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[7].bit_gen[12].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[7].bit_gen[12].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[7].bit_gen[13].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[7].bit_gen[13].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[7].bit_gen[14].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[7].bit_gen[14].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[7].bit_gen[15].dff_inst| ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[7].bit_gen[15].dff_inst ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[7].bit_gen[1].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[7].bit_gen[1].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[7].bit_gen[2].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[7].bit_gen[2].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[7].bit_gen[3].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[7].bit_gen[3].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[7].bit_gen[4].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[7].bit_gen[4].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[7].bit_gen[5].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[7].bit_gen[5].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[7].bit_gen[6].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[7].bit_gen[6].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[7].bit_gen[7].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[7].bit_gen[7].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[7].bit_gen[8].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[7].bit_gen[8].dff_inst  ; dff_reg     ; work         ;
+;    |dff_reg:reg_gen[7].bit_gen[9].dff_inst|  ; 0 (0)               ; 1 (1)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |register|dff_reg:reg_gen[7].bit_gen[9].dff_inst  ; dff_reg     ; work         ;
++----------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+---------------------------------------------------+-------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 144   ;
+; Number of registers using Synchronous Clear  ; 0     ;
+; Number of registers using Synchronous Load   ; 0     ;
+; Number of registers using Asynchronous Clear ; 144   ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 144   ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:b0_gen[15].dff_b0_inst" ;
++------+-------+----------+----------------------------------+
+; Port ; Type  ; Severity ; Details                          ;
++------+-------+----------+----------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                     ;
++------+-------+----------+----------------------------------+
+
+
++------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:b0_gen[14].dff_b0_inst" ;
++------+-------+----------+----------------------------------+
+; Port ; Type  ; Severity ; Details                          ;
++------+-------+----------+----------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                     ;
++------+-------+----------+----------------------------------+
+
+
++------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:b0_gen[13].dff_b0_inst" ;
++------+-------+----------+----------------------------------+
+; Port ; Type  ; Severity ; Details                          ;
++------+-------+----------+----------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                     ;
++------+-------+----------+----------------------------------+
+
+
++------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:b0_gen[12].dff_b0_inst" ;
++------+-------+----------+----------------------------------+
+; Port ; Type  ; Severity ; Details                          ;
++------+-------+----------+----------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                     ;
++------+-------+----------+----------------------------------+
+
+
++------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:b0_gen[11].dff_b0_inst" ;
++------+-------+----------+----------------------------------+
+; Port ; Type  ; Severity ; Details                          ;
++------+-------+----------+----------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                     ;
++------+-------+----------+----------------------------------+
+
+
++------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:b0_gen[10].dff_b0_inst" ;
++------+-------+----------+----------------------------------+
+; Port ; Type  ; Severity ; Details                          ;
++------+-------+----------+----------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                     ;
++------+-------+----------+----------------------------------+
+
+
++-----------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:b0_gen[9].dff_b0_inst" ;
++------+-------+----------+---------------------------------+
+; Port ; Type  ; Severity ; Details                         ;
++------+-------+----------+---------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                    ;
++------+-------+----------+---------------------------------+
+
+
++-----------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:b0_gen[8].dff_b0_inst" ;
++------+-------+----------+---------------------------------+
+; Port ; Type  ; Severity ; Details                         ;
++------+-------+----------+---------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                    ;
++------+-------+----------+---------------------------------+
+
+
++-----------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:b0_gen[7].dff_b0_inst" ;
++------+-------+----------+---------------------------------+
+; Port ; Type  ; Severity ; Details                         ;
++------+-------+----------+---------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                    ;
++------+-------+----------+---------------------------------+
+
+
++-----------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:b0_gen[6].dff_b0_inst" ;
++------+-------+----------+---------------------------------+
+; Port ; Type  ; Severity ; Details                         ;
++------+-------+----------+---------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                    ;
++------+-------+----------+---------------------------------+
+
+
++-----------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:b0_gen[5].dff_b0_inst" ;
++------+-------+----------+---------------------------------+
+; Port ; Type  ; Severity ; Details                         ;
++------+-------+----------+---------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                    ;
++------+-------+----------+---------------------------------+
+
+
++-----------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:b0_gen[4].dff_b0_inst" ;
++------+-------+----------+---------------------------------+
+; Port ; Type  ; Severity ; Details                         ;
++------+-------+----------+---------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                    ;
++------+-------+----------+---------------------------------+
+
+
++-----------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:b0_gen[3].dff_b0_inst" ;
++------+-------+----------+---------------------------------+
+; Port ; Type  ; Severity ; Details                         ;
++------+-------+----------+---------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                    ;
++------+-------+----------+---------------------------------+
+
+
++-----------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:b0_gen[2].dff_b0_inst" ;
++------+-------+----------+---------------------------------+
+; Port ; Type  ; Severity ; Details                         ;
++------+-------+----------+---------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                    ;
++------+-------+----------+---------------------------------+
+
+
++-----------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:b0_gen[1].dff_b0_inst" ;
++------+-------+----------+---------------------------------+
+; Port ; Type  ; Severity ; Details                         ;
++------+-------+----------+---------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                    ;
++------+-------+----------+---------------------------------+
+
+
++-----------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:b0_gen[0].dff_b0_inst" ;
++------+-------+----------+---------------------------------+
+; Port ; Type  ; Severity ; Details                         ;
++------+-------+----------+---------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                    ;
++------+-------+----------+---------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[7].bit_gen[15].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[7].bit_gen[14].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[7].bit_gen[13].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[7].bit_gen[12].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[7].bit_gen[11].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[7].bit_gen[10].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[7].bit_gen[9].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[7].bit_gen[8].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[7].bit_gen[7].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[7].bit_gen[6].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[7].bit_gen[5].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[7].bit_gen[4].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[7].bit_gen[3].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[7].bit_gen[2].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[7].bit_gen[1].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[7].bit_gen[0].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[6].bit_gen[15].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[6].bit_gen[14].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[6].bit_gen[13].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[6].bit_gen[12].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[6].bit_gen[11].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[6].bit_gen[10].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[6].bit_gen[9].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[6].bit_gen[8].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[6].bit_gen[7].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[6].bit_gen[6].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[6].bit_gen[5].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[6].bit_gen[4].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[6].bit_gen[3].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[6].bit_gen[2].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[6].bit_gen[1].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[6].bit_gen[0].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[5].bit_gen[15].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[5].bit_gen[14].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[5].bit_gen[13].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[5].bit_gen[12].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[5].bit_gen[11].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[5].bit_gen[10].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[5].bit_gen[9].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[5].bit_gen[8].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[5].bit_gen[7].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[5].bit_gen[6].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[5].bit_gen[5].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[5].bit_gen[4].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[5].bit_gen[3].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[5].bit_gen[2].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[5].bit_gen[1].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[5].bit_gen[0].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[4].bit_gen[15].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[4].bit_gen[14].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[4].bit_gen[13].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[4].bit_gen[12].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[4].bit_gen[11].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[4].bit_gen[10].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[4].bit_gen[9].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[4].bit_gen[8].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[4].bit_gen[7].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[4].bit_gen[6].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[4].bit_gen[5].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[4].bit_gen[4].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[4].bit_gen[3].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[4].bit_gen[2].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[4].bit_gen[1].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[4].bit_gen[0].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[3].bit_gen[15].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[3].bit_gen[14].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[3].bit_gen[13].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[3].bit_gen[12].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[3].bit_gen[11].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[3].bit_gen[10].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[3].bit_gen[9].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[3].bit_gen[8].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[3].bit_gen[7].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[3].bit_gen[6].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[3].bit_gen[5].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[3].bit_gen[4].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[3].bit_gen[3].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[3].bit_gen[2].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[3].bit_gen[1].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[3].bit_gen[0].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[2].bit_gen[15].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[2].bit_gen[14].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[2].bit_gen[13].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[2].bit_gen[12].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[2].bit_gen[11].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[2].bit_gen[10].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[2].bit_gen[9].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[2].bit_gen[8].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[2].bit_gen[7].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[2].bit_gen[6].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[2].bit_gen[5].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[2].bit_gen[4].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[2].bit_gen[3].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[2].bit_gen[2].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[2].bit_gen[1].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[2].bit_gen[0].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[1].bit_gen[15].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[1].bit_gen[14].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[1].bit_gen[13].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[1].bit_gen[12].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[1].bit_gen[11].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[1].bit_gen[10].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[1].bit_gen[9].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[1].bit_gen[8].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[1].bit_gen[7].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[1].bit_gen[6].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[1].bit_gen[5].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[1].bit_gen[4].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[1].bit_gen[3].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[1].bit_gen[2].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[1].bit_gen[1].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[1].bit_gen[0].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[0].bit_gen[15].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[0].bit_gen[14].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[0].bit_gen[13].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[0].bit_gen[12].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[0].bit_gen[11].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++---------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[0].bit_gen[10].dff_inst" ;
++------+-------+----------+-------------------------------------------+
+; Port ; Type  ; Severity ; Details                                   ;
++------+-------+----------+-------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                              ;
++------+-------+----------+-------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[0].bit_gen[9].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[0].bit_gen[8].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[0].bit_gen[7].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[0].bit_gen[6].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[0].bit_gen[5].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[0].bit_gen[4].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[0].bit_gen[3].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[0].bit_gen[2].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[0].bit_gen[1].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++--------------------------------------------------------------------+
+; Port Connectivity Checks: "dff_reg:reg_gen[0].bit_gen[0].dff_inst" ;
++------+-------+----------+------------------------------------------+
+; Port ; Type  ; Severity ; Details                                  ;
++------+-------+----------+------------------------------------------+
+; pre  ; Input ; Info     ; Stuck at GND                             ;
++------+-------+----------+------------------------------------------+
+
+
++-----------------------------------------------------+
+; Post-Synthesis Netlist Statistics for Top Partition ;
++-------------------+---------------------------------+
+; Type              ; Count                           ;
++-------------------+---------------------------------+
+; boundary_port     ; 171                             ;
+; cycloneiii_ff     ; 144                             ;
+;     ENA CLR       ; 144                             ;
+;                   ;                                 ;
+; Max LUT depth     ; 0.00                            ;
+; Average LUT depth ; 0.00                            ;
++-------------------+---------------------------------+
+
+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:00     ;
++----------------+--------------+
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus Prime Analysis & Synthesis
+    Info: Version 20.1.1 Build 720 11/11/2020 Patches 1.02i SJ Lite Edition
+    Info: Processing started: Fri Dec 19 17:25:48 2025
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off register_test -c register_test
+Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
+Info (20030): Parallel compilation is enabled and will use 12 of the 12 processors detected
+Info (12021): Found 2 design units, including 2 entities, in source file /work/su-csexpc-final-a5/src/register.v
+    Info (12023): Found entity 1: register File: C:/Work/SU-CSexpC-Final-A5/src/register.v Line: 1
+    Info (12023): Found entity 2: dff_reg File: C:/Work/SU-CSexpC-Final-A5/src/register.v Line: 84
+Info (12127): Elaborating entity "register" for the top level hierarchy
+Info (12128): Elaborating entity "dff_reg" for hierarchy "dff_reg:reg_gen[0].bit_gen[0].dff_inst" File: C:/Work/SU-CSexpC-Final-A5/src/register.v Line: 54
+Info (286030): Timing-Driven Synthesis is running
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Info (21057): Implemented 315 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 27 input pins
+    Info (21059): Implemented 144 output pins
+    Info (21061): Implemented 144 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 1 warning
+    Info: Peak virtual memory: 4792 megabytes
+    Info: Processing ended: Fri Dec 19 17:25:56 2025
+    Info: Elapsed time: 00:00:08
+    Info: Total CPU time (on all processors): 00:00:16
+
+

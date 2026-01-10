@@ -1,0 +1,66 @@
+# Quartus Settings File for register.v test
+
+set_global_assignment -name FAMILY "Cyclone IV E"
+set_global_assignment -name DEVICE EP4CE115F29C7
+set_global_assignment -name TOP_LEVEL_ENTITY register
+set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
+set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
+set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
+set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 1
+
+# Add register.v source file
+set_global_assignment -name VERILOG_FILE ../src/register.v
+
+# Clock and Reset
+set_location_assignment PIN_M21 -to CLK
+set_location_assignment PIN_M23 -to CLR
+
+# Store Register enables SR[7:0] - Using KEY
+set_location_assignment PIN_R24 -to SR[0]
+
+# Store B0 enable
+
+# S_BUS[15:0] - Using SW[15:0]
+set_location_assignment PIN_AB28 -to s_bus[0]
+set_location_assignment PIN_AC28 -to s_bus[1]
+set_location_assignment PIN_AC27 -to s_bus[2]
+set_location_assignment PIN_AD27 -to s_bus[3]
+set_location_assignment PIN_AB27 -to s_bus[4]
+set_location_assignment PIN_AC26 -to s_bus[5]
+set_location_assignment PIN_AD26 -to s_bus[6]
+set_location_assignment PIN_AB26 -to s_bus[7]
+set_location_assignment PIN_AC25 -to s_bus[8]
+set_location_assignment PIN_AB25 -to s_bus[9]
+set_location_assignment PIN_AC24 -to s_bus[10]
+set_location_assignment PIN_AB24 -to s_bus[11]
+set_location_assignment PIN_AB23 -to s_bus[12]
+set_location_assignment PIN_AA24 -to s_bus[13]
+set_location_assignment PIN_AA23 -to s_bus[14]
+set_location_assignment PIN_AA22 -to s_bus[15]
+
+# R0 outputs to LEDR[15:0]
+set_location_assignment PIN_G19 -to r0_q[0]
+set_location_assignment PIN_F19 -to r0_q[1]
+set_location_assignment PIN_E19 -to r0_q[2]
+set_location_assignment PIN_F21 -to r0_q[3]
+set_location_assignment PIN_F18 -to r0_q[4]
+set_location_assignment PIN_E18 -to r0_q[5]
+set_location_assignment PIN_J19 -to r0_q[6]
+set_location_assignment PIN_H19 -to r0_q[7]
+set_location_assignment PIN_J17 -to r0_q[8]
+set_location_assignment PIN_G17 -to r0_q[9]
+set_location_assignment PIN_J15 -to r0_q[10]
+set_location_assignment PIN_H16 -to r0_q[11]
+set_location_assignment PIN_J16 -to r0_q[12]
+set_location_assignment PIN_H17 -to r0_q[13]
+set_location_assignment PIN_F15 -to r0_q[14]
+set_location_assignment PIN_G15 -to r0_q[15]
+
+# B0 outputs to LEDG[7:0]
+
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+
+set_global_assignment -name LAST_QUARTUS_VERSION "20.1.1 SP1.02i Lite Edition"
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
