@@ -62,7 +62,7 @@ selector	b2v_inst16(
 	.S(y),
 	.X(z),
 	.Y(u),
-	.output(SYNTHESIZED_WIRE_1));
+	.Q(SYNTHESIZED_WIRE_1));
 
 assign	SYNTHESIZED_WIRE_0 = x ^ b;
 
@@ -71,7 +71,7 @@ selector	b2v_inst19(
 	.S(v),
 	.X(SYNTHESIZED_WIRE_2),
 	.Y(SYNTHESIZED_WIRE_3),
-	.output(g));
+	.Q(g));
 
 
 endmodule

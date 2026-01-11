@@ -39,7 +39,7 @@ module H6(
 	inTWO,
 	inTHREE,
 	inFOUR,
-	50CLK,
+	CLK_50,
 	Seg1_one,
 	Seg1_two,
 	Seg1_three,
@@ -161,7 +161,7 @@ input wire	inQLK;
 input wire	inTWO;
 input wire	inTHREE;
 input wire	inFOUR;
-input wire	50CLK;
+input wire	CLK_50;
 output wire	Seg1_one;
 output wire	Seg1_two;
 output wire	Seg1_three;
@@ -830,7 +830,7 @@ sixteenAnd	b2v_inst289(
 
 
 CHATTER	b2v_inst29(
-	.clock(50CLK),
+	.clock(CLK_50),
 	.SW(SYNTHESIZED_WIRE_31),
 	.SSW(SYNTHESIZED_WIRE_16));
 
@@ -847,7 +847,7 @@ sixteenALU	b2v_inst3(
 	.alu_oneAin(One_And2),
 	.alu_twoBin(Two_And1),
 	.alu_twoAin(Two_And2),
-	.alu_trheeBin(Three_And1),
+	.alu_threeBin(Three_And1),
 	.alu_threeAin(Three_And2),
 	.alu_fourBin(Four_And1),
 	.alu_fourAin(Four_And2),
@@ -860,7 +860,7 @@ sixteenALU	b2v_inst3(
 	.alu_eightBin(Eight_And1),
 	.alu_eightAin(Eight_And2),
 	.alu_nineBin(Nine_And1),
-	.alu_neieAin(Nine_And2),
+	.alu_nineAin(Nine_And2),
 	.alu_aBin(A_And1),
 	.alu_aAin(A_And2),
 	.alu_bBin(B_And1),
@@ -874,7 +874,7 @@ sixteenALU	b2v_inst3(
 	.alu_fBin(F_And1),
 	.alu_fAin(F_And2),
 	.alu_zeroOut(alu_zeroOut),
-	.aou_oneOut(alu_oneOut),
+	.alu_oneOut(alu_oneOut),
 	.alu_twoOut(alu_twoOut),
 	.alu_threeOut(alu_threeOut),
 	.alu_fourOut(alu_fourOut),

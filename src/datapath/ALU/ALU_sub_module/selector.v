@@ -21,14 +21,14 @@ module selector(
 	S,
 	X,
 	Y,
-	output
+	Q
 );
 
 
 input wire	S;
 input wire	X;
 input wire	Y;
-output wire	output;
+output wire	Q;
 
 wire	SYNTHESIZED_WIRE_0;
 wire	SYNTHESIZED_WIRE_1;
@@ -41,7 +41,7 @@ assign	SYNTHESIZED_WIRE_2 = SYNTHESIZED_WIRE_0 & X;
 
 assign	SYNTHESIZED_WIRE_1 = S & Y;
 
-assign	output = SYNTHESIZED_WIRE_1 | SYNTHESIZED_WIRE_2;
+assign	Q = SYNTHESIZED_WIRE_1 | SYNTHESIZED_WIRE_2;
 
 assign	SYNTHESIZED_WIRE_0 =  ~S;
 
