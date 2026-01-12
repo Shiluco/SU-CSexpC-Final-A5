@@ -107,6 +107,9 @@ output wire	Oout;
 output wire	Pout;
 output wire	carry;
 output wire	overflow;
+output wire	[15:0] ALU_result_bus;
+output wire	[15:0] A_input_bus;
+output wire	[15:0] B_reg_bus;
 
 wire	a;
 wire	b;
@@ -592,5 +595,10 @@ assign	e = ae;
 assign	d = ad;
 assign	c = ac;
 assign	b = ab;
+
+// 16-bit bus outputs
+assign	ALU_result_bus = {gp, go, gn, gm, gl, gk, gj, gi, gh, gg, gf, ge, gd, gc, gb, ga};
+assign	A_input_bus = {p, o, n, m, l, k, j, i, h, g, f, e, d, c, b, a};
+assign	B_reg_bus = {bp, bo, bn, bm, bl, bk, bj, bi, bh, bg, bf, be, bd, bc, bb, ba};
 
 endmodule

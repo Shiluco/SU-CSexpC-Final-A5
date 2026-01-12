@@ -234,6 +234,8 @@ output wire	C_out;
 output wire	D_out;
 output wire	E_out;
 output wire	F_out;
+output wire	[15:0] A_mul_bus;
+output wire	[15:0] Q_mul_bus;
 output wire	fixOneLED;
 output wire	fixZeroLED;
 output wire	outCLKLED;
@@ -1311,5 +1313,16 @@ assign	CounterINLED = CounterIN;
 assign	MUX_RightLED = MUX_Right;
 assign	RegA_RWLED = RegA_RW;
 assign	RegQ_RWLED = RegQ_RW;
+
+// 16-bit bus outputs for A and Q registers
+assign	A_mul_bus = {F_Aregister_o, E_Aregister_o, D_Aregister_o, C_Aregister_o,
+                     B_Aregister_o, A_Aregister_o, Nine_Aregister_o, Eight_Aregister_o,
+                     Seven_Aregister_o, Six_Aregister_o, Five_Aregister_o, Four_Aregister_o,
+                     Three_Aregister_o, Two_Aregister_o, One_Aregister_o, Zero_Aregister_o};
+
+assign	Q_mul_bus = {F_Qregister_o, E_Qregister_o, D_Qregister_o, C_Qregister_o,
+                     B_Qregister_o, A_Qregister_o, Nine_Qregister_o, Eight_Qregister_o,
+                     Seven_Qregister_o, Six_Qregister_o, Five_Qregister_o, Four_Qregister_o,
+                     Three_Qregister_o, Two_Qregister_o, One_Qregister_o, Zero_Qregister_o};
 
 endmodule
