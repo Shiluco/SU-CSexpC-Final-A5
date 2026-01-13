@@ -56,6 +56,10 @@ module datapath_top(
     input  wire        Ein,
     input  wire        SHS,            // シフタ → Sバス
 
+    // 定数値出力制御信号
+    input  wire        S_0080,         // 0x0080 → Sバス
+    input  wire        S_00C0,         // 0x00C0 → Sバス
+
     // H4 ALU制御信号
     input  wire        y,
     input  wire        z,
@@ -339,6 +343,29 @@ module datapath_top(
     );
 
     // =========================================
+    // 定数値（0x0080, 0x00C0）の出力制御
+    // =========================================
+    wire [15:0] const_0080_out;
+    wire [15:0] const_00C0_out;
+
+    // 定数値定義
+    wire [15:0] const_0080 = 16'h0080;
+    wire [15:0] const_00C0 = 16'h00C0;
+
+    // ANDゲート制御（transfer_and_16bit使用）
+    transfer_and_16bit transfer_0080(
+        .enable(S_0080),
+        .data_in(const_0080),
+        .data_out(const_0080_out)
+    );
+
+    transfer_and_16bit transfer_00C0(
+        .enable(S_00C0),
+        .data_in(const_00C0),
+        .data_out(const_00C0_out)
+    );
+
+    // =========================================
     // バス接続
     // =========================================
 
@@ -362,11 +389,14 @@ module datapath_top(
         .out(B_bus)
     );
 
-    // Sバス: SHS + ALS_H4（2入力、将来的に拡張予定）
-    // 注: H6の出力は将来追加する
+    // Sバス: 6入力（shifter, H4, H6_a, H6_q, 0x0080, 0x00C0）
     bus_S s_bus_inst(
-        .in0(shifter_out),
-        .in1(H4_out),
+        .in0(shifter_out),      // シフタ出力（SHS制御）
+        .in1(H4_out),           // H4 ALU出力（ALS_H4制御）
+        .in2(H6_a_out),         // H6 Aレジスタ出力（ALS_H6_a制御）
+        .in3(H6_q_out),         // H6 Qレジスタ出力（ALS_H6_q制御）
+        .in4(const_0080_out),   // 定数0x0080（S_0080制御）
+        .in5(const_00C0_out),   // 定数0x00C0（S_00C0制御）
         .out(S_bus)
     );
 
