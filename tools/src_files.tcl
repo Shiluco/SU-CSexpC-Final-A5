@@ -1,21 +1,13 @@
 # Auto-generated. Do not edit.
-# Generated at: 2026-01-10 21:11:12
+# Generated at: 2026-01-14 19:43:18
 
-set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/SC.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/controller.v"
-set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/counter_4bit_sync.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/isr_decoder.v"
-set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/datapath/ALU/ALU_sub_module/Block2.v"
-set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/datapath/ALU/ALU_sub_module/FA.v"
-set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/datapath/ALU/ALU_sub_module/alu.v"
-set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/datapath/ALU/ALU_sub_module/multi.v"
-set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/datapath/ALU/ALU_sub_module/selector.v"
-set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/datapath/ALU/ALU_sub_module/sevenSegments.v"
-set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/datapath/ALU/ALU_sub_module/sixteenALU.v"
-set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/datapath/ALU/ALU_sub_module/sixteenAnd.v"
-set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/datapath/ALU/ALU_sub_module/sixteenMUX.v"
-set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/datapath/ALU/ALU_sub_module/sixteen_register.v"
-set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/datapath/ALU/H6.v"
+set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/modules/SC.v"
+set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/modules/counter_4bit_sync.v"
+set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/modules/decoder.v"
+set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/modules/isr.v"
+set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/state_mul_controller.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/datapath/MDR/MDR.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/datapath/MDR/four_input_multiplexer_16bit.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/datapath/MDR/four_input_multiplexer_1bit.v"
