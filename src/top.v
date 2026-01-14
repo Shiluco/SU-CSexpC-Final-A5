@@ -15,7 +15,7 @@
 
 // PROGRAM		"Quartus Prime"
 // VERSION		"Version 20.1.1 Build 720 11/11/2020 Patches 1.02i SJ Lite Edition"
-// CREATED		"Wed Jan 07 22:58:49 2026"
+// CREATED		"Wed Jan 14 19:11:37 2026"
 
 module TOP(
 	CLOCK_50,
@@ -146,19 +146,19 @@ sep5_interface	b2v_inst(
 	.S(S),
 	.SC(SC),
 	.SW(SYNTHESIZED_WIRE_2),
-	
+	.CLK(CLK),
 	.INSTSTEP(INSTSTEP),
 	.CLKSTEP(CLKSTEP),
 	.NORMAL(NORMAL),
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	.AUXI6(STOP),
+	.EIT(TIT0),
+	.TIT1(TIT1),
+	.TIT2(TIT2),
+	.TIT3(TIT3),
+	.START_N(START_N),
+	.BIT_N(BIT_N),
+	.RESET(RESET),
+	.ACK(ACK),
 	.LCD_RW(LCD_RW),
 	.LCD_EN(LCD_EN),
 	.LCD_RS(LCD_RS),

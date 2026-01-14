@@ -1,10 +1,13 @@
 # Auto-generated. Do not edit.
-# Generated at: 2026-01-10 19:23:59
+# Generated at: 2026-01-14 19:43:18
 
-set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/SC.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/controller.v"
-set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/counter_4bit_sync.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/isr_decoder.v"
+set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/modules/SC.v"
+set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/modules/counter_4bit_sync.v"
+set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/modules/decoder.v"
+set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/modules/isr.v"
+set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/state_mul_controller.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/datapath/MDR/MDR.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/datapath/MDR/four_input_multiplexer_16bit.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/datapath/MDR/four_input_multiplexer_1bit.v"
