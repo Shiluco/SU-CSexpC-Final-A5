@@ -103,6 +103,8 @@ wire	TIT3;
 wire	SYNTHESIZED_WIRE_0;
 wire	SYNTHESIZED_WIRE_1;
 wire	[15:0] SYNTHESIZED_WIRE_2;
+wire	RUN_CK;
+wire	RUN_STOPPED;
 
 assign	GPIO[35:24] = 12'b000000000000;
 
@@ -179,6 +181,23 @@ sep5_interface	b2v_inst(
 	.LEDR(LEDR));
 
 assign	SYNTHESIZED_WIRE_0 =  ~SW[16];
+
+
+run	b2v_inst_run(
+	.START(~START_N),
+	.ILLEGAL(ILLEGAL),
+	.FF0(1'b0),
+	.KITECK(CLK),
+	.RESET_N(~RESET),
+	.IF0D(1'b1),
+	.AUXI6(STOP),
+	.EX0(TIT0),
+	.HLT(HLT),
+	.NOMAL(NORMAL),
+	.MSTEP(INSTSTEP),
+	.CKSTEP(CLKSTEP),
+	.CK(RUN_CK),
+	.stopped(RUN_STOPPED));
 
 
 cap1_1	b2v_inst10(
