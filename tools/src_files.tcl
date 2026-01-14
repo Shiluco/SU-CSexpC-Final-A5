@@ -19,6 +19,7 @@ set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/datapath/shifte
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/datapath/shifter/shifter_module.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/interface/if_SC.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/interface/if_counter_4bit.v"
+set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/interface/if_switchable_register.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/lib/itf.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/lib/run.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/lib/v_chatter.v"
