@@ -65,12 +65,13 @@ module datapath_top(
     input  wire        z,
     input  wire        x,
     input  wire        v,
-    input  wire        Sa,
-    input  wire        Sb,
     input  wire        u,
     input  wire        ALS_H4,         // H4 → Sバス
 
     // H6制御信号
+    input  wire        MUL1,           // H6 A入力制御
+    input  wire        MUL2_1,         // H6 B入力制御1
+    input  wire        MUL2_2,         // H6 B入力制御2
     input  wire        Rst_H6,
     input  wire        inQLK,
     input  wire        inTWO,
@@ -228,30 +229,20 @@ module datapath_top(
     // =========================================
     wire [15:0] H4_out;
     wire [15:0] ALU_result_bus;
-    wire [15:0] A_input_bus;
-    wire [15:0] B_reg_bus;
     wire        H4_carry;
     wire        H4_overflow;
 
     H4_module h4_inst(
         .y(y),
         .z(z),
-        .CLK(CLK),
-        .CLR(CLR),
         .x(x),
         .v(v),
-        .Sa(Sa),
-        .Sb(Sb),
         .u(u),
         .ALS_H4(ALS_H4),
-        .aa(A_bus[0]),  .ab(A_bus[1]),  .ac(A_bus[2]),  .ad(A_bus[3]),
-        .ae(A_bus[4]),  .af(A_bus[5]),  .ag(A_bus[6]),  .ah(A_bus[7]),
-        .ai(A_bus[8]),  .aj(A_bus[9]),  .ak(A_bus[10]), .al(A_bus[11]),
-        .am(A_bus[12]), .an(A_bus[13]), .ao(A_bus[14]), .ap(A_bus[15]),
+        .A_bus_in(A_bus),
+        .B_bus_in(B_bus),
         .H4_out(H4_out),
         .ALU_result_bus(ALU_result_bus),
-        .A_input_bus(A_input_bus),
-        .B_reg_bus(B_reg_bus),
         .carry(H4_carry),
         .overflow(H4_overflow)
     );
@@ -267,10 +258,11 @@ module datapath_top(
     wire        H6_overflow;
 
     H6_module h6_inst(
-        .Zero_in(A_bus[0]),  .One_in(A_bus[1]),    .Two_in(A_bus[2]),    .Three_in(A_bus[3]),
-        .Four_in(A_bus[4]),  .Five_in(A_bus[5]),   .Six_in(A_bus[6]),    .Seven_in(A_bus[7]),
-        .Eight_in(A_bus[8]), .Nine_in(A_bus[9]),   .A_in(A_bus[10]),     .B_in(A_bus[11]),
-        .C_in(A_bus[12]),    .D_in(A_bus[13]),     .E_in(A_bus[14]),     .F_in(A_bus[15]),
+        .A_bus_in(A_bus),
+        .B_bus_in(B_bus),
+        .MUL1(MUL1),
+        .MUL2_1(MUL2_1),
+        .MUL2_2(MUL2_2),
         .Rst(Rst_H6),
         .inQLK(inQLK),
         .inTWO(inTWO),
