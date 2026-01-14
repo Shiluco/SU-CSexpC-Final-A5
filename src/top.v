@@ -300,6 +300,47 @@ cap1_0	b2v_inst8(
 cap1_1	b2v_inst9(
 	.result(HLT));
 
+// controller は run が生成した RUN_CK をクロックとして使用
+controller u_controller (
+	.clk        (RUN_CK),
+	.reset      (RESET),      // active-high reset
+	.m_bus      (DTBUS),      
+	.ACK        (ACK),
+	.PSW_N      (1'b0),       // TODO: PSW フラグ接続
+	.PSW_Z      (1'b0),
+	.PSW_V      (1'b0),
+	.PSW_C      (1'b0),
+	
+	.KIT        (BIT_N),       // oit,SEPスイッチ信号
+	.EIT_input  (1'b0),       // PC入力信号
+	// 出力ポートは現状未接続（データパス実装時に配線）
+	.IF0        (), .IF1(), .FF0(), .FF1(), .FF2(),
+	.TF0        (), .TF1(),
+	.EX0        (), .EX1(),
+	.IT0        (), .IT1(), .IT2(),
+	.MUL1       (), .MUL2_1(), .MUL2_2(), .MUL3(), .MUL4(),
+	.counter_q  (),
+	.ITA        (), .ITF(),
+	.MDA        (),
+	.R0A        (), .R1A(), .R2A(), .R3A(), .R4A(), .R5A(), .R6A(), .R7A(),
+	.B0B        (),
+	.SMD        (), .SMA(),
+	.SR0        (), .SR1(), .SR2(), .SR3(), .SR4(), .SR5(), .SR6(), .SR7(),
+	.SB0        (), .ALS(),
+	.ALU_x      (), .ALU_y(), .ALU_z(), .ALU_u(), .ALU_v(),
+	.SHS        (),
+	.SFT_A      (), .SFT_B(), .SFT_C(), .SFT_D(), .SFT_E(), .SFT_R(), .SFT_L(),
+	.SET_PSW    (),
+	.R_W_N      (), .MREQ_N(), .MIRQ_N(), .MIS(),
+	.MMD        (), .MDM(),
+	.f_is_D     (), .t_is_D(),
+	.EIT_gate   (), .OIT_gate(),
+	.BUS_A_to_AND_one(), .BUS_B_to_AND_one(),
+	.REG_A_to_BUS_S(), .REG_B_to_BUS_S(),
+	.MUL_ctrl   (),
+	.ISR_out    ()
+);
+
 assign	LEDG[5] = INSTSTEP;
 assign	LEDG[6] = CLKSTEP;
 assign	LEDG[4] = NORMAL;
