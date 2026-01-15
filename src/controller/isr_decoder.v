@@ -256,8 +256,6 @@ module ISR_decoder (
         .BUS_B_to_AND_one(BUS_B_to_AND_one),
         .REG_A_to_BUS_S(REG_A_to_BUS_S),
         .REG_Q_to_BUS_S(REG_Q_to_BUS_S),
-        .MUL_ctrl(MUL_ctrl)
-        .REG_B_to_BUS_S(REG_B_to_BUS_S),
         .MUL_ctrl(MUL_ctrl),
 
         .CLR_inst(CLR_inst),

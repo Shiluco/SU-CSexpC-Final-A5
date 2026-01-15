@@ -204,12 +204,12 @@ module datapath_top(
     // =========================================
     // MAR（Memory Address Register）
     // =========================================
-    holding_circuit_16bit mar_inst(
+    switchable_register mar_inst(
         .CLK(CLK),
         .CLR(CLR),
-        .enable(SMA),
-        .data_in(S_bus),
-        .data_out(MAR_out)
+        .SR(SMA),
+        .S_bus(S_bus),
+        .Q(MAR_out)
     );
 
     // =========================================
