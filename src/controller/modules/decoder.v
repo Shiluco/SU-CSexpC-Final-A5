@@ -96,7 +96,7 @@ module decoder (
     output wire BUS_A_to_AND_one,
     output wire BUS_B_to_AND_one,
     output wire REG_A_to_BUS_S,
-    output wire REG_B_to_BUS_S,
+    output wire REG_Q_to_BUS_S,
     output wire [2:0] MUL_ctrl
 );
     // 全体的にbdfに準拠するためにまとめていない。
@@ -588,7 +588,7 @@ module decoder (
     assign BUS_A_to_AND_one = MUL1;
     assign BUS_B_to_AND_one = MUL2_1 | MUL2_2;
     assign REG_A_to_BUS_S = MUL4;
-    assign REG_B_to_BUS_S = MUL3;
+    assign REG_Q_to_BUS_S = MUL3;
 
     // MUL_ctrl[2:0]
     assign MUL_ctrl[0] = MUL2_1 | MUL2_2 | MUL3 | MUL4;

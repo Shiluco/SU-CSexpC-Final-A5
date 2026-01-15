@@ -6,7 +6,7 @@
 module datapath_top(
     // クロック・リセット
     input  wire        CLK,
-    input  wire        CLR,
+    input  wire        CLR,          // クリア（active low）
 
     // メモリインターフェース
     input  wire [15:0] M_bus_in,       // メモリからのデータ入力
@@ -47,13 +47,13 @@ module datapath_top(
     input  wire        SMA,            // Sバス → MAR
 
     // シフタ制御信号
-    input  wire        Rin,
-    input  wire        Lin,
-    input  wire        Ain_shift,
-    input  wire        Bin_shift,
-    input  wire        Cin,
-    input  wire        Din,
-    input  wire        Ein,
+    input  wire        SFT_R,
+    input  wire        SFT_L,
+    input  wire        SFT_A,
+    input  wire        SFT_B,
+    input  wire        SFT_C,
+    input  wire        SFT_D,
+    input  wire        SFT_E,
     input  wire        SHS,            // シフタ → Sバス
 
     // 定数値出力制御信号（割り込みゲート名に合わせる）
@@ -61,11 +61,11 @@ module datapath_top(
     input  wire        EIT,            // 0x00C0 → Sバス
 
     // H4 ALU制御信号
-    input  wire        y,
-    input  wire        z,
-    input  wire        x,
-    input  wire        v,
-    input  wire        u,
+    input  wire        ALU_y,
+    input  wire        ALU_z,
+    input  wire        ALU_x,
+    input  wire        ALU_v,
+    input  wire        ALU_u,
     input  wire        ALS_H4,         // H4 → Sバス
 
     // H6制御信号
@@ -216,13 +216,13 @@ module datapath_top(
     wire        shifter_Cf;
 
     shifter_module shifter_inst(
-        .Rin(Rin),
-        .Lin(Lin),
-        .Ain(Ain_shift),
-        .Bin(Bin_shift),
-        .Cin(Cin),
-        .Din(Din),
-        .Ein(Ein),
+        .Rin(SFT_R),
+        .Lin(SFT_L),
+        .Ain(SFT_A),
+        .Bin(SFT_B),
+        .Cin(SFT_C),
+        .Din(SFT_D),
+        .Ein(SFT_E),
         .SHS(SHS),
         .A_bus(A_bus),
         .shifter_out(shifter_out),
@@ -239,11 +239,11 @@ module datapath_top(
     wire        H4_overflow;
 
     H4_module h4_inst(
-        .y(y),
-        .z(z),
-        .x(x),
-        .v(v),
-        .u(u),
+        .y(ALU_y),
+        .z(ALU_z),
+        .x(ALU_x),
+        .v(ALU_v),
+        .u(ALU_u),
         .ALS_H4(ALS_H4),
         .A_bus_in(A_bus),
         .B_bus_in(B_bus),
