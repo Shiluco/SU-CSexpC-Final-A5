@@ -107,6 +107,7 @@ module controller (
     output wire f_is_D,
     output wire t_is_D,
     output wire is_T_DFive,
+    output wire is_T_DSeven,
 
     output wire EIT_gate,
     output wire OIT_gate,
@@ -116,6 +117,29 @@ module controller (
     output wire REG_A_to_BUS_S,
     output wire REG_Q_to_BUS_S,
     output wire [2:0] MUL_ctrl,
+
+    // 命令種別出力
+    output wire CLR_inst,
+    output wire MOV,
+    output wire ADD,
+    output wire ADC,
+    output wire SUB,
+    output wire SBC,
+    output wire CMP,
+
+    output wire ASL,
+    output wire ASR,
+    output wire ROL,
+    output wire ROR,
+    output wire RLC,
+    output wire RRC,
+    output wire LSL,
+    output wire LSR,
+
+    output wire OR_inst,
+    output wire XOR_inst,
+    output wire AND_inst,
+    output wire BIT_inst,
 
     // ISRレジスタの出力（デバッグ用）
     output wire [15:0] ISR_out
@@ -268,6 +292,7 @@ module controller (
         .f_is_D(f_is_D),
         .t_is_D(t_is_D),
         .is_T_DFive(is_T_DFive),
+        .is_T_DSeven(is_T_DSeven),
         .EIT_gate(EIT_gate),
         .OIT_gate(OIT_gate),
         .op_MUL(op_MUL),
@@ -278,6 +303,29 @@ module controller (
         .REG_A_to_BUS_S(REG_A_to_BUS_S),
         .REG_Q_to_BUS_S(REG_Q_to_BUS_S),
         .MUL_ctrl(MUL_ctrl),
+
+        .CLR_inst(CLR_inst),
+        .MOV(MOV),
+        .ADD(ADD),
+        .ADC(ADC),
+        .SUB(SUB),
+        .SBC(SBC),
+        .CMP(CMP),
+
+        .ASL(ASL),
+        .ASR(ASR),
+        .ROL(ROL),
+        .ROR(ROR),
+        .RLC(RLC),
+        .RRC(RRC),
+        .LSL(LSL),
+        .LSR(LSR),
+
+        .OR_inst(OR_inst),
+        .XOR_inst(XOR_inst),
+        .AND_inst(AND_inst),
+        .BIT_inst(BIT_inst),
+
         .ISR_out(ISR_out)
     );
 

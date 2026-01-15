@@ -86,6 +86,7 @@ module decoder (
     output wire f_is_D,
     output wire t_is_D,
     output wire is_T_DFive,
+    output wire is_T_DSeven,
 
     output wire EIT_gate,
     output wire OIT_gate,
@@ -98,6 +99,29 @@ module decoder (
     output wire REG_A_to_BUS_S,
     output wire REG_Q_to_BUS_S,
     output wire [2:0] MUL_ctrl
+
+    // 命令種別を外部に出力（controller から参照するため）
+    output wire CLR_inst,
+    output wire MOV,
+    output wire ADD,
+    output wire ADC,
+    output wire SUB,
+    output wire SBC,
+    output wire CMP,
+
+    output wire ASL,
+    output wire ASR,
+    output wire ROL,
+    output wire ROR,
+    output wire RLC,
+    output wire RRC,
+    output wire LSL,
+    output wire LSR,
+
+    output wire OR_inst,
+    output wire XOR_inst,
+    output wire AND_inst,
+    output wire BIT_inst
 );
     // 全体的にbdfに準拠するためにまとめていない。
 
@@ -582,7 +606,8 @@ module decoder (
 
     assign OIT_gate = IT2 & ~EIT & OIT;
 
-    assign is_T_DFive = is_T_five & t_is_D;
+    assign is_T_DFive  = is_T_five  & t_is_D;
+    assign is_T_DSeven = is_T_seven & t_is_D;
 
     // MUL関連の制御信号
     assign BUS_A_to_AND_one = MUL1;
@@ -594,5 +619,28 @@ module decoder (
     assign MUL_ctrl[0] = MUL2_1 | MUL2_2 | MUL3 | MUL4;
     assign MUL_ctrl[1] = op_MUL | MUL2_1 | MUL2_2 | MUL3 | MUL4;
     assign MUL_ctrl[2] = MUL1 | MUL3 | MUL4;
+
+    // 命令種別出力
+    assign CLR_inst = op_CLR;
+    assign MOV      = op_MOV;
+    assign ADD      = op_ADD;
+    assign ADC      = op_ADC;
+    assign SUB      = op_SUB;
+    assign SBC      = op_SBC;
+    assign CMP      = op_CMP;
+
+    assign ASL      = op_ASL;
+    assign ASR      = op_ASR;
+    assign ROL      = op_ROL;
+    assign ROR      = op_ROR;
+    assign RLC      = op_RLC;
+    assign RRC      = op_RRC;
+    assign LSL      = op_LSL;
+    assign LSR      = op_LSR;
+
+    assign OR_inst  = op_OR;
+    assign XOR_inst = op_XOR;
+    assign AND_inst = op_AND;
+    assign BIT_inst = op_BIT;
 
 endmodule
