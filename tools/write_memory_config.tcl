@@ -1,266 +1,279 @@
 #!/usr/bin/tclsh
 # ============================================================================
-# Memory Write Script from Config File for Quartus In-System Memory Content Editor
-# ============================================================================
-# This script reads a config file and writes values to FPGA memory
-# Usage: quartus_stp -t write_memory_config.tcl <hardware_name> <device_name> <config_file>
+# Memory Write Script (robust) for Quartus In-System Memory Content Editor
+#
+# Usage:
+#   quartus_stp -t write_memory_config.tcl <hardware_name> <device_name|@idx|idx|auto> <config_file>
+#
+# Your env (Quartus 20.1) provides:
+#   begin_memory_edit, end_memory_edit, get_editable_mem_instances,
+#   write_content_to_memory, update_content_to_memory_from_file
 # ============================================================================
 
+package require ::quartus::jtag
 package require ::quartus::insystem_memory_edit
 
-# Memory instance indices
+# -------------------------
+# Memory instance indices (your design assumption)
+# -------------------------
 set MEM_INSTANCE_CLKD 0
 set MEM_INSTANCE_RUNM 1
 set MEM_INSTANCE_SRAM 2
 set MEM_INSTANCE_DISP 3
 
-# Get command line arguments
-if { [llength $argv] != 3 } {
-    puts "ERROR: Invalid number of arguments"
-    puts "Usage: quartus_stp -t write_memory_config.tcl <hardware_name> <device_name> <config_file>"
-    exit 1
+# -------------------------
+# utils
+# -------------------------
+proc die {msg {code 1}} {
+    puts "ERROR: $msg"
+    exit $code
 }
 
-lassign $argv hardware_name device_name config_file
+proc warn {msg} { puts "WARNING: $msg" }
 
-# Check if config file exists
-if { ![file exists $config_file] } {
-    puts "ERROR: Config file not found: $config_file"
-    exit 1
+proc parse_int {s} {
+    set t [string trim $s]
+    if {[string match -nocase "0x*" $t]} {
+        return [expr "0x[string range $t 2 end]"]
+    }
+    return [expr {int($t)}]
+}
+
+# 終了保証（セッション残り対策）
+proc cleanup_memory_edit {} {
+    catch { end_memory_edit } _
+}
+
+# device_spec を解釈して get_device_names の返り値から選ぶ
+proc resolve_device_name {hardware_name device_spec} {
+    set devs [get_device_names -hardware_name $hardware_name]
+    if {[llength $devs] == 0} {
+        die "No device found on hardware '$hardware_name'. Check cable/power/JTAG."
+    }
+
+    set spec [string trim $device_spec]
+    if {$spec eq "" || [string equal -nocase $spec "auto"]} {
+        return [lindex $devs 0]
+    }
+
+    # そのまま一致
+    if {[lsearch -exact $devs $spec] >= 0} {
+        return $spec
+    }
+
+    # @N / N を「N番目(1-indexed)」
+    if {[string match "@*" $spec]} {
+        set n [string range $spec 1 end]
+    } else {
+        set n $spec
+    }
+
+    if {[string is integer -strict $n]} {
+        set idx [expr {$n - 1}]
+        if {$idx < 0 || $idx >= [llength $devs]} {
+            die "Device index '$n' is out of range. Available devices: $devs"
+        }
+        return [lindex $devs $idx]
+    }
+
+    die "Device spec '$device_spec' not found/invalid. Available devices: $devs"
+}
+
+# write single word helper (uses write_content_to_memory)
+# Note: begin_memory_edit must be called before this function
+proc write_word {instance_index value_int} {
+    # Quartus 20.1: write_content_to_memory requires -content (string) and -word_count
+    # Use address 0, 1 word. Value is provided as hexadecimal string.
+    # After begin_memory_edit, hardware_name and device_name are not needed
+    write_content_to_memory \
+        -instance_index $instance_index \
+        -start_address  0 \
+        -word_count     1 \
+        -content_in_hex \
+        -content        [format "%X" $value_int]
+}
+
+# -------------------------
+# args
+# -------------------------
+if {[llength $argv] != 3} {
+    die "Invalid number of arguments.\nUsage: quartus_stp -t write_memory_config.tcl <hardware_name> <device_name|@idx|idx|auto> <config_file>"
+}
+
+lassign $argv hardware_name device_spec config_file
+
+if {![file exists $config_file]} {
+    die "Config file not found: $config_file"
 }
 
 puts "========================================="
 puts "Memory Write Operation from Config File"
 puts "========================================="
 puts "Hardware Name: $hardware_name"
-puts "Device Name: $device_name"
-puts "Config File: $config_file"
+puts "Device Spec  : $device_spec"
+puts "Config File  : $config_file"
 puts "========================================="
 
-# Read and parse config file
+# -------------------------
+# read config
+# -------------------------
 puts "Reading config file..."
 set config_data [dict create]
-set file_handle [open $config_file r]
-set line_number 0
 
-while { [gets $file_handle line] >= 0 } {
+set fh [open $config_file r]
+set line_number 0
+while {[gets $fh line] >= 0} {
     incr line_number
     set line [string trim $line]
-    
-    # Skip empty lines and comments
-    if { $line eq "" || [string match "#*" $line] } {
+    if {$line eq "" || [string match "#*" $line]} {
         continue
     }
-    
-    # Parse key:value format
-    if { [regexp {^([^:]+):(.+)$} $line -> key value] } {
-        set key [string trim $key]
+    if {[regexp {^([^:]+):(.+)$} $line -> key value]} {
+        set key   [string toupper [string trim $key]]
         set value [string trim $value]
-        dict set config_data [string toupper $key] $value
+        dict set config_data $key $value
     } else {
-        puts "WARNING: Invalid format at line $line_number: $line (expected KEY:VALUE)"
+        warn "Invalid format at line $line_number: $line (expected KEY:VALUE)"
     }
 }
-close $file_handle
+close $fh
 
-# Check required keys
 set required_keys {CLKD RUNM SRAM DISP}
-foreach key $required_keys {
-    if { ![dict exists $config_data $key] } {
-        puts "ERROR: Required key '$key' not found in config file"
-        exit 1
+foreach k $required_keys {
+    if {![dict exists $config_data $k]} {
+        die "Required key '$k' not found in config file"
     }
 }
 
 puts "Config file parsed successfully:"
-dict for {key value} $config_data {
-    puts "  $key: $value"
-}
+dict for {k v} $config_data { puts "  $k: $v" }
 
-# Begin memory edit session
-puts ""
-puts "Starting memory edit session..."
+# -------------------------
+# main (with guaranteed cleanup)
+# -------------------------
+set rc 0
+cleanup_memory_edit
+after 200
 
-# Try to begin memory edit with device name as-is first
-if { [catch {begin_memory_edit -hardware_name $hardware_name -device_name $device_name} result] } {
-    puts "WARNING: Failed with device name '$device_name': $result"
+if {[catch {
+    set final_device_name [resolve_device_name $hardware_name $device_spec]
     puts ""
-    puts "Trying alternative device name format..."
-    
-    # Try with just the index number
-    set device_index [string map {"@" ""} $device_name]
-    if { [catch {begin_memory_edit -hardware_name $hardware_name -device_name $device_index} result2] } {
-        puts "ERROR: Failed to begin memory edit session with both formats"
-        puts "  Device name '$device_name': $result"
-        puts "  Device index '$device_index': $result2"
-        puts ""
-        puts "Troubleshooting:"
-        puts "  1. Make sure FPGA is connected via USB-Blaster"
-        puts "  2. Check if USB-Blaster drivers are installed"
-        puts "  3. Make sure FPGA is powered on"
-        puts "  4. Make sure FPGA has been programmed with the design (run 'make program')"
-        puts "  5. Try using device name from 'make list-devices' output"
-        exit 1
-    } else {
-        set device_name $device_index
-        puts "Successfully connected using device index: $device_name"
-    }
-} else {
-    puts "Successfully connected using device name: $device_name"
-}
+    puts "Detected/Selected device: $final_device_name"
 
-puts "Memory edit session started successfully"
-
-# Get editable memory instances (for verification)
-puts "Getting editable memory instances..."
-if { [catch {get_editable_mem_instances -hardware_name $hardware_name -device_name $device_name} instances] } {
-    puts "WARNING: Failed to get editable memory instances: $instances"
-    puts "Continuing anyway..."
-} else {
+    puts "Getting editable memory instances..."
+    set instances [get_editable_mem_instances -hardware_name $hardware_name -device_name $final_device_name]
     puts "Found [llength $instances] editable memory instance(s)"
-}
+    if {[llength $instances] <= $MEM_INSTANCE_DISP} {
+        warn "Instance count is small. Your indices (0..3) may not match. Instances: $instances"
+    }
 
-set errors 0
+    puts ""
+    puts "Starting memory edit session..."
+    begin_memory_edit -hardware_name $hardware_name -device_name $final_device_name
+    puts "Memory edit session started successfully"
 
-# Write to CLKD
-set clkd_value [dict get $config_data CLKD]
-puts ""
-puts "========================================="
-puts "[1/4] Writing to CLKD (Index $MEM_INSTANCE_CLKD)"
-puts "========================================="
-puts "Value: $clkd_value"
+    set errors 0
 
-# Parse value (support hex with 0x prefix or decimal)
-set clkd_int 0
-if { [string match "0x*" $clkd_value] || [string match "0X*" $clkd_value] } {
-    set clkd_int [expr "0x[string range $clkd_value 2 end]"]
-} else {
-    set clkd_int [expr {int($clkd_value)}]
-}
-
-if { [catch {
-    update_content_to_memory_from_memory_data \
-        -hardware_name $hardware_name \
-        -device_name $device_name \
-        -instance_index $MEM_INSTANCE_CLKD \
-        -start_address 0 \
-        -memory_data [list $clkd_int]
-} result] } {
-    puts "ERROR: Failed to write to CLKD: $result"
-    incr errors
-} else {
-    puts "OK: CLKD written successfully"
-}
-
-# Write to RUNM
-set runm_value [dict get $config_data RUNM]
-puts ""
-puts "========================================="
-puts "[2/4] Writing to RUNM (Index $MEM_INSTANCE_RUNM)"
-puts "========================================="
-puts "Value: $runm_value"
-
-# Parse value
-set runm_int 0
-if { [string match "0x*" $runm_value] || [string match "0X*" $runm_value] } {
-    set runm_int [expr "0x[string range $runm_value 2 end]"]
-} else {
-    set runm_int [expr {int($runm_value)}]
-}
-
-if { [catch {
-    update_content_to_memory_from_memory_data \
-        -hardware_name $hardware_name \
-        -device_name $device_name \
-        -instance_index $MEM_INSTANCE_RUNM \
-        -start_address 0 \
-        -memory_data [list $runm_int]
-} result] } {
-    puts "ERROR: Failed to write to RUNM: $result"
-    incr errors
-} else {
-    puts "OK: RUNM written successfully"
-}
-
-# Write to SRAM from file
-set sram_file [dict get $config_data SRAM]
-puts ""
-puts "========================================="
-puts "[3/4] Writing to SRAM (Index $MEM_INSTANCE_SRAM)"
-puts "========================================="
-puts "MIF File: $sram_file"
-
-# Check if MIF file exists (resolve relative to config file directory)
-set config_dir [file dirname [file normalize $config_file]]
-if { ![file isabsolute $sram_file] } {
-    set sram_file [file join $config_dir $sram_file]
-}
-set sram_file [file normalize $sram_file]
-
-if { ![file exists $sram_file] } {
-    puts "ERROR: MIF file not found: $sram_file"
-    incr errors
-} else {
-    if { [catch {
-        update_content_to_memory_from_file \
-            -hardware_name $hardware_name \
-            -device_name $device_name \
-            -instance_index $MEM_INSTANCE_SRAM \
-            -mem_file_path $sram_file \
-            -mem_file_type mif
-    } result] } {
-        puts "ERROR: Failed to write to SRAM: $result"
+    # 1/4 CLKD
+    set clkd_value [dict get $config_data CLKD]
+    set clkd_int   [parse_int $clkd_value]
+    puts ""
+    puts "========================================="
+    puts "1/4 Writing to CLKD (Index $MEM_INSTANCE_CLKD)"
+    puts "========================================="
+    puts "Value: $clkd_value ($clkd_int)"
+    if {[catch { write_word $MEM_INSTANCE_CLKD $clkd_int } r]} {
+        puts "ERROR: Failed to write to CLKD: $r"
         incr errors
     } else {
-        puts "OK: SRAM written successfully"
+        puts "OK: CLKD written successfully"
     }
+
+    # 2/4 RUNM
+    set runm_value [dict get $config_data RUNM]
+    set runm_int   [parse_int $runm_value]
+    puts ""
+    puts "========================================="
+    puts "2/4 Writing to RUNM (Index $MEM_INSTANCE_RUNM)"
+    puts "========================================="
+    puts "Value: $runm_value ($runm_int)"
+    if {[catch { write_word $MEM_INSTANCE_RUNM $runm_int } r]} {
+        puts "ERROR: Failed to write to RUNM: $r"
+        incr errors
+    } else {
+        puts "OK: RUNM written successfully"
+    }
+
+    # 3/4 SRAM from file (MIF)
+    set sram_file [dict get $config_data SRAM]
+    puts ""
+    puts "========================================="
+    puts "3/4 Writing to SRAM (Index $MEM_INSTANCE_SRAM)"
+    puts "========================================="
+    puts "MIF File (raw): $sram_file"
+
+    # resolve relative path (Tcl variant-safe)
+    # config_file is in tools/, but MIF files are in SU-CSexpC-Final-A5/test/mif/
+    # So we need to go up one level from config_dir (tools/) to SU-CSexpC-Final-A5/
+    set config_dir [file dirname [file normalize $config_file]]
+    if {[file pathtype $sram_file] ne "absolute"} {
+        # Go up one level from tools/ to SU-CSexpC-Final-A5/
+        set base_dir [file dirname $config_dir]
+        set sram_file [file join $base_dir $sram_file]
+    }
+    set sram_file [file normalize $sram_file]
+    puts "MIF File (resolved): $sram_file"
+
+    if {![file exists $sram_file]} {
+        puts "ERROR: MIF file not found: $sram_file"
+        incr errors
+    } else {
+        if {[catch {
+            # After begin_memory_edit, hardware_name and device_name are not needed
+            update_content_to_memory_from_file \
+                -instance_index $MEM_INSTANCE_SRAM \
+                -mem_file_path  $sram_file \
+                -mem_file_type  mif
+        } r]} {
+            puts "ERROR: Failed to write to SRAM: $r"
+            incr errors
+        } else {
+            puts "OK: SRAM written successfully"
+        }
+    }
+
+    # 4/4 DISP
+    set disp_value [dict get $config_data DISP]
+    set disp_int   [parse_int $disp_value]
+    puts ""
+    puts "========================================="
+    puts "4/4 Writing to DISP (Index $MEM_INSTANCE_DISP)"
+    puts "========================================="
+    puts "Value: $disp_value ($disp_int)"
+    if {[catch { write_word $MEM_INSTANCE_DISP $disp_int } r]} {
+        puts "ERROR: Failed to write to DISP: $r"
+        incr errors
+    } else {
+        puts "OK: DISP written successfully"
+    }
+
+    puts ""
+    puts "========================================="
+    if {$errors > 0} {
+        puts "Memory write operation completed with $errors error(s)!"
+        set ::rc 1
+    } else {
+        puts "Memory write operation completed successfully!"
+        set ::rc 0
+    }
+    puts "========================================="
+
+} err]} {
+    puts "ERROR: $err"
+    set rc 1
 }
 
-# Write to DISP
-set disp_value [dict get $config_data DISP]
-puts ""
-puts "========================================="
-puts "[4/4] Writing to DISP (Index $MEM_INSTANCE_DISP)"
-puts "========================================="
-puts "Value: $disp_value"
-
-# Parse value
-set disp_int 0
-if { [string match "0x*" $disp_value] || [string match "0X*" $disp_value] } {
-    set disp_int [expr "0x[string range $disp_value 2 end]"]
-} else {
-    set disp_int [expr {int($disp_value)}]
-}
-
-if { [catch {
-    update_content_to_memory_from_memory_data \
-        -hardware_name $hardware_name \
-        -device_name $device_name \
-        -instance_index $MEM_INSTANCE_DISP \
-        -start_address 0 \
-        -memory_data [list $disp_int]
-} result] } {
-    puts "ERROR: Failed to write to DISP: $result"
-    incr errors
-} else {
-    puts "OK: DISP written successfully"
-}
-
-# End memory edit session
 puts ""
 puts "Ending memory edit session..."
-if { [catch {end_memory_edit -hardware_name $hardware_name -device_name $device_name} result] } {
-    puts "WARNING: Failed to end memory edit session: $result"
-}
-
-puts ""
-puts "========================================="
-if { $errors > 0 } {
-    puts "Memory write operation completed with $errors error(s)!"
-    exit 1
-} else {
-    puts "Memory write operation completed successfully!"
-}
-puts "========================================="
-exit 0
-
+cleanup_memory_edit
+exit $rc

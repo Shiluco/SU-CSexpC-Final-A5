@@ -1,0 +1,19 @@
+# Memory Configuration File
+# Format: KEY:VALUE
+# Lines starting with # are comments
+# Empty lines are ignored
+
+# CLKD: Clock divider value (0-7, 3-bit)
+CLKD:0
+
+# RUNM: Run mode value (0-7, 3-bit)
+RUNM:0
+
+# SRAM: MIF file path (relative to this config file or absolute path)
+# Example: test/mif/test_program1.mif
+# Example: ../test/mif/test_program1.mif
+SRAM:test/mif/test_program1.mif
+
+# DISP: Display mode value (0-3, 2-bit)
+DISP:0
+

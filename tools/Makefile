@@ -19,6 +19,7 @@ QSTP := $(QUARTUS_BIN)/quartus_stp.exe
 # ========================
 PROJECT := Interface_ver01_with_extboard
 CABLE   := USB-Blaster [USB-0]
+DEVICE  := EP4CE115F29C7
 
 # Memory instance indices
 MEM_INSTANCE_CLKD := 0  # CLKD: Width=3, Depth=1, Constant, Read/Write
@@ -178,11 +179,12 @@ write-mem-config:
 	cd "$(PROJECT_ROOT)" && \
 		"$(QSTP)" -t "$(shell wslpath -m "$(WORK_ROOT)/write_memory_config.tcl")" \
 			"$(CABLE)" \
-			"@1" \
+			"auto" \
 			"$$config_file_win" || { \
 		echo -e "$(COLOR_ERR)[ERROR] Memory write failed$(COLOR_RESET)"; \
 		exit 1; }
 	$(call OK,"Memory write from config file completed")
+
 
 # List available hardware and devices
 # Usage: make list-devices
