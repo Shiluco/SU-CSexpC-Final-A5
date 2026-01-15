@@ -106,6 +106,7 @@ module controller (
 
     output wire f_is_D,
     output wire t_is_D,
+    output wire is_T_DFive,
 
     output wire EIT_gate,
     output wire OIT_gate,
@@ -266,6 +267,7 @@ module controller (
         .MDM(MDM),
         .f_is_D(f_is_D),
         .t_is_D(t_is_D),
+        .is_T_DFive(is_T_DFive),
         .EIT_gate(EIT_gate),
         .OIT_gate(OIT_gate),
         .op_MUL(op_MUL),
