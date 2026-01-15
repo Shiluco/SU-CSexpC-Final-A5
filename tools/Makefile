@@ -33,7 +33,7 @@ MEM_CONFIG_FILE := $(WORK_ROOT)/memory_config.cfg
 SOF     := $(PROJECT_ROOT)/output_files/$(PROJECT).sof
 SOF_WIN := $(shell wslpath -w "$(SOF)")
 
-.PHONY: all gen build program clean assemble mif assemble-mif write-mem-config list-devices
+.PHONY: all gen build program clean assemble mif assemble-mif write-mem-config list-devices run
 
 # ========================
 # Assembler
@@ -82,6 +82,19 @@ all:
 	$(MAKE) gen && \
 	$(MAKE) build && \
 	$(MAKE) program; \
+	END=$$(date +%s); \
+	echo -e "$(COLOR_OK)========== ALL DONE ($$((END-START)) sec) ==========$(COLOR_RESET)"
+
+# ========================
+# run (compile + program + write memory)
+# ========================
+run:
+	$(call STEP,"FPGA FLOW WITH MEMORY WRITE")
+	@START=$$(date +%s); \
+	$(MAKE) gen && \
+	$(MAKE) build && \
+	$(MAKE) program && \
+	$(MAKE) write-mem-config; \
 	END=$$(date +%s); \
 	echo -e "$(COLOR_OK)========== ALL DONE ($$((END-START)) sec) ==========$(COLOR_RESET)"
 
