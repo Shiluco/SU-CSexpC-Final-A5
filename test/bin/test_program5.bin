@@ -1,0 +1,19 @@
+;              ;     .=0xf860
+0000F860: 47E7 ;     JMP label_0xfa70
+0000F861: FA70 ; 
+;              ;     .=0xfa70
+;              ; label_0xfa70:
+0000FA70: 43E0 ;     MOV #0xffe0, R0
+0000FA71: FFE0 ; 
+0000FA72: 43E1 ;     MOV #0x0001, R1
+0000FA73: 0001 ; 
+0000FA74: B3FE ;     JSR label_0xfa7b
+0000FA75: FA7B ; 
+0000FA76: 4102 ;     MOV (R0), R2
+0000FA77: 5021 ;     ADD R1, R1
+0000FA78: B7FE ;     RJS label_0xfa7b
+0000FA79: 0001 ; 
+0000FA7A: 0000 ;     HLT
+;              ; label_0xfa7b:
+0000FA7B: 4028 ;     MOV R1, (R0)
+0000FA7C: 4AC7 ;     RET

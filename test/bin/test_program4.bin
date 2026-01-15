@@ -1,0 +1,52 @@
+;              ;     .=0xf858
+0000F858: 47E7 ;     JMP label_0xfa40
+0000F859: F85A ; 
+;              ; label_0xfa40:
+0000F85A: 43E0 ;     MOV #0xffe0, R0
+0000F85B: FFE0 ; 
+0000F85C: 47E7 ;     JMP label_0xfa47
+0000F85D: F861 ; 
+0000F85E: 43E8 ;     MOV #0xffff, (R0)
+0000F85F: FFFF ; 
+0000F860: 0000 ;     HLT
+;              ; label_0xfa47:
+0000F861: 57E7 ;     RJP label_0xfa4b
+0000F862: 0002 ; 
+0000F863: 47E7 ;     JMP label_0xfa66
+0000F864: F880 ; 
+;              ; label_0xfa4b:
+0000F865: 43E5 ;     MOV #0x0008, R5
+0000F866: 0008 ; 
+0000F867: E3E7 ;     RBN label_0xfa51
+0000F868: 0002 ; 
+0000F869: 47E7 ;     JMP label_0xfa66
+0000F86A: F880 ; 
+;              ; label_0xfa51:
+0000F86B: 43E5 ;     MOV #0x0004, R5
+0000F86C: 0004 ; 
+0000F86D: E7E7 ;     RBZ label_0xfa57
+0000F86E: 0002 ; 
+0000F86F: 47E7 ;     JMP label_0xfa66
+0000F870: F880 ; 
+;              ; label_0xfa57:
+0000F871: 43E5 ;     MOV #0x0002, R5
+0000F872: 0002 ; 
+0000F873: EBE7 ;     RBV label_0xfa5d
+0000F874: 0002 ; 
+0000F875: 47E7 ;     JMP label_0xfa66
+0000F876: F880 ; 
+;              ; label_0xfa5d:
+0000F877: 43E5 ;     MOV #0x0001, R5
+0000F878: 0001 ; 
+0000F879: EFE7 ;     RBC label_0xfa63
+0000F87A: 0002 ; 
+0000F87B: 47E7 ;     JMP label_0xfa66
+0000F87C: F880 ; 
+;              ; label_0xfa63:
+0000F87D: 43E8 ;     MOV #0x0001, (R0)
+0000F87E: 0001 ; 
+0000F87F: 0000 ;     HLT
+;              ; label_0xfa66:
+0000F880: 43E8 ;     MOV #0xffff, (R0)
+0000F881: FFFF ; 
+0000F882: 0000 ;     HLT
