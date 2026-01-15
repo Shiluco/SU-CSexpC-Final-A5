@@ -22,7 +22,7 @@ CABLE   := USB-Blaster[USB-0]
 SOF     := $(PROJECT_ROOT)/output_files/$(PROJECT).sof
 SOF_WIN := $(shell wslpath -w "$(SOF)")
 
-.PHONY: all gen build program clean assemble
+.PHONY: all gen build program clean assemble mif assemble-mif
 
 # ========================
 # Assembler
@@ -30,9 +30,12 @@ SOF_WIN := $(shell wslpath -w "$(SOF)")
 SU_ROOT := $(abspath $(CURDIR)/..)
 ASM_DIR := $(SU_ROOT)/test/asm
 BIN_DIR := $(SU_ROOT)/test/bin
+MIF_DIR := $(SU_ROOT)/test/mif
 JAR_FILE := $(WORK_ROOT)/sep3asm.jar
+BIN2MIF_SCRIPT := $(WORK_ROOT)/bin2mif.sh
 ASM_FILES := $(wildcard $(ASM_DIR)/*.asm)
 BIN_FILES := $(patsubst $(ASM_DIR)/%.asm,$(BIN_DIR)/%.bin,$(ASM_FILES))
+MIF_FILES := $(patsubst $(ASM_DIR)/%.asm,$(MIF_DIR)/%.mif,$(ASM_FILES))
 
 # ========================
 # pretty log
@@ -114,6 +117,33 @@ assemble:
 		java -jar "$(JAR_FILE)" "asm/$$asm_basename.asm" "bin/$$asm_basename.bin" 2>&1 | grep -v "%%% 問題箇所はありません。" > "bin/$$asm_basename.bin"; \
 	done
 	$(call OK,"Assemble completed")
+
+# ========================
+# generate MIF files
+# ========================
+mif:
+	$(call STEP,"Generate MIF files")
+	@mkdir -p "$(MIF_DIR)"
+	@for bin_file in $(BIN_FILES); do \
+		if [ -f "$$bin_file" ]; then \
+			bin_basename=$$(basename "$$bin_file" .bin); \
+			mif_file="$(MIF_DIR)/$$bin_basename.mif"; \
+			echo -e "$(COLOR_INFO)Converting: $$bin_basename.bin -> $$bin_basename.mif$(COLOR_RESET)"; \
+			bash "$(BIN2MIF_SCRIPT)" "$$bin_file" > "$$mif_file"; \
+			if [ $$? -eq 0 ] && [ -f "$$mif_file" ]; then \
+				echo -e "$(COLOR_OK)[OK] $$bin_basename.mif generated$(COLOR_RESET)"; \
+			else \
+				echo -e "$(COLOR_ERR)[ERROR] Failed to convert $$bin_basename.bin$(COLOR_RESET)"; \
+			fi; \
+		fi; \
+	done
+	$(call OK,"MIF generation completed")
+
+# ========================
+# assemble and generate MIF
+# ========================
+assemble-mif: assemble mif
+	$(call OK,"Assemble and MIF generation completed")
 
 # ========================
 # clean
