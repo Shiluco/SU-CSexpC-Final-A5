@@ -1,8 +1,8 @@
 # Auto-generated. Do not edit.
-# Generated at: 2026-01-15 20:22:21
+# Generated at: 2026-01-15 23:47:16
 
-set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/ISR_decoder.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/controller.v"
+set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/isr_decoder.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/modules/SC.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/modules/counter_4bit_sync.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/modules/decoder.v"
@@ -39,6 +39,11 @@ set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/datapath/shifte
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/interface/if_SC.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/interface/if_counter_4bit.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/interface/if_switchable_register.v"
+set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/interface/interface_ALU/if_H4.v"
+set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/interface/interface_ALU/if_PSW_setreset.v"
+set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/interface/interface_MDR/if_MDR.v"
+set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/interface/interface_modules/if_GPR.v"
+set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/interface/interface_shifter/if_shifter.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/lib/itf.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/lib/run.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/lib/v_chatter.v"
