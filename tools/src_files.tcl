@@ -1,16 +1,18 @@
 # Auto-generated. Do not edit.
-# Generated at: 2026-01-15 19:18:39
+# Generated at: 2026-01-15 20:22:21
 
+set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/ISR_decoder.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/controller.v"
-set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/isr_decoder.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/modules/SC.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/modules/counter_4bit_sync.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/modules/decoder.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/modules/isr.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/state_mul_controller.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/datapath/ALU/ALU_sub_module/Block2.v"
+set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/datapath/ALU/ALU_sub_module/ControlUnit.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/datapath/ALU/ALU_sub_module/FA.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/datapath/ALU/ALU_sub_module/alu.v"
+set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/datapath/ALU/ALU_sub_module/hexCounter.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/datapath/ALU/ALU_sub_module/multi.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/datapath/ALU/ALU_sub_module/sevenSegments.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/datapath/ALU/ALU_sub_module/sixteenALU.v"

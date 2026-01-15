@@ -126,112 +126,144 @@ output wire	FmuxOut;
 
 
 multi	b2v_inst(
-	.S(MUXsw),
+	.Sa(MUXsw),
+	.Sb(1'b0),
 	.A(Zero_Ain),
 	.B(Zero_Bin),
+	.C(1'b0),
 	.multiOut(ZeromuxOut));
 
 
 multi	b2v_inst10(
-	.S(MUXsw),
+	.Sa(MUXsw),
+	.Sb(1'b0),
+	.C(1'b0),
 	.A(Nine_Ain),
 	.B(Nine_Bin),
 	.multiOut(NinemuxOut));
 
 
 multi	b2v_inst11(
-	.S(MUXsw),
+	.Sa(MUXsw),
+	.Sb(1'b0),
+	.C(1'b0),
 	.A(A_Ain),
 	.B(A_Bin),
 	.multiOut(AmuxOut));
 
 
 multi	b2v_inst12(
-	.S(MUXsw),
+	.Sa(MUXsw),
+	.Sb(1'b0),
+	.C(1'b0),
 	.A(B_Ain),
 	.B(B_Bin),
 	.multiOut(BmuxOut));
 
 
 multi	b2v_inst13(
-	.S(MUXsw),
+	.Sa(MUXsw),
+	.Sb(1'b0),
+	.C(1'b0),
 	.A(C_Ain),
 	.B(C_Bin),
 	.multiOut(CmuxOut));
 
 
 multi	b2v_inst14(
-	.S(MUXsw),
+	.Sa(MUXsw),
+	.Sb(1'b0),
+	.C(1'b0),
 	.A(D_Ain),
 	.B(D_Bin),
 	.multiOut(DmuxOut));
 
 
 multi	b2v_inst15(
-	.S(MUXsw),
+	.Sa(MUXsw),
+	.Sb(1'b0),
+	.C(1'b0),
 	.A(E_Ain),
 	.B(E_Bin),
 	.multiOut(EmuxOut));
 
 
 multi	b2v_inst16(
-	.S(MUXsw),
+	.Sa(MUXsw),
+	.Sb(1'b0),
+	.C(1'b0),
 	.A(F_Ain),
 	.B(F_Bin),
 	.multiOut(FmuxOut));
 
 
 multi	b2v_inst2(
-	.S(MUXsw),
+	.Sa(MUXsw),
+	.Sb(1'b0),
+	.C(1'b0),
 	.A(One_Ain),
 	.B(One_Bin),
 	.multiOut(OnemuxOut));
 
 
 multi	b2v_inst3(
-	.S(MUXsw),
+	.Sa(MUXsw),
+	.Sb(1'b0),
+	.C(1'b0),
 	.A(Two_Ain),
 	.B(Two_Bin),
 	.multiOut(TwomuxOut));
 
 
 multi	b2v_inst4(
-	.S(MUXsw),
+	.Sa(MUXsw),
+	.Sb(1'b0),
+	.C(1'b0),
 	.A(Three_Ain),
 	.B(Three_Bin),
 	.multiOut(ThreemuxOut));
 
 
 multi	b2v_inst5(
-	.S(MUXsw),
+	.Sa(MUXsw),
+	.Sb(1'b0),
+	.C(1'b0),
 	.A(Four_Ain),
 	.B(Four_Bin),
 	.multiOut(FourmuxOut));
 
 
 multi	b2v_inst6(
-	.S(MUXsw),
+	.Sa(MUXsw),
+	.Sb(1'b0),
+	.C(1'b0),
 	.A(Five_Ain),
 	.B(Five_Bin),
 	.multiOut(FivemuxOut));
 
 
 multi	b2v_inst7(
-	.S(MUXsw),
+	.Sa(MUXsw),
+	.Sb(1'b0),
+	.C(1'b0),
 	.A(Six_Ain),
 	.B(Six_Bin),
 	.multiOut(SixmuxOut));
 
 
 multi	b2v_inst8(
-	.S(MUXsw),
+	.Sa(MUXsw),
+	.Sb(1'b0),
+	.C(1'b0),
 	.A(Seven_Ain),
 	.B(Seven_Bin),
 	.multiOut(SevenmuxOut));
 
 
 multi	b2v_inst9(
-	.S(MUXsw),
+	.Sa(MUXsw),
+	.Sb(1'b0),
+	.C(1'b0),
 	.A(Eight_Ain),
 	.B(Eight_Bin),
 	.multiOut(EightmuxOut));

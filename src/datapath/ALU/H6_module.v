@@ -129,9 +129,6 @@ module H6_module(
         .RegA_RWLED(RegA_RWLED), .RegQ_RWLED(RegQ_RWLED), .RstLED(RstLED),
         .inQLKLED(inQLKLED), .inTWOLED(inTWOLED), .inTHREELED(inTHREELED),
         .inFOURLED(inFOURLED),
-        // セグメント入力（すべて0）
-        .Seg1_zero(seg_zero), .Seg1_one(seg_zero), .Seg1_two(seg_zero),
-        .Seg1_three(seg_zero), .Seg1_four(seg_zero), .Seg1_five(seg_zero), .Seg1_six(seg_zero),
         // ステータスフラグ
         .alu_carryOut(alu_carryOut),
         .alu_overflowOut(alu_overflowOut),
