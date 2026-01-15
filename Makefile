@@ -1,4 +1,4 @@
-.PHONY: all gen build program clean assemble mif assemble-mif
+.PHONY: all gen build program clean assemble mif assemble-mif write-mem-config list-devices
 
 all:
 	$(MAKE) -C tools all
@@ -20,6 +20,12 @@ mif:
 
 assemble-mif:
 	$(MAKE) -C tools assemble-mif
+
+write-mem-config:
+	$(MAKE) -C tools write-mem-config
+
+list-devices:
+	$(MAKE) -C tools list-devices
 
 clean:
 	$(MAKE) -C tools clean

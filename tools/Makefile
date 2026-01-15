@@ -12,17 +12,27 @@ PROJECT_ROOT := $(abspath $(CURDIR)/../..)
 QUARTUS_BIN := /mnt/c/intelFPGA_lite/20.1/quartus/bin64
 QSH  := $(QUARTUS_BIN)/quartus_sh.exe
 QPGM := $(QUARTUS_BIN)/quartus_pgm.exe
+QSTP := $(QUARTUS_BIN)/quartus_stp.exe
 
 # ========================
 # Project
 # ========================
 PROJECT := Interface_ver01_with_extboard
-CABLE   := USB-Blaster[USB-0]
+CABLE   := USB-Blaster [USB-0]
+
+# Memory instance indices
+MEM_INSTANCE_CLKD := 0  # CLKD: Width=3, Depth=1, Constant, Read/Write
+MEM_INSTANCE_RUNM := 1  # RUNM: Width=3, Depth=1, Constant, Read/Write
+MEM_INSTANCE_SRAM := 2  # SRAM: Width=16, Depth=65536, RAM/ROM, Read/Write
+MEM_INSTANCE_DISP := 3  # DISP: Width=2, Depth=1, Constant, Read/Write
+
+# Memory config file
+MEM_CONFIG_FILE := $(WORK_ROOT)/memory_config.cfg
 
 SOF     := $(PROJECT_ROOT)/output_files/$(PROJECT).sof
 SOF_WIN := $(shell wslpath -w "$(SOF)")
 
-.PHONY: all gen build program clean assemble mif assemble-mif
+.PHONY: all gen build program clean assemble mif assemble-mif write-mem-config list-devices
 
 # ========================
 # Assembler
@@ -144,6 +154,41 @@ mif:
 # ========================
 assemble-mif: assemble mif
 	$(call OK,"Assemble and MIF generation completed")
+
+# ========================
+# write memory to FPGA
+# ========================
+# Write to all memory instances from config file
+# Usage: make write-mem-config [CONFIG_FILE=path/to/config.txt]
+# Reads CLKD, RUNM, SRAM (file), DISP from config file and writes to FPGA
+write-mem-config:
+	$(call STEP,"Write Memory to FPGA from Config File")
+	@config_file="$(MEM_CONFIG_FILE)"; \
+	if [ -n "$(CONFIG_FILE)" ]; then \
+		config_file="$(CONFIG_FILE)"; \
+	fi; \
+	if [ ! -f "$$config_file" ]; then \
+		$(call ERR,"Config file not found: $$config_file"); \
+		$(call INFO,"Please create a config file or use CONFIG_FILE=path/to/config.txt"); \
+		$(call INFO,"Please edit $(MEM_CONFIG_FILE) to configure memory settings"); \
+		exit 1; \
+	fi; \
+	$(call INFO,"Using config file: $$config_file"); \
+	config_file_win="$$(wslpath -m "$$config_file")"; \
+	cd "$(PROJECT_ROOT)" && \
+		"$(QSTP)" -t "$(shell wslpath -m "$(WORK_ROOT)/write_memory_config.tcl")" \
+			"$(CABLE)" \
+			"@1" \
+			"$$config_file_win" || { \
+		echo -e "$(COLOR_ERR)[ERROR] Memory write failed$(COLOR_RESET)"; \
+		exit 1; }
+	$(call OK,"Memory write from config file completed")
+
+# List available hardware and devices
+# Usage: make list-devices
+list-devices:
+	$(call STEP,"List Available Hardware and Devices")
+	"$(QPGM)" -l
 
 # ========================
 # clean
