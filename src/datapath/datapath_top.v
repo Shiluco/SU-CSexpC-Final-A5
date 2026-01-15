@@ -56,9 +56,9 @@ module datapath_top(
     input  wire        Ein,
     input  wire        SHS,            // シフタ → Sバス
 
-    // 定数値出力制御信号
-    input  wire        S_0080,         // 0x0080 → Sバス
-    input  wire        S_00C0,         // 0x00C0 → Sバス
+    // 定数値出力制御信号（割り込みゲート名に合わせる）
+    input  wire        OIT,            // 0x0080 → Sバス
+    input  wire        EIT,            // 0x00C0 → Sバス
 
     // H4 ALU制御信号
     input  wire        y,
@@ -357,19 +357,21 @@ module datapath_top(
     wire [15:0] const_0080_out;
     wire [15:0] const_00C0_out;
 
-    // 定数値定義
-    wire [15:0] const_0080 = 16'h0080;
-    wire [15:0] const_00C0 = 16'h00C0;
+    // 定数値定義（2進数リテラル）
+    // 0x0080 = 0000_0000_1000_0000
+    // 0x00C0 = 0000_0000_1100_0000
+    wire [15:0] const_0080 = 16'b0000_0000_1000_0000;
+    wire [15:0] const_00C0 = 16'b0000_0000_1100_0000;
 
     // ANDゲート制御（transfer_and_16bit使用）
     transfer_and_16bit transfer_0080(
-        .enable(S_0080),
+        .enable(OIT),
         .data_in(const_0080),
         .data_out(const_0080_out)
     );
 
     transfer_and_16bit transfer_00C0(
-        .enable(S_00C0),
+        .enable(EIT),
         .data_in(const_00C0),
         .data_out(const_00C0_out)
     );
