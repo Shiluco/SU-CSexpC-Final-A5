@@ -87,13 +87,17 @@ module datapath_top(
     input  wire        SFTs,
     input  wire        MOV,
     input  wire        ADD,
+    input  wire        ADC,            // Add with carry
     input  wire        SUB,
+    input  wire        SBC,            // Subtract with carry
     input  wire        CMP,
     input  wire        BITs,
     input  wire        ASL,
     input  wire        ASR,
     input  wire        ROL,
     input  wire        ROR,
+    input  wire        RLC,            // Rotate left through carry
+    input  wire        RRC,            // Rotate right through carry
     input  wire        LSL,
     input  wire        LSR,
     input  wire        OR_inst,
