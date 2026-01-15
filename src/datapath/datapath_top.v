@@ -112,7 +112,18 @@ module datapath_top(
     output wire        PSW_N,
     output wire        PSW_Z,
     output wire        PSW_V,
-    output wire        PSW_C
+    output wire        PSW_C,
+
+    // レジスタ値出力（表示用）
+    output wire [15:0] QB_out,      // B0レジスタ値
+    output wire [15:0] QR0_out,      // R0レジスタ値
+    output wire [15:0] QR1_out,      // R1レジスタ値
+    output wire [15:0] QR2_out,      // R2レジスタ値
+    output wire [15:0] QR3_out,      // R3レジスタ値
+    output wire [15:0] QR4_out,      // R4レジスタ値
+    output wire [15:0] QR5_out,      // R5レジスタ値
+    output wire [15:0] QR6_out,      // R6レジスタ値
+    output wire [15:0] QR7_out       // R7レジスタ値
 );
 
     // =========================================
@@ -126,18 +137,22 @@ module datapath_top(
     // レジスタファイル（R0～R7）の出力
     // =========================================
     wire [15:0] R0_out, R1_out, R2_out, R3_out;
-    wire [15:0] R4_out, R5_out, R6_out, R7_out;
+    wire [15:0] R4_out, R5_out, R6_out, R7_out_internal;
+    
+    // レジスタ値（表示用）
+    wire [15:0] R0_value, R1_value, R2_value, R3_value;
+    wire [15:0] R4_value, R6_value, R7_value;
 
     // =========================================
     // R0～R4, R6～R7レジスタ（通常のGPR）
     // =========================================
-    GPR r0 (.CLK(CLK), .CLR(CLR), .SR(SR0), .S_bus(S_bus), .RA(R0A), .data_out(R0_out));
-    GPR r1 (.CLK(CLK), .CLR(CLR), .SR(SR1), .S_bus(S_bus), .RA(R1A), .data_out(R1_out));
-    GPR r2 (.CLK(CLK), .CLR(CLR), .SR(SR2), .S_bus(S_bus), .RA(R2A), .data_out(R2_out));
-    GPR r3 (.CLK(CLK), .CLR(CLR), .SR(SR3), .S_bus(S_bus), .RA(R3A), .data_out(R3_out));
-    GPR r4 (.CLK(CLK), .CLR(CLR), .SR(SR4), .S_bus(S_bus), .RA(R4A), .data_out(R4_out));
-    GPR r6 (.CLK(CLK), .CLR(CLR), .SR(SR6), .S_bus(S_bus), .RA(R6A), .data_out(R6_out));
-    GPR r7 (.CLK(CLK), .CLR(CLR), .SR(SR7), .S_bus(S_bus), .RA(R7A), .data_out(R7_out));
+    GPR r0 (.CLK(CLK), .CLR(CLR), .SR(SR0), .S_bus(S_bus), .RA(R0A), .data_out(R0_out), .reg_value(R0_value));
+    GPR r1 (.CLK(CLK), .CLR(CLR), .SR(SR1), .S_bus(S_bus), .RA(R1A), .data_out(R1_out), .reg_value(R1_value));
+    GPR r2 (.CLK(CLK), .CLR(CLR), .SR(SR2), .S_bus(S_bus), .RA(R2A), .data_out(R2_out), .reg_value(R2_value));
+    GPR r3 (.CLK(CLK), .CLR(CLR), .SR(SR3), .S_bus(S_bus), .RA(R3A), .data_out(R3_out), .reg_value(R3_value));
+    GPR r4 (.CLK(CLK), .CLR(CLR), .SR(SR4), .S_bus(S_bus), .RA(R4A), .data_out(R4_out), .reg_value(R4_value));
+    GPR r6 (.CLK(CLK), .CLR(CLR), .SR(SR6), .S_bus(S_bus), .RA(R6A), .data_out(R6_out), .reg_value(R6_value));
+    GPR #(.INIT_VALUE(16'hf800)) r7 (.CLK(CLK), .CLR(CLR), .SR(SR7), .S_bus(S_bus), .RA(R7A), .data_out(R7_out_internal), .reg_value(R7_value));
 
     // =========================================
     // R5レジスタ（PSW）
@@ -401,7 +416,7 @@ module datapath_top(
         .in4(R4_out),
         .in5(R5_out),
         .in6(R6_out),
-        .in7(R7_out),
+        .in7(R7_out_internal),
         .in8(MDR_to_A),
         .out(A_bus)
     );
@@ -422,5 +437,18 @@ module datapath_top(
         .in5(const_00C0_out),   // 定数0x00C0（S_00C0制御）
         .out(S_bus)
     );
+
+    // =========================================
+    // レジスタ値出力（表示用）
+    // =========================================
+    assign QB_out  = B0_q;           // B0レジスタ値
+    assign QR0_out = R0_value;       // R0レジスタ値
+    assign QR1_out = R1_value;       // R1レジスタ値
+    assign QR2_out = R2_value;       // R2レジスタ値
+    assign QR3_out = R3_value;       // R3レジスタ値
+    assign QR4_out = R4_value;       // R4レジスタ値
+    assign QR5_out = R5_input;        // R5レジスタ値（PSW）
+    assign QR6_out = R6_value;       // R6レジスタ値
+    assign QR7_out = R7_value;       // R7レジスタ値
 
 endmodule

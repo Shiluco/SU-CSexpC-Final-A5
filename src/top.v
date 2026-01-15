@@ -406,7 +406,18 @@ datapath_top u_datapath (
 	.PSW_N      (PSW_N_wire),
 	.PSW_Z      (PSW_Z_wire),
 	.PSW_V      (PSW_V_wire),
-	.PSW_C      (PSW_C_wire)
+	.PSW_C      (PSW_C_wire),
+
+	// レジスタ値出力（表示用）
+	.QB_out     (QB),
+	.QR0_out    (QR0),
+	.QR1_out    (QR1),
+	.QR2_out    (QR2),
+	.QR3_out    (QR3),
+	.QR4_out    (QR4),
+	.QR5_out    (QR5),
+	.QR6_out    (QR6),
+	.QR7_out    (QR7)
 );
 
 assign	LEDG[5] = INSTSTEP;

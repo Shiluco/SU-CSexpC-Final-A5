@@ -1,8 +1,8 @@
 # Auto-generated. Do not edit.
-# Generated at: 2026-01-15 20:22:21
+# Generated at: 2026-01-16 00:39:08
 
-set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/ISR_decoder.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/controller.v"
+set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/isr_decoder.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/modules/SC.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/modules/counter_4bit_sync.v"
 set_global_assignment -name VERILOG_FILE "SU-CSexpC-Final-A5/src/controller/modules/decoder.v"
