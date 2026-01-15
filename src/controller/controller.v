@@ -115,7 +115,7 @@ module controller (
     output wire BUS_A_to_AND_one,
     output wire BUS_B_to_AND_one,
     output wire REG_A_to_BUS_S,
-    output wire REG_B_to_BUS_S,
+    output wire REG_Q_to_BUS_S,
     output wire [2:0] MUL_ctrl,
 
     // 命令種別出力
@@ -301,7 +301,7 @@ module controller (
         .BUS_A_to_AND_one(BUS_A_to_AND_one),
         .BUS_B_to_AND_one(BUS_B_to_AND_one),
         .REG_A_to_BUS_S(REG_A_to_BUS_S),
-        .REG_B_to_BUS_S(REG_B_to_BUS_S),
+        .REG_Q_to_BUS_S(REG_Q_to_BUS_S),
         .MUL_ctrl(MUL_ctrl),
 
         .CLR_inst(CLR_inst),
