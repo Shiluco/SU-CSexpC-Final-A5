@@ -1,4 +1,4 @@
-.PHONY: all gen build program clean
+.PHONY: all gen build program clean assemble
 
 all:
 	$(MAKE) -C tools all
@@ -11,6 +11,9 @@ build:
 
 program:
 	$(MAKE) -C tools program
+
+assemble:
+	$(MAKE) -C tools assemble
 
 clean:
 	$(MAKE) -C tools clean

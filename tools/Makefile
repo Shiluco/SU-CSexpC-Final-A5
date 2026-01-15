@@ -22,7 +22,17 @@ CABLE   := USB-Blaster[USB-0]
 SOF     := $(PROJECT_ROOT)/output_files/$(PROJECT).sof
 SOF_WIN := $(shell wslpath -w "$(SOF)")
 
-.PHONY: all gen build program clean
+.PHONY: all gen build program clean assemble
+
+# ========================
+# Assembler
+# ========================
+SU_ROOT := $(abspath $(CURDIR)/..)
+ASM_DIR := $(SU_ROOT)/test/asm
+BIN_DIR := $(SU_ROOT)/test/bin
+JAR_FILE := $(SU_ROOT)/test/sep3asm.jar
+ASM_FILES := $(wildcard $(ASM_DIR)/*.asm)
+BIN_FILES := $(patsubst $(ASM_DIR)/%.asm,$(BIN_DIR)/%.bin,$(ASM_FILES))
 
 # ========================
 # pretty log
@@ -89,6 +99,21 @@ program:
 	$(call INFO,"Using SOF: $(SOF)")
 	cd "$(PROJECT_ROOT)" && "$(QPGM)" -c "$(CABLE)" -m jtag -o "p;$(SOF_WIN)"
 	$(call OK,"FPGA programming completed")
+
+# ========================
+# assemble
+# ========================
+assemble:
+	$(call STEP,"Assemble ASM files")
+	@mkdir -p "$(BIN_DIR)"
+	@for asm_file in $(ASM_FILES); do \
+		asm_basename=$$(basename "$$asm_file" .asm); \
+		bin_file="$(BIN_DIR)/$$asm_basename.bin"; \
+		echo -e "$(COLOR_INFO)Assembling: $$asm_basename.asm$(COLOR_RESET)"; \
+		cd "$(SU_ROOT)/test" && \
+		java -jar sep3asm.jar "asm/$$asm_basename.asm" "bin/$$asm_basename.bin" 2>&1 | grep -v "%%% 問題箇所はありません。"; \
+	done
+	$(call OK,"Assemble completed")
 
 # ========================
 # clean
