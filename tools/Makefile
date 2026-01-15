@@ -30,7 +30,7 @@ SOF_WIN := $(shell wslpath -w "$(SOF)")
 SU_ROOT := $(abspath $(CURDIR)/..)
 ASM_DIR := $(SU_ROOT)/test/asm
 BIN_DIR := $(SU_ROOT)/test/bin
-JAR_FILE := $(SU_ROOT)/test/sep3asm.jar
+JAR_FILE := $(WORK_ROOT)/sep3asm.jar
 ASM_FILES := $(wildcard $(ASM_DIR)/*.asm)
 BIN_FILES := $(patsubst $(ASM_DIR)/%.asm,$(BIN_DIR)/%.bin,$(ASM_FILES))
 
@@ -111,7 +111,7 @@ assemble:
 		bin_file="$(BIN_DIR)/$$asm_basename.bin"; \
 		echo -e "$(COLOR_INFO)Assembling: $$asm_basename.asm$(COLOR_RESET)"; \
 		cd "$(SU_ROOT)/test" && \
-		java -jar sep3asm.jar "asm/$$asm_basename.asm" "bin/$$asm_basename.bin" 2>&1 | grep -v "%%% 問題箇所はありません。" > "bin/$$asm_basename.bin"; \
+		java -jar "$(JAR_FILE)" "asm/$$asm_basename.asm" "bin/$$asm_basename.bin" 2>&1 | grep -v "%%% 問題箇所はありません。" > "bin/$$asm_basename.bin"; \
 	done
 	$(call OK,"Assemble completed")
 
