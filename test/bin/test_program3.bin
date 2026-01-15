@@ -1,0 +1,43 @@
+;              ;     .=0xf850
+0000F850: 47E7 ;     JMP label_0xfa10
+0000F851: FA10 ; 
+;              ;     .=0xfa10
+;              ; label_0xfa10:
+0000FA10: 43E0 ;     MOV #0xffe0, R0
+0000FA11: FFE0 ; 
+0000FA12: 43E1 ;     MOV #0x0001, R1
+0000FA13: 0001 ; 
+0000FA14: 43E2 ;     MOV #0xefff, R2
+0000FA15: EFFF ; 
+0000FA16: 5022 ;     ADD R1, R2
+0000FA17: 4048 ;     MOV R2, (R0)
+0000FA18: 4108 ;     MOV (R0), (R0)
+0000FA19: 6042 ;     SUB R2, R2
+0000FA1A: 4048 ;     MOV R2, (R0)
+0000FA1B: 4108 ;     MOV (R0), (R0)
+0000FA1C: 43E5 ;     MOV #0x0008, R5
+0000FA1D: 0008 ; 
+0000FA1E: C3E7 ;     BRN label_0xfa21
+0000FA1F: FA21 ; 
+0000FA20: 0000 ;     HLT
+;              ; label_0xfa21:
+0000FA21: 43E5 ;     MOV #0x0004, R5
+0000FA22: 0004 ; 
+0000FA23: C7E7 ;     BRZ label_0xfa26
+0000FA24: FA26 ; 
+0000FA25: 0000 ;     HLT
+;              ; label_0xfa26:
+0000FA26: 43E5 ;     MOV #0x0002, R5
+0000FA27: 0002 ; 
+0000FA28: CBE7 ;     BRV label_0xfa2b
+0000FA29: FA2B ; 
+0000FA2A: 0000 ;     HLT
+;              ; label_0xfa2b:
+0000FA2B: 43E5 ;     MOV #0x0001, R5
+0000FA2C: 0001 ; 
+0000FA2D: CFE7 ;     BRC label_0xfa30
+0000FA2E: FA30 ; 
+0000FA2F: 0000 ;     HLT
+;              ; label_0xfa30:
+0000FA30: 4028 ;     MOV R1, (R0)
+0000FA31: 0000 ;     HLT

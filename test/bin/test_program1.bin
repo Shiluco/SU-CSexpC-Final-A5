@@ -1,0 +1,66 @@
+;              ;     .=0xf840
+0000F840: 47E7 ;     JMP label_0xf9b0
+0000F841: F9B0 ; 
+;              ;     .=0xf9b0
+;              ; label_0xf9b0:
+0000F9B0: 43E0 ;     MOV #0xffe0, R0
+0000F9B1: FFE0 ; 
+0000F9B2: 43E1 ;     MOV #0xffff, R1
+0000F9B3: FFFF ; 
+0000F9B4: 4028 ;     MOV R1, (R0)
+0000F9B5: 4102 ;     MOV (R0), R2
+0000F9B6: 1001 ;     CLR R1
+0000F9B7: 4028 ;     MOV R1, (R0)
+0000F9B8: 4102 ;     MOV (R0), R2
+0000F9B9: 43E1 ;     MOV #0x7a80, R1
+0000F9BA: 7A80 ; 
+;              ; label_0xf9bb:
+0000F9BB: 4028 ;     MOV R1, (R0)
+0000F9BC: 4102 ;     MOV (R0), R2
+0000F9BD: 2001 ;     ASL R1
+0000F9BE: EFE7 ;     RBC label_0xf9bb
+0000F9BF: FFFB ; 
+0000F9C0: 43E1 ;     MOV #0x80a8, R1
+0000F9C1: 80A8 ; 
+;              ; label_0xf9c2:
+0000F9C2: 4028 ;     MOV R1, (R0)
+0000F9C3: 4102 ;     MOV (R0), R2
+0000F9C4: 2401 ;     ASR R1
+0000F9C5: EFE7 ;     RBC label_0xf9c9
+0000F9C6: 0002 ; 
+0000F9C7: 57E7 ;     RJP label_0xf9c2
+0000F9C8: FFF9 ; 
+;              ; label_0xf9c9:
+0000F9C9: 43E1 ;     MOV #0xf500, R1
+0000F9CA: F500 ; 
+;              ; label_0xf9cb:
+0000F9CB: 4028 ;     MOV R1, (R0)
+0000F9CC: 4102 ;     MOV (R0), R2
+0000F9CD: 3001 ;     LSL R1
+0000F9CE: EFE7 ;     RBC label_0xf9cb
+0000F9CF: FFFB ; 
+0000F9D0: 43E1 ;     MOV #0x0a0f, R1
+0000F9D1: 0A0F ; 
+;              ; label_0xf9d2:
+0000F9D2: 4028 ;     MOV R1, (R0)
+0000F9D3: 4102 ;     MOV (R0), R2
+0000F9D4: 3401 ;     LSR R1
+0000F9D5: EFE7 ;     RBC label_0xf9d2
+0000F9D6: FFFB ; 
+0000F9D7: 43E1 ;     MOV #0xf0a0, R1
+0000F9D8: F0A0 ; 
+;              ; label_0xf9d9:
+0000F9D9: 4028 ;     MOV R1, (R0)
+0000F9DA: 4102 ;     MOV (R0), R2
+0000F9DB: 3801 ;     ROL R1
+0000F9DC: EFE7 ;     RBC label_0xf9d9
+0000F9DD: FFFB ; 
+0000F9DE: 43E1 ;     MOV #0x0a0f, R1
+0000F9DF: 0A0F ; 
+;              ; label_0xf9e0:
+0000F9E0: 4028 ;     MOV R1, (R0)
+0000F9E1: 4102 ;     MOV (R0), R2
+0000F9E2: 3C01 ;     ROR R1
+0000F9E3: EFE7 ;     RBC label_0xf9e0
+0000F9E4: FFFB ; 
+0000F9E5: 0000 ;     HLT

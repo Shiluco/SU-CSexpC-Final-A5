@@ -111,7 +111,7 @@ assemble:
 		bin_file="$(BIN_DIR)/$$asm_basename.bin"; \
 		echo -e "$(COLOR_INFO)Assembling: $$asm_basename.asm$(COLOR_RESET)"; \
 		cd "$(SU_ROOT)/test" && \
-		java -jar sep3asm.jar "asm/$$asm_basename.asm" "bin/$$asm_basename.bin" 2>&1 | grep -v "%%% 問題箇所はありません。"; \
+		java -jar sep3asm.jar "asm/$$asm_basename.asm" "bin/$$asm_basename.bin" 2>&1 | grep -v "%%% 問題箇所はありません。" > "bin/$$asm_basename.bin"; \
 	done
 	$(call OK,"Assemble completed")
 
