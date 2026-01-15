@@ -57,8 +57,8 @@ module datapath_top(
     input  wire        SHS,            // シフタ → Sバス
 
     // 定数値出力制御信号（割り込みゲート名に合わせる）
-    input  wire        OIT,            // 0x0080 → Sバス
-    input  wire        EIT,            // 0x00C0 → Sバス
+    input  wire        OIT_gate,       // 0x0080 → Sバス
+    input  wire        EIT_gate,       // 0x00C0 → Sバス
 
     // H4 ALU制御信号
     input  wire        ALU_y,
@@ -84,14 +84,12 @@ module datapath_top(
     // PSW制御信号（命令デコード）
     input  wire        EX0,
     input  wire        CLR_inst,
-    input  wire        SFTs,
     input  wire        MOV,
     input  wire        ADD,
     input  wire        ADC,            // Add with carry
     input  wire        SUB,
     input  wire        SBC,            // Subtract with carry
     input  wire        CMP,
-    input  wire        BITs,
     input  wire        ASL,
     input  wire        ASR,
     input  wire        ROL,
@@ -108,7 +106,13 @@ module datapath_top(
 
     // データパス制御信号
     input  wire        D5,
-    input  wire        D7
+    input  wire        D7,
+
+    // PSWフラグ出力（controllerへのフィードバック）
+    output wire        PSW_N,
+    output wire        PSW_Z,
+    output wire        PSW_V,
+    output wire        PSW_C
 );
 
     // =========================================
@@ -295,7 +299,6 @@ module datapath_top(
         // Instruction decode signals
         .EX0(EX0),
         .CLR(CLR_inst),
-        .SFTs(SFTs),
         .MOV(MOV),
         .ADD(ADD),
         .ADC(ADC),
@@ -352,6 +355,15 @@ module datapath_top(
     );
 
     // =========================================
+    // PSWフラグの抽出（controllerへのフィードバック）
+    // =========================================
+    // PSW[3:0] = NZVC
+    assign PSW_N = PSW_out[3];
+    assign PSW_Z = PSW_out[2];
+    assign PSW_V = PSW_out[1];
+    assign PSW_C = PSW_out[0];
+
+    // =========================================
     // 定数値（0x0080, 0x00C0）の出力制御
     // =========================================
     wire [15:0] const_0080_out;
@@ -365,13 +377,13 @@ module datapath_top(
 
     // ANDゲート制御（transfer_and_16bit使用）
     transfer_and_16bit transfer_0080(
-        .enable(OIT),
+        .enable(OIT_gate),
         .data_in(const_0080),
         .data_out(const_0080_out)
     );
 
     transfer_and_16bit transfer_00C0(
-        .enable(EIT),
+        .enable(EIT_gate),
         .data_in(const_00C0),
         .data_out(const_00C0_out)
     );

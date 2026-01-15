@@ -7,7 +7,6 @@ module PSW_logic(
     // Instruction decode signals
     input  wire        EX0,             // Execute state 0
     input  wire        CLR,             // Clear instruction
-    input  wire        SFTs,            // Shift instructions group
     input  wire        MOV,             // Move instruction
     input  wire        ADD,             // Add instruction
     input  wire        ADC,             // Add with carry instruction
