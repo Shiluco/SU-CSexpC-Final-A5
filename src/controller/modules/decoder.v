@@ -98,7 +98,7 @@ module decoder (
     output wire BUS_B_to_AND_one,
     output wire REG_A_to_BUS_S,
     output wire REG_Q_to_BUS_S,
-    output wire [2:0] MUL_ctrl
+    output wire [2:0] MUL_ctrl,
 
     // 命令種別を外部に出力（controller から参照するため）
     output wire CLR_inst,
