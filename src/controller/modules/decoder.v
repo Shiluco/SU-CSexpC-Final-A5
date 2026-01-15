@@ -85,6 +85,7 @@ module decoder (
 
     output wire f_is_D,
     output wire t_is_D,
+    output wire is_T_DFive,
 
     output wire EIT_gate,
     output wire OIT_gate,
@@ -580,6 +581,8 @@ module decoder (
     assign EIT_gate = IT2 & EIT;
 
     assign OIT_gate = IT2 & ~EIT & OIT;
+
+    assign is_T_DFive = is_T_five & t_is_D;
 
     // MUL関連の制御信号
     assign BUS_A_to_AND_one = MUL1;
