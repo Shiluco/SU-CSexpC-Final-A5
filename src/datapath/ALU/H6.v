@@ -136,7 +136,9 @@ module H6(
 	segE3,
 	segE4,
 	segE5,
-	segE6
+	segE6,
+	A_mul_bus,
+	Q_mul_bus
 );
 
 

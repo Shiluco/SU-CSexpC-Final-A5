@@ -132,13 +132,10 @@ module H6_module(
         // セグメント入力（すべて0）
         .Seg1_zero(seg_zero), .Seg1_one(seg_zero), .Seg1_two(seg_zero),
         .Seg1_three(seg_zero), .Seg1_four(seg_zero), .Seg1_five(seg_zero), .Seg1_six(seg_zero),
-        // バス出力（ALU乗算結果）
-        .A_mul_bus(A_mul_bus),
-        .Q_mul_bus(Q_mul_bus),
         // ステータスフラグ
         .alu_carryOut(alu_carryOut),
         .alu_overflowOut(alu_overflowOut),
-        // セグメント出力（使用しない）
+        // セグメント出力（Aレジスタ、Qレジスタ）
         .Seg1_zero(Seg1_zero), .Seg1_one(Seg1_one), .Seg1_two(Seg1_two),
         .Seg1_three(Seg1_three), .Seg1_four(Seg1_four), .Seg1_five(Seg1_five), .Seg1_six(Seg1_six),
         .Seg2_zero(Seg2_zero), .Seg2_one(Seg2_one), .Seg2_two(Seg2_two),
@@ -156,7 +153,10 @@ module H6_module(
         .Seg8_zero(Seg8_zero), .Seg8_one(Seg8_one), .Seg8_two(Seg8_two),
         .Seg8_three(Seg8_three), .Seg8_four(Seg8_four), .Seg8_five(Seg8_five), .Seg8_six(Seg8_six),
         .segE0(segE0), .segE1(segE1), .segE2(segE2), .segE3(segE3),
-        .segE4(segE4), .segE5(segE5), .segE6(segE6)
+        .segE4(segE4), .segE5(segE5), .segE6(segE6),
+        // バス出力（ALU乗算結果）
+        .A_mul_bus(A_mul_bus),
+        .Q_mul_bus(Q_mul_bus)
     );
 
     // =========================================

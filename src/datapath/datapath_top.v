@@ -87,13 +87,17 @@ module datapath_top(
     input  wire        SFTs,
     input  wire        MOV,
     input  wire        ADD,
+    input  wire        ADC,            // Add with carry
     input  wire        SUB,
+    input  wire        SBC,            // Subtract with carry
     input  wire        CMP,
     input  wire        BITs,
     input  wire        ASL,
     input  wire        ASR,
     input  wire        ROL,
     input  wire        ROR,
+    input  wire        RLC,            // Rotate left through carry
+    input  wire        RRC,            // Rotate right through carry
     input  wire        LSL,
     input  wire        LSR,
     input  wire        OR_inst,
@@ -208,6 +212,7 @@ module datapath_top(
     // Shifter
     // =========================================
     wire [15:0] shifter_out;
+    wire [15:0] shifter_result_bus;
     wire        shifter_Cf;
 
     shifter_module shifter_inst(
@@ -221,6 +226,7 @@ module datapath_top(
         .SHS(SHS),
         .A_bus(A_bus),
         .shifter_out(shifter_out),
+        .shifter_result_bus(shifter_result_bus),
         .Cf(shifter_Cf)
     );
 
@@ -286,37 +292,48 @@ module datapath_top(
 
     // PSWロジック（J/K信号生成）
     PSW_logic psw_logic_inst(
+        // Instruction decode signals
         .EX0(EX0),
-        .CLR_inst(CLR_inst),
+        .CLR(CLR_inst),
         .SFTs(SFTs),
         .MOV(MOV),
         .ADD(ADD),
+        .ADC(ADC),
         .SUB(SUB),
+        .SBC(SBC),
         .CMP(CMP),
-        .BITs(BITs),
         .ASL(ASL),
         .ASR(ASR),
         .ROL(ROL),
         .ROR(ROR),
+        .RLC(RLC),
+        .RRC(RRC),
         .LSL(LSL),
         .LSR(LSR),
         .OR_inst(OR_inst),
         .XOR_inst(XOR_inst),
         .AND_inst(AND_inst),
         .BIT_inst(BIT_inst),
-        .ALU_result_bus(ALU_result_bus),
+        .MUL3(MUL3),
+
+        // Shifter outputs (using raw ungated output)
+        .shifter_out(shifter_result_bus),
+        .shifter_Cf(shifter_Cf),
+
+        // H4 ALU outputs (using raw ungated outputs)
+        .H4_out(ALU_result_bus),
         .ALU_carry(H4_carry),
         .ALU_overflow(H4_overflow),
-        .shifter_Cf(shifter_Cf),
+
+        // H6 Multiplier outputs (using raw ungated outputs)
+        .H6_a_out(A_mul_bus),
+        .H6_q_out(Q_mul_bus),
+
+        // Data path control signals
         .D5(D5),
         .D7(D7),
-        .af(A_bus[15]),
-        .ae(A_bus[14]),
-        .bf(B_bus[15]),
-        .be(B_bus[14]),
-        .ce(ALU_result_bus[14]),
-        .a0(A_bus[0]),
-        .current_C(PSW_out[0]),
+
+        // Output J/K signals
         .J_N(J_N), .K_N(K_N),
         .J_Z(J_Z), .K_Z(K_Z),
         .J_V(J_V), .K_V(K_V),
