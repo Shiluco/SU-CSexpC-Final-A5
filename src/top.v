@@ -142,6 +142,13 @@ wire        OR_inst_wire, XOR_inst_wire, AND_inst_wire, BIT_inst_wire;
 // ============================================================
 wire        PSW_N_wire, PSW_Z_wire, PSW_V_wire, PSW_C_wire;
 
+// State信号（表示用）
+wire        IF0_wire, IF1_wire, FF0_wire, FF1_wire, FF2_wire;
+wire        TF0_wire, TF1_wire;
+wire        EX1_wire;
+wire        IT0_wire, IT1_wire, IT2_wire;
+wire        MUL4_wire;
+
 // ============================================================
 // Datapath 内部信号
 // ============================================================
@@ -275,14 +282,17 @@ controller u_controller (
 	.KIT        (BIT_N),       // oit,SEPスイッチ信号
 	.EIT_input  (1'b0),       // PC入力信号
 
-	// State出力（未使用）
-	.IF0        (), .IF1(), .FF0(), .FF1(), .FF2(),
-	.TF0        (), .TF1(),
-	.EX0        (EX0_wire), .EX1(),
-	.IT0        (), .IT1(), .IT2(),
-	.MUL1       (MUL1_wire), .MUL2_1(MUL2_1_wire), .MUL2_2(MUL2_2_wire), .MUL3(MUL3_wire), .MUL4(),
+	// State出力（表示用）
+	.IF0        (IF0_wire), .IF1(IF1_wire), .FF0(FF0_wire), .FF1(FF1_wire), .FF2(FF2_wire),
+	.TF0        (TF0_wire), .TF1(TF1_wire),
+	.EX0        (EX0_wire), .EX1(EX1_wire),
+	.IT0        (IT0_wire), .IT1(IT1_wire), .IT2(IT2_wire),
+	.MUL1       (MUL1_wire), .MUL2_1(MUL2_1_wire), .MUL2_2(MUL2_2_wire), .MUL3(MUL3_wire), .MUL4(MUL4_wire),
 	.counter_q  (),
 	.ITA        (), .ITF(),
+	
+	// ISR出力（表示用）
+	.ISR_out    (ISR_wire),
 
 	// Datapath制御信号
 	.MDA        (MDA_wire),
@@ -316,10 +326,23 @@ controller u_controller (
 	.ASL        (ASL_wire), .ASR(ASR_wire), .ROL(ROL_wire), .ROR(ROR_wire),
 	.RLC        (RLC_wire), .RRC(RRC_wire), .LSL(LSL_wire), .LSR(LSR_wire),
 	.OR_inst    (OR_inst_wire), .XOR_inst(XOR_inst_wire),
-	.AND_inst   (AND_inst_wire), .BIT_inst(BIT_inst_wire),
-
-	.ISR_out    (ISR_wire)
+	.AND_inst   (AND_inst_wire), .BIT_inst(BIT_inst_wire)
 );
+
+// ISR接続（表示用）
+assign ISR = ISR_wire;
+
+// SC接続（表示用：状態信号のビットマップ）
+// SC[15:0] = {MUL3, MUL2_2, MUL2_1, MUL1, IT2, IT1, IT0, EX1, EX0, TF1, TF0, FF2, FF1, FF0, IF1, IF0}
+// 注: MUL4は除外（16ビットに収めるため）
+assign SC = {
+    MUL3_wire, MUL2_2_wire, MUL2_1_wire, MUL1_wire,
+    IT2_wire, IT1_wire, IT0_wire,
+    EX1_wire, EX0_wire,
+    TF1_wire, TF0_wire,
+    FF2_wire, FF1_wire, FF0_wire,
+    IF1_wire, IF0_wire
+};
 
 // ============================================================
 // Datapath統合
@@ -417,7 +440,13 @@ datapath_top u_datapath (
 	.QR4_out    (QR4),
 	.QR5_out    (QR5),
 	.QR6_out    (QR6),
-	.QR7_out    (QR7)
+	.QR7_out    (QR7),
+	
+	// バス値出力（表示用）
+	.A_bus_out  (A),
+	.B_bus_out  (B),
+	.S_bus_out  (S),
+	.MDR_out    (MDR)
 );
 
 assign	LEDG[5] = INSTSTEP;

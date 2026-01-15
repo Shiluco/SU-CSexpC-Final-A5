@@ -123,7 +123,13 @@ module datapath_top(
     output wire [15:0] QR4_out,      // R4レジスタ値
     output wire [15:0] QR5_out,      // R5レジスタ値
     output wire [15:0] QR6_out,      // R6レジスタ値
-    output wire [15:0] QR7_out       // R7レジスタ値
+    output wire [15:0] QR7_out,      // R7レジスタ値
+    
+    // バス値出力（表示用）
+    output wire [15:0] A_bus_out,    // Aバス値
+    output wire [15:0] B_bus_out,    // Bバス値
+    output wire [15:0] S_bus_out,    // Sバス値
+    output wire [15:0] MDR_out       // MDRレジスタ値
 );
 
     // =========================================
@@ -202,6 +208,8 @@ module datapath_top(
     // =========================================
     wire [15:0] MDR_to_A;
 
+    wire [15:0] MDR_q_internal;  // MDRレジスタ値（内部信号）
+    
     MDR mdr_inst(
         .CLK(CLK),
         .CLR(CLR),
@@ -213,7 +221,7 @@ module datapath_top(
         .MDM(MDM),
         .MDR_to_A(MDR_to_A),
         .MDR_to_M(M_bus_out),
-        .MDR_q()
+        .MDR_q(MDR_q_internal)
     );
 
     // =========================================
@@ -450,5 +458,13 @@ module datapath_top(
     assign QR5_out = R5_input;        // R5レジスタ値（PSW）
     assign QR6_out = R6_value;       // R6レジスタ値
     assign QR7_out = R7_value;       // R7レジスタ値
+    
+    // =========================================
+    // バス値出力（表示用）
+    // =========================================
+    assign A_bus_out = A_bus;        // Aバス値
+    assign B_bus_out = B_bus;        // Bバス値
+    assign S_bus_out = S_bus;        // Sバス値
+    assign MDR_out   = MDR_q_internal; // MDRレジスタ値
 
 endmodule
