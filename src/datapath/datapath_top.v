@@ -212,6 +212,7 @@ module datapath_top(
     // Shifter
     // =========================================
     wire [15:0] shifter_out;
+    wire [15:0] shifter_result_bus;
     wire        shifter_Cf;
 
     shifter_module shifter_inst(
@@ -225,6 +226,7 @@ module datapath_top(
         .SHS(SHS),
         .A_bus(A_bus),
         .shifter_out(shifter_out),
+        .shifter_result_bus(shifter_result_bus),
         .Cf(shifter_Cf)
     );
 
@@ -314,8 +316,8 @@ module datapath_top(
         .BIT_inst(BIT_inst),
         .MUL3(MUL3),
 
-        // Shifter outputs (gated output for now)
-        .shifter_out(shifter_out),
+        // Shifter outputs (using raw ungated output)
+        .shifter_out(shifter_result_bus),
         .shifter_Cf(shifter_Cf),
 
         // H4 ALU outputs (using raw ungated outputs)
