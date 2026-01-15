@@ -1,1 +1,2 @@
-*.tcl
+src_files.tcl
+memory_config.cfg
