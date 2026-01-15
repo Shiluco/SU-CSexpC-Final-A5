@@ -58,7 +58,7 @@ FA	b2v_inst(
 	.s(SYNTHESIZED_WIRE_3));
 
 
-selector	b2v_inst16(
+v_selector	b2v_inst16(
 	.S(y),
 	.X(z),
 	.Y(u),
@@ -67,7 +67,7 @@ selector	b2v_inst16(
 assign	SYNTHESIZED_WIRE_0 = x ^ b;
 
 
-selector	b2v_inst19(
+v_selector	b2v_inst19(
 	.S(v),
 	.X(SYNTHESIZED_WIRE_2),
 	.Y(SYNTHESIZED_WIRE_3),

@@ -17,7 +17,7 @@
 // VERSION		"Version 20.1.1 Build 720 11/11/2020 Patches 1.02i SJ Lite Edition"
 // CREATED		"Sat Jan 10 20:15:13 2026"
 
-module selector(
+module v_selector(
 	S,
 	X,
 	Y,
