@@ -70,23 +70,20 @@ module PSW_logic(
     // N Flag Logic (Negative)
     // =========================================
     // Set N based on MSB of result:
-    //   - For shift operations: use shifter_Cf
+    //   - For shift operations: use shifter_out[15] (MSB of shifter result)
     //   - For ALU operations: use H4_out[15]
-    //   - For MUL3 operations: use H6_a_out[15]
     //   - Special: CLR and LSR always clear N flag (K_N only)
 
     assign J_N = EX0 & ~(CLR | LSR) &
-                 ((shift_ops & shifter_Cf) |
-                  (alu_ops & H4_out[15]) |
-                  (mul_ops & H6_a_out[15])) &
+                 ((shift_ops & shifter_out[15]) |
+                  (alu_ops & H4_out[15])) &
                  ~(D5 | D7) |
                  EX0 & H4_out[3] & MOV & D5;
 
     assign K_N = EX0 &
                  ((CLR | LSR) |
-                  (~((shift_ops & shifter_Cf) |
-                     (alu_ops & H4_out[15]) |
-                     (mul_ops & H6_a_out[15])))) &
+                  (~((shift_ops & shifter_out[15]) |
+                     (alu_ops & H4_out[15])))) &
                  ~(D5 | D7) |
                  EX0 & ~H4_out[3] & MOV & D5;
 
@@ -99,24 +96,61 @@ module PSW_logic(
     //   - For ALU operations (MOV, ADD, ADC, SUB, SBC, CMP, OR, XOR, AND, BIT): H4_out == 0
     //   - For MUL3 operation: both H6_a_out and H6_q_out must be 0
 
-    wire shifter_zero;
-    wire h4_zero;
-    wire h6_zero;
+    wire shifter_zero_J;
+    wire shifter_zero_K;
+    wire h4_zero_J;
+    wire h4_zero_K;
+    wire h6_zero_J;
+    wire h6_zero_K;
 
-    assign shifter_zero = (shifter_out == 16'b0);
-    assign h4_zero      = (H4_out == 16'b0);
-    assign h6_zero      = (H6_a_out == 16'b0) & (H6_q_out == 16'b0);
+    assign shifter_zero_J = (~shifter_out[0] & ~shifter_out[1] & ~shifter_out[2] & ~shifter_out[3] &
+                           ~shifter_out[4] & ~shifter_out[5] & ~shifter_out[6] & ~shifter_out[7] &
+                           ~shifter_out[8] & ~shifter_out[9] & ~shifter_out[10] & ~shifter_out[11] &
+                           ~shifter_out[12] & ~shifter_out[13] & ~shifter_out[14] & ~shifter_out[15]);
+
+    assign shifter_zero_K = (shifter_out[0] | shifter_out[1] | shifter_out[2] | shifter_out[3] |
+                           shifter_out[4] | shifter_out[5] | shifter_out[6] | shifter_out[7] |
+                           shifter_out[8] | shifter_out[9] | shifter_out[10] | shifter_out[11] |
+                           shifter_out[12] | shifter_out[13] | shifter_out[14] | shifter_out[15]);
+
+    assign h4_zero_J = (~H4_out[0] & ~H4_out[1] & ~H4_out[2] & ~H4_out[3] &
+                      ~H4_out[4] & ~H4_out[5] & ~H4_out[6] & ~H4_out[7] &
+                      ~H4_out[8] & ~H4_out[9] & ~H4_out[10] & ~H4_out[11] &
+                      ~H4_out[12] & ~H4_out[13] & ~H4_out[14] & ~H4_out[15]);
+
+    assign h4_zero_K = (H4_out[0] | H4_out[1] | H4_out[2] | H4_out[3] |
+                      H4_out[4] | H4_out[5] | H4_out[6] | H4_out[7] |
+                      H4_out[8] | H4_out[9] | H4_out[10] | H4_out[11] |
+                      H4_out[12] | H4_out[13] | H4_out[14] | H4_out[15]);
+
+    assign h6_zero_J = (~H6_a_out[0] & ~H6_a_out[1] & ~H6_a_out[2] & ~H6_a_out[3] &
+                      ~H6_a_out[4] & ~H6_a_out[5] & ~H6_a_out[6] & ~H6_a_out[7] &
+                      ~H6_a_out[8] & ~H6_a_out[9] & ~H6_a_out[10] & ~H6_a_out[11] &
+                      ~H6_a_out[12] & ~H6_a_out[13] & ~H6_a_out[14] & ~H6_a_out[15]) &
+                     (~H6_q_out[0] & ~H6_q_out[1] & ~H6_q_out[2] & ~H6_q_out[3] &
+                      ~H6_q_out[4] & ~H6_q_out[5] & ~H6_q_out[6] & ~H6_q_out[7] &
+                      ~H6_q_out[8] & ~H6_q_out[9] & ~H6_q_out[10] & ~H6_q_out[11] &
+                      ~H6_q_out[12] & ~H6_q_out[13] & ~H6_q_out[14] & ~H6_q_out[15]);
+
+    assign h6_zero_K = (H6_a_out[0] | H6_a_out[1] | H6_a_out[2] | H6_a_out[3] |
+                      H6_a_out[4] | H6_a_out[5] | H6_a_out[6] | H6_a_out[7] |
+                      H6_a_out[8] | H6_a_out[9] | H6_a_out[10] | H6_a_out[11] |
+                      H6_a_out[12] | H6_a_out[13] | H6_a_out[14] | H6_a_out[15]) |
+                     (H6_q_out[0] | H6_q_out[1] | H6_q_out[2] | H6_q_out[3] |
+                      H6_q_out[4] | H6_q_out[5] | H6_q_out[6] | H6_q_out[7] |
+                      H6_q_out[8] | H6_q_out[9] | H6_q_out[10] | H6_q_out[11] |
+                      H6_q_out[12] | H6_q_out[13] | H6_q_out[14] | H6_q_out[15]);
 
     assign J_Z = EX0 & (CLR |
-                        (shift_ops & shifter_zero) |
-                        (alu_ops & h4_zero) |
-                        (mul_ops & h6_zero)) &
+                        (shift_ops & shifter_zero_J) |
+                        (alu_ops & h4_zero_J) |
+                        (mul_ops & h6_zero_J)) &
                  ~(D5 | D7) |
                  EX0 & H4_out[2] & MOV & D5;
 
-    assign K_Z = EX0 & ~CLR & ((shift_ops & ~shifter_zero) |
-                                (alu_ops & ~h4_zero) |
-                                (mul_ops & ~h6_zero)) &
+    assign K_Z = EX0 & ~CLR & ((shift_ops & shifter_zero_K) |
+                                (alu_ops & h4_zero_K) |
+                                (mul_ops & h6_zero_K)) &
                  ~(D5 | D7) |
                  EX0 & ~H4_out[2] & MOV & D5;
 
@@ -127,20 +161,23 @@ module PSW_logic(
     //   - ASL: when (~af & ae) | (af & ~ae)  (sign bit XOR with bit 14)
     //   - ADD/ADC/SUB/SBC/CMP: with ALU overflow
     // Clear V for:
+    //   - CLR: always clear V=0
+    //   - MOV (D5=0): always clear V=0
     //   - ASL: when ~((~af & ae) | (af & ~ae))
     //   - ADD/ADC/SUB/SBC/CMP: without ALU overflow
     //   - Logic operations (OR, XOR, AND, BIT): always 0
     //   - Other shifts (ASR, LSL, LSR, ROL, ROR, RLC, RRC): always 0
 
     wire asl_overflow;
-    assign asl_overflow = ((~shifter_out[14] ^ shifter_out[15]) | (shifter_out[14] ^ ~shifter_out[15]));  // ~af & ae | af & ~ae
+    assign asl_overflow = shifter_out[15] ^ shifter_out[14];  // ~af & ae | af & ~ae = af XOR ae
 
     assign J_V = EX0 & ((ADD | ADC | SUB | SBC | CMP) & ALU_overflow |
                         ASL & asl_overflow) &
                  ~(D5 | D7) |
                  EX0 & H4_out[1] & MOV & D5;
 
-    assign K_V = EX0 & ((ADD | ADC | SUB | SBC | CMP) & ~ALU_overflow |
+    assign K_V = EX0 & (CLR | (MOV & ~D5) |
+                        (ADD | ADC | SUB | SBC | CMP) & ~ALU_overflow |
                         ASL & ~asl_overflow |
                         OR_inst | XOR_inst | AND_inst | BIT_inst |
                         ASR | LSL | LSR | ROL | ROR | RLC | RRC) &
