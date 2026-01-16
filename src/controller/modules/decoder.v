@@ -559,7 +559,7 @@ module decoder (
         IT0 | IT2 |
         MUL1 | MUL2_1 | MUL2_2 | MUL3 | MUL4;
 
-    assign MREQ_N =
+    assign MREQ_N = ~(
         IF0 | FF0 | IF1 | FF2 | TF0 |
         op_HLT |
         op_CLR | op_ASL | op_ASR | op_LSL | op_LSR | op_ROL | op_ROR | op_RLC | op_RRC |
@@ -572,9 +572,10 @@ module decoder (
         op_RBN | op_RBZ | op_RBV | op_RBC |
         op_MUL |
         EX1 | IT0 | IT2 |
-        MUL1 | MUL2_1 | MUL2_2 | MUL3 | MUL4;
+        MUL1 | MUL2_1 | MUL2_2 | MUL3 | MUL4
+    );
 
-    assign MIRQ_N =
+    assign MIRQ_N = ~(
         IF0 | IF1 | FF0 | FF2 | TF0 | TF1 |
         op_HLT |
         op_CLR | op_ASL | op_ASR | op_LSL | op_LSR | op_ROL | op_ROR | op_RLC | op_RRC |
@@ -587,7 +588,8 @@ module decoder (
         op_RBN | op_RBZ | op_RBV | op_RBC |
         op_MUL |
         IT0 | IT1 |IT2 |
-        MUL1 | MUL2_1 | MUL2_2 | MUL3 | MUL4;
+        MUL1 | MUL2_1 | MUL2_2 | MUL3 | MUL4
+    );
 
     assign MIS = IF1;
 

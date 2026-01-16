@@ -1,7 +1,9 @@
 // Switchable register module
 // SRx部分（ホールド回路）とRx部分（レジスタ）を組み合わせたモジュール
 // 論理: (SRx & Sbus) | (~SRx & r_q) → レジスタに格納
-module switchable_register(
+module switchable_register #(
+    parameter [15:0] INIT_VALUE = 16'b0
+)(
     input  wire        CLK,        // クロック
     input  wire        CLR,        // クリア（active low）
     input  wire        SR,         // ストア制御信号 (例: SR0, SR1, ...)
@@ -22,7 +24,9 @@ module switchable_register(
 
     // Rx部分: v_reg16 を使用
     // R_W=0 (常に書き込み可能), Ea=1 (常に出力有効), Qa未使用
-    v_reg16 reg_inst(
+    v_reg16 #(
+        .INIT_VALUE(INIT_VALUE)
+    ) reg_inst(
         .CLK(CLK),
         .CLR(CLR),
         .R_W(1'b0),      // 固定値: 常に書き込み可能

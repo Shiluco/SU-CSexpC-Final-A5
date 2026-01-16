@@ -68,6 +68,8 @@ wire	SYNTHESIZED_WIRE_13;
 reg	JKFF_32;
 wire	SYNTHESIZED_WIRE_15;
 wire	SYNTHESIZED_WIRE_16;
+reg	START_prev;	// START信号の前の値を保持（エッジ検出用）
+wire	START_EDGE;	// START信号の立ち上がりエッジ検出
 
 assign	SYNTHESIZED_WIRE_0 = 1;
 assign	SYNTHESIZED_WIRE_1 = 1;
@@ -85,24 +87,27 @@ assign	SYNTHESIZED_WIRE_11 = EX0 & HLT & NOMAL;
 
 assign	SYNTHESIZED_WIRE_10 = AUXI6 & NOMAL & IF0D;
 
-
-
+// START信号の立ち上がりエッジ検出
+assign	START_EDGE = START & ~START_prev;
 
 always@(posedge KITECK or negedge SYNTHESIZED_WIRE_1 or negedge SYNTHESIZED_WIRE_0)
 begin
 if (!SYNTHESIZED_WIRE_1)
 	begin
 	JKFF_32 <= 0;
+	START_prev <= 0;
 	end
 else
 	begin
 if (!SYNTHESIZED_WIRE_0)
 	begin
 	JKFF_32 <= 1;
+	START_prev <= 0;
 	end
 else
 	begin
-	JKFF_32 <= ~JKFF_32 & START | JKFF_32 & ~SYNTHESIZED_WIRE_2;
+	START_prev <= START;	// START信号の前の値を保持
+	JKFF_32 <= ~JKFF_32 & START_EDGE | JKFF_32 & ~SYNTHESIZED_WIRE_2;
 	end
 	end
 end

@@ -71,7 +71,7 @@ wire	BIT_N;
 wire	CLK;
 wire	CLKSTEP;
 wire	CPUCK;
-wire	[15:0] DTBUS;
+wire	[15:0] DTBUS;	// 双方向バス（sep5_interfaceとdatapath間で共有、tri-state制御）
 wire	HLT;
 wire	ILLEGAL;
 wire	INSTSTEP;
@@ -142,6 +142,13 @@ wire        OR_inst_wire, XOR_inst_wire, AND_inst_wire, BIT_inst_wire;
 // ============================================================
 wire        PSW_N_wire, PSW_Z_wire, PSW_V_wire, PSW_C_wire;
 
+// State信号（表示用）
+wire        IF0_wire, IF1_wire, FF0_wire, FF1_wire, FF2_wire;
+wire        TF0_wire, TF1_wire;
+wire        EX1_wire;
+wire        IT0_wire, IT1_wire, IT2_wire;
+wire        MUL4_wire;
+
 // ============================================================
 // Datapath 内部信号
 // ============================================================
@@ -186,8 +193,8 @@ sep5_interface	b2v_inst(
 	.ILLEGAL(ILLEGAL),
 	.ITF(ITF),
 	.IOREQ_N(IOREQ_N),
-	.MREQ_N(MREQ_N),
-	.RW(RW),
+	.MREQ_N(MREQ_N_wire),  // controllerからのMREQ_N信号を接続
+	.RW(R_W_N_wire),       // controllerからのR_W_N信号を接続（読み込み=1）
 	.A(A),
 	.ADBUS(ADBUS),
 	.B(B),
@@ -244,10 +251,10 @@ assign	SYNTHESIZED_WIRE_0 =  ~SW[16];
 run	b2v_inst_run(
 	.START(~START_N),
 	.ILLEGAL(ILLEGAL),
-	.FF0(1'b0),
-	.KITECK(CLK),
+	.FF0(FF0_wire),          // controllerから来るFF0状態信号
+	.KITECK(CLK),            // CLKを使用
 	.RESET_N(~RESET),
-	.IF0D(1'b1),
+	.IF0D(IF0_wire),         // controllerから来るIF0状態信号
 	.AUXI6(STOP),
 	.EX0(TIT0),
 	.HLT(HLT),
@@ -275,14 +282,17 @@ controller u_controller (
 	.KIT        (BIT_N),       // oit,SEPスイッチ信号
 	.EIT_input  (1'b0),       // PC入力信号
 
-	// State出力（未使用）
-	.IF0        (), .IF1(), .FF0(), .FF1(), .FF2(),
-	.TF0        (), .TF1(),
-	.EX0        (EX0_wire), .EX1(),
-	.IT0        (), .IT1(), .IT2(),
-	.MUL1       (MUL1_wire), .MUL2_1(MUL2_1_wire), .MUL2_2(MUL2_2_wire), .MUL3(MUL3_wire), .MUL4(),
+	// State出力（表示用）
+	.IF0        (IF0_wire), .IF1(IF1_wire), .FF0(FF0_wire), .FF1(FF1_wire), .FF2(FF2_wire),
+	.TF0        (TF0_wire), .TF1(TF1_wire),
+	.EX0        (EX0_wire), .EX1(EX1_wire),
+	.IT0        (IT0_wire), .IT1(IT1_wire), .IT2(IT2_wire),
+	.MUL1       (MUL1_wire), .MUL2_1(MUL2_1_wire), .MUL2_2(MUL2_2_wire), .MUL3(MUL3_wire), .MUL4(MUL4_wire),
 	.counter_q  (),
 	.ITA        (), .ITF(),
+	
+	// ISR出力（表示用）
+	.ISR_out    (ISR_wire),
 
 	// Datapath制御信号
 	.MDA        (MDA_wire),
@@ -316,10 +326,40 @@ controller u_controller (
 	.ASL        (ASL_wire), .ASR(ASR_wire), .ROL(ROL_wire), .ROR(ROR_wire),
 	.RLC        (RLC_wire), .RRC(RRC_wire), .LSL(LSL_wire), .LSR(LSR_wire),
 	.OR_inst    (OR_inst_wire), .XOR_inst(XOR_inst_wire),
-	.AND_inst   (AND_inst_wire), .BIT_inst(BIT_inst_wire),
-
-	.ISR_out    (ISR_wire)
+	.AND_inst   (AND_inst_wire), .BIT_inst(BIT_inst_wire)
 );
+
+// ISR接続（表示用）
+assign ISR = ISR_wire;
+
+// SC接続（表示用：状態信号のビットマップ）
+// SC[15:0] = {MUL3, MUL2_2, MUL2_1, MUL1, IT2, IT1, IT0, EX1, EX0, TF1, TF0, FF2, FF1, FF0, IF1, IF0}
+// 各ビットが1のときの16進数値:
+//   MUL3  (SC[15]) = 0x8000
+//   MUL2_2(SC[14]) = 0x4000
+//   MUL2_1(SC[13]) = 0x2000
+//   MUL1  (SC[12]) = 0x1000
+//   IT2   (SC[11]) = 0x0800
+//   IT1   (SC[10]) = 0x0400
+//   IT0   (SC[9])  = 0x0200
+//   EX1   (SC[8])  = 0x0100
+//   EX0   (SC[7])  = 0x0080
+//   TF1   (SC[6])  = 0x0040
+//   TF0   (SC[5])  = 0x0020
+//   FF2   (SC[4])  = 0x0010
+//   FF1   (SC[3])  = 0x0008
+//   FF0   (SC[2])  = 0x0004
+//   IF1   (SC[1])  = 0x0002
+//   IF0   (SC[0])  = 0x0001
+// 注: MUL4は除外（16ビットに収めるため）
+assign SC = {
+    MUL3_wire, MUL2_2_wire, MUL2_1_wire, MUL1_wire,
+    IT2_wire, IT1_wire, IT0_wire,
+    EX1_wire, EX0_wire,
+    TF1_wire, TF0_wire,
+    FF2_wire, FF1_wire, FF0_wire,
+    IF1_wire, IF0_wire
+};
 
 // ============================================================
 // Datapath統合
@@ -379,7 +419,7 @@ datapath_top u_datapath (
 	.inTWO      (MUL_ctrl_wire[0]),
 	.inTHREE    (MUL_ctrl_wire[1]),
 	.inFOUR     (MUL_ctrl_wire[2]),
-	.CLK_50     (RUN_CK),           // H6内部クロック（RUN_CKを使用）
+	.CLK_50     (CLK_50),           // H6内部クロック（RUN_CKを使用）
 	.ALS_H6_a   (REG_A_to_BUS_S_wire),
 	.ALS_H6_q   (REG_Q_to_BUS_S_wire),
 
@@ -406,7 +446,24 @@ datapath_top u_datapath (
 	.PSW_N      (PSW_N_wire),
 	.PSW_Z      (PSW_Z_wire),
 	.PSW_V      (PSW_V_wire),
-	.PSW_C      (PSW_C_wire)
+	.PSW_C      (PSW_C_wire),
+
+	// レジスタ値出力（表示用）
+	.QB_out     (QB),
+	.QR0_out    (QR0),
+	.QR1_out    (QR1),
+	.QR2_out    (QR2),
+	.QR3_out    (QR3),
+	.QR4_out    (QR4),
+	.QR5_out    (QR5),
+	.QR6_out    (QR6),
+	.QR7_out    (QR7),
+	
+	// バス値出力（表示用）
+	.A_bus_out  (A),
+	.B_bus_out  (B),
+	.S_bus_out  (S),
+	.MDR_out    (MDR)
 );
 
 assign	LEDG[5] = INSTSTEP;

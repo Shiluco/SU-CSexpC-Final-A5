@@ -1,4 +1,6 @@
-module v_reg16 (
+module v_reg16 #(
+    parameter [15:0] INIT_VALUE = 16'b0
+)(
     input  wire        CLK,
     input  wire        CLR,
     input  wire        R_W,
@@ -10,7 +12,7 @@ module v_reg16 (
     reg [15:0] q;
 
     always @(posedge CLK or negedge CLR) begin
-        if (!CLR)        q <= 16'b0;
+        if (!CLR)        q <= INIT_VALUE;
         else q <= ( {16{~R_W}} & D ) | ( {16{R_W}} & q );
     end
 	 
