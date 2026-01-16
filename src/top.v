@@ -334,6 +334,23 @@ assign ISR = ISR_wire;
 
 // SC接続（表示用：状態信号のビットマップ）
 // SC[15:0] = {MUL3, MUL2_2, MUL2_1, MUL1, IT2, IT1, IT0, EX1, EX0, TF1, TF0, FF2, FF1, FF0, IF1, IF0}
+// 各ビットが1のときの16進数値:
+//   MUL3  (SC[15]) = 0x8000
+//   MUL2_2(SC[14]) = 0x4000
+//   MUL2_1(SC[13]) = 0x2000
+//   MUL1  (SC[12]) = 0x1000
+//   IT2   (SC[11]) = 0x0800
+//   IT1   (SC[10]) = 0x0400
+//   IT0   (SC[9])  = 0x0200
+//   EX1   (SC[8])  = 0x0100
+//   EX0   (SC[7])  = 0x0080
+//   TF1   (SC[6])  = 0x0040
+//   TF0   (SC[5])  = 0x0020
+//   FF2   (SC[4])  = 0x0010
+//   FF1   (SC[3])  = 0x0008
+//   FF0   (SC[2])  = 0x0004
+//   IF1   (SC[1])  = 0x0002
+//   IF0   (SC[0])  = 0x0001
 // 注: MUL4は除外（16ビットに収めるため）
 assign SC = {
     MUL3_wire, MUL2_2_wire, MUL2_1_wire, MUL1_wire,
