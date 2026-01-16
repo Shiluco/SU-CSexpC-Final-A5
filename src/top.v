@@ -251,10 +251,10 @@ assign	SYNTHESIZED_WIRE_0 =  ~SW[16];
 run	b2v_inst_run(
 	.START(~START_N),
 	.ILLEGAL(ILLEGAL),
-	.FF0(1'b0),
-	.KITECK(CLK),
+	.FF0(FF0_wire),          // controllerから来るFF0状態信号
+	.KITECK(CLK),            // CLKを使用
 	.RESET_N(~RESET),
-	.IF0D(1'b1),
+	.IF0D(IF0_wire),         // controllerから来るIF0状態信号
 	.AUXI6(STOP),
 	.EX0(TIT0),
 	.HLT(HLT),
@@ -402,7 +402,7 @@ datapath_top u_datapath (
 	.inTWO      (MUL_ctrl_wire[0]),
 	.inTHREE    (MUL_ctrl_wire[1]),
 	.inFOUR     (MUL_ctrl_wire[2]),
-	.CLK_50     (RUN_CK),           // H6内部クロック（RUN_CKを使用）
+	.CLK_50     (CLK_50),           // H6内部クロック（RUN_CKを使用）
 	.ALS_H6_a   (REG_A_to_BUS_S_wire),
 	.ALS_H6_q   (REG_Q_to_BUS_S_wire),
 
