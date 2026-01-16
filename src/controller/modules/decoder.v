@@ -505,27 +505,27 @@ module decoder (
         op_SUB | op_SBC | op_CMP;
 
     assign ALU_y =
-        IF0 | IF1 | FF0 | FF2 | TF0 | TF1 |
+        IF0 | IF1 | FF0 | FF1 | FF2 | TF0 | TF1 |
         op_MOV | op_JMP | op_RET | op_RIT |
         op_ADD | op_ADC | op_RJP | op_SUB | op_SBC | op_CMP |
         op_JSR | op_RJS | op_SVC |
         op_BRN | op_BRZ | op_BRV | op_BRC |
+        op_RBN | op_RBZ | op_RBV | op_RBC |
         EX1 | IT0 | IT1;
 
     assign ALU_z =
-        op_OR |
-        op_RBN | op_RBZ | op_RBV | op_RBC;
+        op_OR;
 
     assign ALU_u =
-        IF1 | TF1 |
+        IF1 | FF1 | TF1 |
         (PSW_C & op_ADC) |
         op_SUB |
-        (PSW_C & op_SBC) |
+        (~PSW_C & op_SBC) |
         op_CMP |
         IT1;
 
     assign ALU_v =
-        IF0 | IF1 | FF0 | FF2 | TF0 | TF1 |
+        IF0 | IF1 | FF0 | FF1 | FF2 | TF0 | TF1 |
         op_MOV | op_JMP | op_RET | op_RIT |
         op_ADD | op_ADC | op_RJP | op_SUB | op_SBC | op_CMP |
         op_XOR |
