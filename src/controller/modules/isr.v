@@ -5,21 +5,15 @@ module isr (
     input  wire [15:0] M_BUS,
     output wire [15:0] ISR
 );
-    // M_BUSとMISでANDを取って、MISが1の時だけM_BUSの値を通す
-    wire [15:0] gated_data;
-    assign gated_data = {16{MIS}} & M_BUS;
-
-    // 16bitレジスタの実体
-    reg [15:0] isr_reg;
-
-    // レジスタの更新ロジック
-    always @(posedge CLK or negedge CLR) begin
-        if (!CLR)
-            isr_reg <= 16'b0;
-        else
-            isr_reg <= gated_data;
-    end
-
-    // 出力
-    assign ISR = isr_reg;
+    // switchable_registerを使用
+    // MISが1の時M_BUSからロード、MISが0の時は保持
+    switchable_register #(
+        .INIT_VALUE(16'b0)
+    ) u_isr_reg (
+        .CLK(CLK),
+        .CLR(CLR),
+        .SR(MIS),          // MIS信号で制御
+        .S_bus(M_BUS),     // M_BUSから入力
+        .Q(ISR)            // ISRとして出力
+    );
 endmodule
