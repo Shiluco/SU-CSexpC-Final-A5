@@ -104,8 +104,8 @@ module PSW_logic(
     wire h6_zero;
 
     assign shifter_zero = (shifter_out == 16'b0);
-    assign h4_zero      = (H4_out == 16'b0);
-    assign h6_zero      = (H6_a_out == 16'b0) & (H6_q_out == 16'b0);
+    assign h4_zero      = ~(|H4_out);
+    assign h6_zero      = ~(|H6_a_out) & ~(|H6_q_out);
 
     assign J_Z = EX0 & (CLR |
                         (shift_ops & shifter_zero) |
