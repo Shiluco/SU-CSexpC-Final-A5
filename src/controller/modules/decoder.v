@@ -284,7 +284,7 @@ module decoder (
         op_JSR | op_RJS | op_SVC |
         op_BRN | op_BRZ | op_BRV | op_BRC |
         op_RBN | op_RBZ | op_RBV | op_RBC |
-        op_MUL2_1 | op_MUL2_2 |
+        MUL2_1 | MUL2_2 |
         EX1;
 
     assign SMD =
@@ -429,7 +429,7 @@ module decoder (
         op_MOV |
         op_ADD | op_ADC | op_SUB | op_SBC | op_CMP |
         op_OR  | op_XOR | op_AND | op_BIT |
-        op_MUL3;
+        MUL3;
 
     assign SR6 =
         (FF0 & is_F_six) |
