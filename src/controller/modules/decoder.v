@@ -537,16 +537,15 @@ module decoder (
     assign SHS =
         op_ASL | op_ASR | op_LSL | op_LSR | op_ROL | op_ROR | op_RLC | op_RRC;
 
-    assign SFT_A = op_ASR;
+    assign SFT_A = op_ASL | op_ASR;
     assign SFT_B = op_ROL;
-    assign SFT_C = op_LSR | op_ROL | op_RLC;
+    assign SFT_C = op_LSL | op_ROL | op_RLC;
     assign SFT_D = op_ROR;
     assign SFT_E = op_RLC | op_RRC;
     assign SFT_R = op_ASR | op_ROR | op_RRC;
-    assign SFT_L = op_ASR | op_LSR | op_ROL | op_RLC;
-
+    assign SFT_L = op_ASL | op_LSL | op_ROL | op_RLC;
     assign R_W_N =
-        IF0 | IF1 | FF0 | IF1 | FF2 | TF0 | TF1 |
+        IF0 | IF1 | FF0 | FF1 | FF2 | TF0 | TF1 |
         op_HLT |
         op_CLR | op_ASL | op_ASR | op_LSL | op_LSR | op_ROL | op_ROR | op_RLC | op_RRC |
         op_MOV | op_JMP | op_RET | op_RIT |
@@ -587,14 +586,14 @@ module decoder (
         op_BRN | op_BRZ | op_BRV | op_BRC |
         op_RBN | op_RBZ | op_RBV | op_RBC |
         op_MUL |
-        IT0 | IT2 |
+        IT0 | IT1 |IT2 |
         MUL1 | MUL2_1 | MUL2_2 | MUL3 | MUL4;
 
     assign MIS = IF1;
 
     assign MMD = IF1 | TF1;
 
-    assign MDM = EX1 | IT0;
+    assign MDM = EX1 | IT1;
 
     assign EIT_gate = IT2 & EIT;
 
