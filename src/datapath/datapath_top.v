@@ -10,7 +10,7 @@ module datapath_top(
 
     // メモリインターフェース
     input  wire [15:0] M_bus_in,       // メモリからのデータ入力
-    output wire [15:0] M_bus_out,      // メモリへのデータ出力
+    output wire [15:0] M_bus_out,      // メモリへのデータ出力（tri-state）
     output wire [15:0] MAR_out,        // メモリアドレス出力
 
     // レジスタ制御信号（Aバス出力）
@@ -213,14 +213,14 @@ module datapath_top(
     MDR mdr_inst(
         .CLK(CLK),
         .CLR(CLR),
-        .M_bus(M_bus_in),
+        .M_bus(M_bus_in),       // M_bus_inから入力
         .S_bus(S_bus),
         .MMD(MMD),
         .SMD(SMD),
         .MDA(MDA),
         .MDM(MDM),
         .MDR_to_A(MDR_to_A),
-        .MDR_to_M(M_bus_out),
+        .MDR_to_M(M_bus_out),   // M_bus_outへ出力（tri-state制御）
         .MDR_q(MDR_q_internal)
     );
 

@@ -544,7 +544,7 @@ module decoder (
     assign SFT_E = op_RLC | op_RRC;
     assign SFT_R = op_ASR | op_ROR | op_RRC;
     assign SFT_L = op_ASL | op_LSL | op_ROL | op_RLC;
-    assign R_W_N = ~(
+    assign R_W_N =
         IF0 | IF1 | FF0 | FF1 | FF2 | TF0 | TF1 |
         op_HLT |
         op_CLR | op_ASL | op_ASR | op_LSL | op_LSR | op_ROL | op_ROR | op_RLC | op_RRC |
@@ -557,8 +557,7 @@ module decoder (
         op_RBN | op_RBZ | op_RBV | op_RBC |
         op_MUL |
         IT0 | IT2 |
-        MUL1 | MUL2_1 | MUL2_2 | MUL3 | MUL4
-    );
+        MUL1 | MUL2_1 | MUL2_2 | MUL3 | MUL4;
 
     assign MREQ_N = ~(
         IF0 | FF0 | IF1 | FF2 | TF0 |

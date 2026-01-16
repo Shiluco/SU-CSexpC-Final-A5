@@ -71,7 +71,7 @@ wire	BIT_N;
 wire	CLK;
 wire	CLKSTEP;
 wire	CPUCK;
-wire	[15:0] DTBUS;
+wire	[15:0] DTBUS;	// 双方向バス（sep5_interfaceとdatapath間で共有、tri-state制御）
 wire	HLT;
 wire	ILLEGAL;
 wire	INSTSTEP;
@@ -193,8 +193,8 @@ sep5_interface	b2v_inst(
 	.ILLEGAL(ILLEGAL),
 	.ITF(ITF),
 	.IOREQ_N(IOREQ_N),
-	.MREQ_N(MREQ_N),
-	.RW(RW),
+	.MREQ_N(MREQ_N_wire),  // controllerからのMREQ_N信号を接続
+	.RW(R_W_N_wire),       // controllerからのR_W_N信号を接続（読み込み=1）
 	.A(A),
 	.ADBUS(ADBUS),
 	.B(B),
