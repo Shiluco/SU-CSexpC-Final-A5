@@ -279,10 +279,12 @@ module decoder (
 
     assign B0B =
         op_MOV | op_JMP | op_ADD | op_ADC | op_RJP | op_SUB | op_SBC | op_CMP |
+        op_RET | op_RIT | op_JSR | op_RJS | op_SVC |
         op_OR | op_XOR | op_AND | op_BIT |
         op_JSR | op_RJS | op_SVC |
         op_BRN | op_BRZ | op_BRV | op_BRC |
         op_RBN | op_RBZ | op_RBV | op_RBC |
+        op_MUL2_1 | op_MUL2_2 |
         EX1;
 
     assign SMD =
@@ -314,6 +316,8 @@ module decoder (
         (op_ADD & t_is_D & is_T_zero) |
         (op_ADC & t_is_D & is_T_zero) |
         (op_RJP & t_is_D & is_T_zero) |
+        (op_SUB & t_is_D & is_T_zero) |
+        (op_SBC & t_is_D & is_T_zero) |
         (op_OR  & t_is_D & is_T_zero) |
         (op_XOR & t_is_D & is_T_zero) |
         (op_AND & t_is_D & is_T_zero) |
@@ -336,6 +340,8 @@ module decoder (
         (op_ADD & t_is_D & is_T_one) |
         (op_ADC & t_is_D & is_T_one) |
         (op_RJP & t_is_D & is_T_one) |
+        (op_SUB & t_is_D & is_T_one) |
+        (op_SBC & t_is_D & is_T_one) |
         (op_OR  & t_is_D & is_T_one) |
         (op_XOR & t_is_D & is_T_one) |
         (op_AND & t_is_D & is_T_one) |
@@ -359,6 +365,8 @@ module decoder (
         (op_ADD & t_is_D & is_T_two) |
         (op_ADC & t_is_D & is_T_two) |
         (op_RJP & t_is_D & is_T_two) |
+        (op_SUB & t_is_D & is_T_two) |
+        (op_SBC & t_is_D & is_T_two) |
         (op_OR  & t_is_D & is_T_two) |
         (op_XOR & t_is_D & is_T_two) |
         (op_AND & t_is_D & is_T_two) |
@@ -382,6 +390,8 @@ module decoder (
         (op_ADD & t_is_D & is_T_three) |
         (op_ADC & t_is_D & is_T_three) |
         (op_RJP & t_is_D & is_T_three) |
+        (op_SUB & t_is_D & is_T_three) |
+        (op_SBC & t_is_D & is_T_three) |
         (op_OR  & t_is_D & is_T_three) |
         (op_XOR & t_is_D & is_T_three) |
         (op_AND & t_is_D & is_T_three) |
@@ -405,6 +415,8 @@ module decoder (
         (op_ADD & t_is_D & is_T_four) |
         (op_ADC & t_is_D & is_T_four) |
         (op_RJP & t_is_D & is_T_four) |
+        (op_SUB & t_is_D & is_T_four) |
+        (op_SBC & t_is_D & is_T_four) |
         (op_OR  & t_is_D & is_T_four) |
         (op_XOR & t_is_D & is_T_four) |
         (op_AND & t_is_D & is_T_four) |
@@ -412,27 +424,12 @@ module decoder (
         (MUL4 & is_T_three);
 
     assign SR5 =
-        (FF0 & is_F_five) |
-        (FF1 & f_is_IP & is_F_five) |
-        (TF1 & t_is_IP & is_T_five) |
-        (op_CLR & t_is_D & is_T_five) |
-        (op_ASL & t_is_D & is_T_five) |
-        (op_ASR & t_is_D & is_T_five) |
-        (op_LSL & t_is_D & is_T_five) |
-        (op_LSR & t_is_D & is_T_five) |
-        (op_ROL & t_is_D & is_T_five) |
-        (op_ROR & t_is_D & is_T_five) |
-        (op_RLC & t_is_D & is_T_five) |
-        (op_RRC & t_is_D & is_T_five) |
-        (op_MOV & t_is_D & is_T_five) |
-        (op_ADD & t_is_D & is_T_five) |
-        (op_ADC & t_is_D & is_T_five) |
-        (op_RJP & t_is_D & is_T_five) |
-        (op_OR  & t_is_D & is_T_five) |
-        (op_XOR & t_is_D & is_T_five) |
-        (op_AND & t_is_D & is_T_five) |
-        (MUL3 & is_T_five) |
-        (MUL4 & is_T_four);
+        op_CLR |
+        op_ASL | op_ASR | op_LSL | op_LSR | op_ROL | op_ROR | op_RLC | op_RRC |
+        op_MOV |
+        op_ADD | op_ADC | op_SUB | op_SBC | op_CMP |
+        op_OR  | op_XOR | op_AND | op_BIT |
+        op_MUL3;
 
     assign SR6 =
         (FF0 & is_F_six) |
@@ -451,6 +448,8 @@ module decoder (
         (op_ADD & t_is_D & is_T_six) |
         (op_ADC & t_is_D & is_T_six) |
         (op_RJP & t_is_D & is_T_six) |
+        (op_SUB & t_is_D & is_T_six) |
+        (op_SBC & t_is_D & is_T_six) |
         (op_OR  & t_is_D & is_T_six) |
         (op_XOR & t_is_D & is_T_six) |
         (op_AND & t_is_D & is_T_six) |
@@ -477,6 +476,8 @@ module decoder (
         (op_ADD & t_is_D & is_T_seven) |
         (op_ADC & t_is_D & is_T_seven) |
         (op_RJP & t_is_D & is_T_seven) |
+        (op_SUB & t_is_D & is_T_seven) |
+        (op_SBC & t_is_D & is_T_seven) |
         (op_OR  & t_is_D & is_T_seven) |
         (op_XOR & t_is_D & is_T_seven) |
         (op_AND & t_is_D & is_T_seven) |
@@ -486,7 +487,7 @@ module decoder (
         IT2 |
         (MUL4 & is_T_six);
 
-    assign SB0 = FF2 | MUL2_1 | MUL2_2;
+    assign SB0 = FF2;
 
     assign ALS =
         IF0 | IF1 | FF0 | FF1 | FF2 | TF0 | TF1 |
@@ -543,13 +544,6 @@ module decoder (
     assign SFT_E = op_RLC | op_RRC;
     assign SFT_R = op_ASR | op_ROR | op_RRC;
     assign SFT_L = op_ASR | op_LSR | op_ROL | op_RLC;
-
-    assign SET_PSW =
-        op_CLR |
-        op_ASL | op_ASR | op_LSL | op_LSR | op_ROL | op_ROR | op_RLC | op_RRC |
-        op_MOV |
-        op_ADD | op_ADC | op_SUB | op_SBC | op_CMP |
-        op_OR  | op_XOR | op_AND | op_BIT;
 
     assign R_W_N =
         IF0 | IF1 | FF0 | IF1 | FF2 | TF0 | TF1 |
